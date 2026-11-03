@@ -152,3 +152,26 @@
 }
 body.motion-paused .mvi-workbench *,body.motion-paused .mvi-workbench *:before,body.motion-paused .mvi-workbench *:after,body.motion-paused .mvi-drawer-mini *,body.motion-paused .mvi-drawer-mini *:before,body.motion-paused .mvi-drawer-mini *:after{animation-play-state:paused!important}
 @media print{.mvi-workbench .mvi-main-grid{display:block}.mvi-workbench .mvi-card{break-inside:avoid}.mvi-workbench .mvi-side{display:none}.mvi-workbench .mv-mapstage{height:450px}}
+
+/* Evidence-derived supplementary panels, not live-risk predictions. */
+.mvi-mix{display:grid;gap:9px}
+.mvi-mix-line{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(28px,1fr) 20px;align-items:center;gap:7px;color:#ddfff1;font-size:10px;line-height:1.4}
+.mvi-mix-line>span:first-child{min-width:0;overflow-wrap:anywhere}
+.mvi-mix-line b{font-size:10px;text-align:right;color:#f4ffe8}
+.mvi-mix-track{height:9px;background:#153831;overflow:hidden;border-radius:4px}
+.mvi-mix-track i{display:block;height:100%;border-radius:4px;box-shadow:0 0 7px #61ff8575}
+.mvi-insight{display:flex;align-items:flex-start;gap:9px;border-bottom:1px solid #174f43;padding:9px 0}
+.mvi-insight:last-child{border-bottom:0}
+.mvi-insight i{font-style:normal;font-size:17px;color:#8affd4;text-shadow:0 0 10px #00ff9b;line-height:1}
+.mvi-insight span{display:grid;gap:4px;font-size:9px;color:#a8c7b9;line-height:1.35}
+.mvi-insight strong{font-size:11px;font-weight:720;color:#f5fff1;line-height:1.4}
+.mvi-risk>strong{display:block;color:#ffeb5a;text-shadow:0 0 8px #ffc34255;font-size:19px;font-weight:800;margin-bottom:5px}
+.mvi-risk p{font-size:10px;color:#c0dacc;line-height:1.5}
+.mvi-risk-legend{display:flex;align-items:center;gap:8px;margin-top:11px;padding-top:9px;border-top:1px solid #174e44}
+.mvi-risk-legend i{height:9px;width:80px;flex-shrink:0;border-radius:4px;background:linear-gradient(90deg,#12e08d,#b2f932,#ffe235,#fa3927);box-shadow:0 0 10px #7aff4c55}
+.mvi-risk-legend span{font-size:9px;color:#93baaf;line-height:1.4}
+.mvi-division.is-mentioned{background:linear-gradient(100deg,#3d4f16,#44300e);border-color:#ffe52c;color:#fff2ac;width:100%;text-align:left;box-shadow:inset 0 0 18px #e6b13e2d,0 0 10px #e1ea2b28;cursor:pointer}
+.mvi-division.is-mentioned:hover{filter:brightness(1.3)}
+.mvi-division.is-mentioned .mvi-division-dot{background:#ff6237;box-shadow:0 0 10px #ff3d26}
+.mvi-division.is-mentioned small{color:#fff287}
+#workspace:has(.mvi-workbench) .overview-grid>.panel:first-child>.panel-foot .legend{display:none}
