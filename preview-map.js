@@ -9,13 +9,19 @@ const $mvState={year:"all",zoom:1,showHeat:true,showLabels:true,expanded:false,p
 function $mvPRNG(seed){let a=seed>>>0;return()=>{a+=0x6D2B79F5;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return ((t^(t>>>14))>>>0)/4294967296;};}
 function $mvHash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
 function $mvInside(p,polys){let inside=false;for(const poly of polys){let hit=false;for(let i=0,j=poly.length-1;i<poly.length;j=i++){const a=poly[i],b=poly[j];if((a[1]>p[1])!==(b[1]>p[1]) && p[0]<(b[0]-a[0])*(p[1]-a[1])/(b[1]-a[1])+a[0])hit=!hit;}if(hit)inside=true;}return inside;}
+function $mvViolenceRecord(e){
+ const isIncident=["Incident","Reported incident cluster","Armed-group incident","Civilian attack / investigation"].includes(e.kind);
+ const violentTopic=["Armed violence","Gender & protection"].includes(e.topic);
+ const violentTitle=/\b(attack(?:s|ed)?|assault|killed|killing|killings|gunfire|clash(?:es)?|arson|abduction|bomb(?:ing)?|shooting|fatal|encounter|violence|hostage|bodies|deaths|murder)\b/i.test(e.title||"");
+ return isIncident&&(violentTopic||violentTitle)&&(e.geographicAssociations||[]).some(g=>g.role==="reported_incident_location");
+}
 function $mvMap(filter={},large=false){
  const baseFilter={...filter}; if($mvState.year!=="all")baseFilter.year=$mvState.year;
  const coords=DISTRICTS.flatMap(d=>d.polygons.flat());const xs=coords.map(p=>p[0]*.873),ys=coords.map(p=>p[1]);
  const minx=Math.min(...xs),maxx=Math.max(...xs),miny=Math.min(...ys),maxy=Math.max(...ys);
  const scale=Math.min(485/(maxx-minx),550/(maxy-miny)),ox=(690-(maxx-minx)*scale)/2;
  const project=p=>[ox+(p[0]*.873-minx)*scale,42+(maxy-p[1])*scale];
- const districtCount=DISTRICTS.map(d=>localEvents(d.name,baseFilter).filter(e=>["Incident","Reported incident cluster","Armed-group incident","Civilian attack / investigation"].includes(e.kind)&&(e.geographicAssociations||[]).some(g=>g.district===d.name&&g.role==="reported_incident_location")).length),maxCount=Math.max(...districtCount,1);
+ const districtCount=DISTRICTS.map(d=>localEvents(d.name,baseFilter).filter(e=>$mvViolenceRecord(e)&&(e.geographicAssociations||[]).some(g=>g.district===d.name&&g.role==="reported_incident_location")).length),maxCount=Math.max(...districtCount,1);
  const selected=$mvState.year==="all"?"ALL YEARS":$mvState.year;
  const regionShift={"Imphal East":[49,-17],"Imphal West":[-52,-12],"Thoubal":[49,16],"Bishnupur":[-56,8],"Kakching":[35,17],"Jiribam":[-31,-6],"Kangpokpi":[-8,-17],"Churachandpur":[-9,-3]};
  let paths="",edges="",heat="",dots="",labels="",defs="",outlinePaths="";
