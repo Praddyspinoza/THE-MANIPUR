@@ -15,7 +15,7 @@ function $mvMap(filter={},large=false){
  const minx=Math.min(...xs),maxx=Math.max(...xs),miny=Math.min(...ys),maxy=Math.max(...ys);
  const scale=Math.min(485/(maxx-minx),550/(maxy-miny)),ox=(690-(maxx-minx)*scale)/2;
  const project=p=>[ox+(p[0]*.873-minx)*scale,42+(maxy-p[1])*scale];
- const districtCount=DISTRICTS.map(d=>localEvents(d.name,baseFilter).length),maxCount=Math.max(...districtCount,1);
+ const districtCount=DISTRICTS.map(d=>localEvents(d.name,baseFilter).filter(e=>["Incident","Reported incident cluster","Armed-group incident","Civilian attack / investigation"].includes(e.kind)&&(e.geographicAssociations||[]).some(g=>g.district===d.name&&g.role==="reported_incident_location")).length),maxCount=Math.max(...districtCount,1);
  const selected=$mvState.year==="all"?"ALL YEARS":$mvState.year;
  const regionShift={"Imphal East":[49,-17],"Imphal West":[-52,-12],"Thoubal":[49,16],"Bishnupur":[-56,8],"Kakching":[35,17],"Jiribam":[-31,-6],"Kangpokpi":[-8,-17],"Churachandpur":[-9,-3]};
  let paths="",edges="",heat="",dots="",labels="",defs="",outlinePaths="";
@@ -37,10 +37,10 @@ function $mvMap(filter={},large=false){
      heat+=`<path class="mv-heat-patch" d="${path}" fill="url(#mv-hot-${i})" pointer-events="none"/>`;
      const rand=$mvPRNG($mvHash(d.name+"|"+selected));
      const arr=polyPoints.flat(),bx=Math.min(...arr.map(x=>x[0])),ex=Math.max(...arr.map(x=>x[0])),by=Math.min(...arr.map(x=>x[1])),ey=Math.max(...arr.map(x=>x[1]));
-     let count=0,attempts=0,target=Math.min(39,4+Math.ceil(n*3.6));
+     let count=0,attempts=0,target=Math.min(100,14+Math.ceil(n*10));
      while(count<target&&attempts<target*55){attempts++;const x=bx+rand()*(ex-bx),y=by+rand()*(ey-by);if(!$mvInside([x,y],polyPoints))continue;
        const size=.7+rand()*1.65+(level>.68?rand()*1.1:0),shade=rand();
-       const color=shade<.58?"#18ff72":shade<.88?"#eafe42":"#ffbe3a",delay=(-rand()*4).toFixed(2);
+       const color=shade<.42?"#18ff72":shade<.75?"#eafe42":level>=.5?"#ff4932":"#ffac20",delay=(-rand()*4).toFixed(2);
        dots+=`<circle class="mv-spark" cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${size.toFixed(2)}" fill="${color}" style="animation-delay:${delay}s" opacity=".86" pointer-events="none"/>`;count++;
      }
    }
@@ -54,7 +54,7 @@ function $mvMap(filter={},large=false){
  const zoom=$mvState.zoom,transform=`translate(345 315) scale(${zoom}) translate(-345 -315)`;
  const axisMax=$mvOptions.length-1,yearIndex=Math.max(0,$mvOptions.indexOf($mvState.year));
  return `<div class="map-frame mv-map ${large?"large":""} ${$mvState.expanded?"mv-expanded":""}" data-map-large="${large?"true":"false"}" data-map-yr="${$mvEscape($mvState.year)}">
-   <div class="mv-head"><div><span class="mv-kicker">MANIPUR / GEOGRAPHIC EVIDENCE</span><strong>District impact map</strong><small>${$mvEscape(selected)} · ${total} district associations · ${DISTRICTS.length} districts</small></div><span class="mv-head-marker"><i></i> EVIDENCE VIEW</span></div>
+   <div class="mv-head"><div><span class="mv-kicker">MANIPUR / GEOGRAPHIC EVIDENCE</span><strong>District impact map</strong><small>${$mvEscape(selected)} · ${total} violence-coded district associations · ${DISTRICTS.length} districts</small></div><span class="mv-head-marker"><i></i> EVIDENCE VIEW</span></div>
    <div class="mv-controls" role="group" aria-label="Map layer and view controls">
       <button type="button" data-mv-action="heat" aria-pressed="${$mvState.showHeat}" aria-label="Toggle heat density layer" title="Toggle density layer">◈</button>
       <button type="button" data-mv-action="labels" aria-pressed="${$mvState.showLabels}" aria-label="Toggle district labels" title="Toggle labels">◎</button>
@@ -88,10 +88,10 @@ function $mvMap(filter={},large=false){
       <text class="mv-map-boundary-note" x="345" y="618" text-anchor="middle">ILLUSTRATIVE BOUNDARIES / NOT A SURVEY-GRADE MAP</text>
      </svg>
    </div>
-   <div class="mv-bottom"><div class="mv-rangehead"><span class="mv-legend-label">INDEXED RECORD DENSITY</span><span class="mv-zoom-readout">${Math.round(zoom*100)}% · ${$mvEscape(selected)}</span></div>
+   <div class="mv-bottom"><div class="mv-rangehead"><span class="mv-legend-label">INDEXED VIOLENCE-RECORD DENSITY</span><span class="mv-zoom-readout">${Math.round(zoom*100)}% · ${$mvEscape(selected)}</span></div>
       <div class="mv-legend"><span></span><small>FEWER</small><small>MORE</small></div>
       <div class="mv-playback"><button type="button" class="mv-playbutton" data-mv-action="play" aria-label="${$mvState.playing?"Pause time-lapse":"Play time-lapse"}">${$mvState.playing?"Ⅱ":"▶"}</button><label class="mv-sr-only" for="mv-time-range">Indexed evidence year</label><input id="mv-time-range" type="range" data-mv-control="year" min="0" max="${axisMax}" step="1" value="${yearIndex}" aria-valuetext="${$mvEscape(selected)}"/><output class="mv-time-output">${$mvEscape(selected)}</output></div>
-      <p class="mv-disclosure">Bright spots are illustrative texture within district boundaries, <b>not geolocated attacks or live violence forecasts.</b> The year slider changes this map layer only; district dossiers retain their original filters. Select any district to open its original dossier.</p>
+      <p class="mv-disclosure">Bright spots are animated illustrative textures, <b>not geolocated attacks, measured subdistrict intensity, or live violence forecasts.</b> The year slider changes this map layer only; district dossiers retain their original filters. Select any district to open its original dossier.</p>
    </div>
  </div>`;
 }
