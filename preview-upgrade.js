@@ -5,7 +5,7 @@
 'use strict';
 const API='https://livingatlas.esri.in/server/rest/services/IAB2024/IAB_Subdistrict_2024/MapServer/0/query';
 const LAYER='https://livingatlas.esri.in/server/rest/services/IAB2024/IAB_Subdistrict_2024/MapServer/0';
-const PALETTE=['#b87f51','#d8bf80','#7ea990','#6b9b9f','#9c8aac','#7dc7a2','#c68c8d','#8fb66d','#4f947e','#d1a667','#7298b9','#9aaf94','#b5957f','#a0afa6','#b0a2c2','#6f9990'];
+const PALETTE=['#16d69a','#b9eb40','#e6d52f','#ed9a2c','#ef4e29','#46f1a6','#77dc3b','#00a77c','#a1b62b','#d1a13f','#b96a2a','#38c69a','#7fad32','#5ca77d','#e0bb55','#a4d16c'];
 const geoCache=new Map();
 const selections=new Map();
 let scheduled=false;
@@ -40,7 +40,7 @@ function pie(w){
   const geom=angle>=Math.PI*2-.00001?'<circle cx="100" cy="100" r="88" fill="'+color+'"/>':
     '<path d="M100 100L'+x1.toFixed(3)+' '+y1.toFixed(3)+'A88 88 0 '+(angle>Math.PI?1:0)+' 1 '+x2.toFixed(3)+' '+y2.toFixed(3)+'Z" fill="'+color+'" data-mvi-select="'+safe(r.name)+'" tabindex="0" role="button" aria-label="Inspect '+safe(r.name)+'"/>';
   paths+='<g>'+geom+'<title>'+safe(r.name)+' — '+r.value+' associations ('+(100*r.value/total).toFixed(1)+'%)</title></g>';
-  legend+='<button type="button" class="mvi-pie-row" data-mvi-select="'+safe(r.name)+'" title="Inspect '+safe(r.name)+'"><i style="background:'+color+'"></i><span>'+safe(r.name)+'</span><b>'+(100*r.value/total).toFixed(1)+'%</b></button>';
+  legend+='<button type="button" class="mvi-pie-row" data-mvi-select="'+safe(r.name)+'" title="Inspect '+safe(r.name)+': '+r.value+' district associations"><i style="background:'+color+'"></i><span>'+safe(r.name)+'</span><b>'+r.value+' · '+(100*r.value/total).toFixed(1)+'%</b></button>';
   at=finish;
  });
  if(!total)paths='<circle cx="100" cy="100" r="88" fill="#173d30" stroke="#6a9482"/><text x="100" y="104" text-anchor="middle" fill="#e1efe7" font-size="12">No matches</text>';
@@ -50,7 +50,7 @@ function pie(w){
 function enhance(w){
  if(!w.querySelector('.mvi-pie-hero')){
   const p=document.createElement('section');p.className='mvi-pie-hero';p.id='mvi-district-pie';
-  w.querySelector('.mvi-main-grid')?.before(p);
+  w.querySelector('.mvi-left')?.prepend(p);
  }
  const p=w.querySelector('.mvi-pie-hero');
  const data=countsFor(w),key=[data.year,data.events,data.total,typeof state==='undefined'?'':JSON.stringify(state.atlas||{})].join('|');
@@ -61,8 +61,13 @@ function enhance(w){
   panel.innerHTML='<div class="mvi-card-title">GEOGRAPHIC INTELLIGENCE <small>CONTROL RAIL</small></div><div class="mvi-rail-status"><small>ACTIVE DISTRICT</small><strong data-mvi-active-name>Select a district</strong><small data-mvi-active-year>Research snapshot</small></div>'+
    '<div class="mvi-rail-actions"><button data-mvi-go="sub">Subdivision map</button><button data-mvi-go="pie">Full pie chart</button><button data-mvi-go="heat">Heat layer</button><button data-mvi-go="play">Play timeline</button></div>'+
    '<p class="mvi-rail-source">Source-indexed research only. Motion is illustrative; polygons are administrative geography, never confirmed attack positions.</p>';
-  side.prepend(panel);
+  side.append(panel);
  }
+
+ if(side){for(const node of side.querySelectorAll(':scope > .mvi-card')){if(node.querySelector('.mvi-card-title')?.textContent?.trim()==='District shares of indexed conflict events')node.remove();}}
+ const right=w.querySelector('.mvi-right');
+ if(right&&!right.querySelector('.mvi-gauge')){const g=document.createElement('section');g.className='mvi-card mvi-gauge';g.innerHTML='<div class="mvi-card-title">Districts represented in index <small>NOT A RISK SCORE</small></div><div class="mvi-gauge-ring"><strong data-mvi-gauge-number>—</strong><small>of 16 districts</small></div><span class="mvi-gauge-note">Proportion of districts with indexed violence-coded records, not violence severity or a seven-day forecast.</span>';right.prepend(g);}
+ const represented=data.series.filter(x=>x.value>0).length;const gauge=w.querySelector('.mvi-gauge-ring');if(gauge){gauge.style.setProperty('--mvi-cover',(represented/DISTRICTS.length*100).toFixed(2)+'%');const num=gauge.querySelector('[data-mvi-gauge-number]');if(num)num.textContent=represented+' / '+DISTRICTS.length;}
  const district=w.querySelector('.mvi-dossier-head h3')?.textContent||'Select a district';
  const strong=w.querySelector('[data-mvi-active-name]');if(strong&&strong.textContent!==district)strong.textContent=district;
  const yr=w.querySelector('[data-mvi-active-year]'); const txt='Map period: '+(data.year==='all'?'all years':data.year);
@@ -223,6 +228,6 @@ document.addEventListener('keydown',ev=>{
 });
 const target=document.querySelector('#workspace')||document.body;
 new MutationObserver(()=>schedule()).observe(target,{childList:true,subtree:true});
-window.MANIPUR_PREVIEW_UPGRADE={revision:'2026-11-03-emerald-geometry',refresh:schedule,source:LAYER};
+window.MANIPUR_PREVIEW_UPGRADE={revision:'2026-11-04-reference-atlas',refresh:schedule,source:LAYER};
 schedule();
 })();
