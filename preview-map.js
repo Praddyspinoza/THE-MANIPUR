@@ -91,7 +91,7 @@ function $mvMap(filter={},large=false){
    <div class="mv-bottom"><div class="mv-rangehead"><span class="mv-legend-label">INDEXED RECORD DENSITY</span><span class="mv-zoom-readout">${Math.round(zoom*100)}% · ${$mvEscape(selected)}</span></div>
       <div class="mv-legend"><span></span><small>FEWER</small><small>MORE</small></div>
       <div class="mv-playback"><button type="button" class="mv-playbutton" data-mv-action="play" aria-label="${$mvState.playing?"Pause time-lapse":"Play time-lapse"}">${$mvState.playing?"Ⅱ":"▶"}</button><label class="mv-sr-only" for="mv-time-range">Indexed evidence year</label><input id="mv-time-range" type="range" data-mv-control="year" min="0" max="${axisMax}" step="1" value="${yearIndex}" aria-valuetext="${$mvEscape(selected)}"/><output class="mv-time-output">${$mvEscape(selected)}</output></div>
-      <p class="mv-disclosure">Bright spots are illustrative texture within district boundaries, <b>not geolocated attacks or live violence forecasts.</b> Select any district to open its original dossier.</p>
+      <p class="mv-disclosure">Bright spots are illustrative texture within district boundaries, <b>not geolocated attacks or live violence forecasts.</b> The year slider changes this map layer only; district dossiers retain their original filters. Select any district to open its original dossier.</p>
    </div>
  </div>`;
 }
@@ -111,7 +111,7 @@ document.addEventListener("click",event=>{
  if(key==="expand")$mvState.expanded=!$mvState.expanded;
  if(key==="play"){
   if($mvState.playing){$mvStop();}
-  else{$mvState.playing=true;$mvState.timer=setInterval(()=>{if(!document.querySelector(".mv-map")||document.hidden){$mvStop();$mvRefresh();return;}const n=$mvOptions.indexOf($mvState.year);$mvState.year=$mvOptions[(n+1)%$mvOptions.length];$mvRefresh();},1550);}
+  else{$mvState.playing=true;$mvState.timer=setInterval(()=>{if(!document.querySelector(".mv-map")||document.hidden||document.body?.classList.contains("motion-paused")){$mvStop();$mvRefresh();return;}const n=$mvOptions.indexOf($mvState.year);$mvState.year=$mvOptions[(n+1)%$mvOptions.length];$mvRefresh();},1550);}
  }
  $mvRefresh();
 });
