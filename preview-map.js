@@ -37,7 +37,7 @@ function $mvMap(filter={},large=false){
      heat+=`<path class="mv-heat-patch" d="${path}" fill="url(#mv-hot-${i})" pointer-events="none"/>`;
      const rand=$mvPRNG($mvHash(d.name+"|"+selected));
      const arr=polyPoints.flat(),bx=Math.min(...arr.map(x=>x[0])),ex=Math.max(...arr.map(x=>x[0])),by=Math.min(...arr.map(x=>x[1])),ey=Math.max(...arr.map(x=>x[1]));
-     let count=0,attempts=0,target=Math.min(100,14+Math.ceil(n*10));
+     let count=0,attempts=0,target=Math.min(52,11+Math.ceil(n*7));
      while(count<target&&attempts<target*55){attempts++;const x=bx+rand()*(ex-bx),y=by+rand()*(ey-by);if(!$mvInside([x,y],polyPoints))continue;
        const size=.7+rand()*1.65+(level>.68?rand()*1.1:0),shade=rand();
        const color=shade<.42?"#18ff72":shade<.75?"#eafe42":level>=.5?"#ff4932":"#ffac20",delay=(-rand()*4).toFixed(2);
@@ -99,6 +99,7 @@ drawMap=$mvMap;
 function $mvRefresh(){
  const frames=[...document.querySelectorAll(".mv-map, .new-evidence-map")];
  frames.forEach(el=>{const large=el.dataset.mapLarge==="true"||el.classList.contains("large");const filter=state.tab==="atlas"?state.atlas:{};el.outerHTML=$mvMap(filter,large);});
+  if(typeof window.MANIPUR_ANALYTICS_REFRESH==="function")window.MANIPUR_ANALYTICS_REFRESH();
 }
 function $mvStop(){if($mvState.timer!==null){clearInterval($mvState.timer);$mvState.timer=null;}$mvState.playing=false;}
 document.addEventListener("click",event=>{
