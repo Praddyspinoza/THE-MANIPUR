@@ -125,3 +125,146 @@
  .mvi-real-pie{align-self:center}
 }
 @media(prefers-reduced-motion:reduce){.mvi-geo-panel *, .mvi-pie-hero *{animation:none!important;transition:none!important}}
+
+
+/* Reference-matched map treatment 2026-11-04: preview workspace ONLY. */
+/* Central map now carries the screenshot's near-black terrain and luminous lime/amber clusters.
+   All political dossier pages, references, and root production index remain untouched. */
+.mvi-workbench{
+  background:radial-gradient(ellipse at 51% 33%,#07150e 0%,#030809 62%,#020607 100%)!important;
+  border-color:#153b30!important;box-shadow:0 14px 48px #000b,inset 0 1px #69ef9c17!important;
+  color:#e1ebe6;
+}
+.mvi-workbench .mvi-banner{background:linear-gradient(95deg,#02090b,#06100d 75%,#020807)!important;border-color:#183629!important}
+.mvi-workbench .mvi-banner h2{color:#d8eae1!important}
+.mvi-workbench .mvi-kpis>div,
+.mvi-workbench .mvi-card{
+  background:linear-gradient(150deg,#06110f,#03090d)!important;
+  border:1px solid #173a2e!important;
+  box-shadow:inset 0 1px #53d48c10,0 3px 13px #0008!important;
+}
+.mvi-workbench .mvi-kpis strong{color:#e9fff0;text-shadow:0 0 10px #2afa761d!important}
+.mvi-workbench .mvi-kpis small{color:#67bf8b!important}
+.mvi-workbench .mvi-card-title{color:#e5f5eb;border-color:#1e4836;font-size:11px}
+.mvi-workbench .mvi-map-center{background:#010608!important;border-color:#205649!important;box-shadow:inset 0 0 22px #000d,0 0 16px #12ac6530!important}
+.mvi-workbench .mvi-map-center .mvi-map-label{background:#01090a!important}
+.mvi-workbench .mv-map,.mvi-workbench .mv-map.large{
+  background:#010608!important;border:0!important;border-radius:0!important;
+  box-shadow:inset 0 0 45px #000!important;
+}
+.mvi-workbench .mv-head{
+  background:linear-gradient(90deg,#020b0cf4,#03100ef2)!important;
+  border-bottom:1px solid #194536!important;
+}
+.mvi-workbench .mv-head strong{color:#dff6e8!important;font-size:19px}
+.mvi-workbench .mv-head small{color:#80ac98!important}
+.mvi-workbench .mv-head-marker{background:#03180e!important;border-color:#226546!important;color:#90ddb3!important}
+.mvi-workbench .mv-mapstage{
+  min-height:620px!important;height:min(76vh,790px)!important;
+  background:radial-gradient(ellipse at 50% 43%,#071e0f 0%,#020e0a 48%,#010709 90%)!important;
+}
+.mvi-workbench .mv-mapstage:before{
+  background:radial-gradient(ellipse at 50% 45%,#05af4614,transparent 58%),radial-gradient(ellipse at 57% 66%,#bbdb0e08,transparent 42%)!important;
+  opacity:.8!important;
+}
+.mvi-workbench .mv-mapstage:after{opacity:.09!important}
+.mvi-workbench .mv-svg{filter:saturate(1.52) contrast(1.17)!important}
+.mvi-workbench .mv-district-fill{opacity:.9!important;stroke:#184d35!important;filter:none!important}
+.mvi-workbench .mv-border-line{
+  opacity:1!important;stroke:#77ffe0!important;stroke-width:1.58!important;
+  filter:drop-shadow(0 0 3.6px #41e6ccaf) drop-shadow(0 0 7px #04cba743)!important;
+}
+.mvi-workbench .mv-district-fill.mvi-selected-district{
+  stroke:#d4e88f!important;stroke-width:2.05!important;
+  filter:drop-shadow(0 0 6px #bcf56885)!important;
+}
+.mvi-workbench .mv-heat-patch{opacity:.61!important;filter:none!important}
+.mvi-workbench .mv-hotspot-layer{
+  opacity:.97!important;filter:saturate(1.6) brightness(1.12)!important;
+  mix-blend-mode:screen;
+}
+.mvi-workbench .mv-spark{
+  filter:drop-shadow(0 0 2.8px #cbff46a4)!important;
+  opacity:.87!important;
+}
+.mvi-workbench .mv-bloom{mix-blend-mode:screen;animation:mv-bloom-pulse 5.5s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center;pointer-events:none}
+.mvi-workbench .mv-bloom:nth-child(3n){animation-delay:-2.2s}
+.mvi-workbench .mv-bloom:nth-child(5n){animation-delay:-3.6s}
+@keyframes mv-bloom-pulse{0%{opacity:.68;transform:scale(.95)}100%{opacity:1;transform:scale(1.08)}}
+.mvi-workbench .mv-label{
+  fill:#f4f8f4!important;stroke:#010806!important;stroke-width:4.2px!important;
+  font-size:13.2px;text-shadow:0 1px 3px #000;
+}
+.mvi-workbench .mv-label-count{fill:#a4d5b7!important}
+.mvi-workbench .mv-bottom{background:#030d0c!important;border-color:#184333!important}
+.mvi-workbench .mv-legend span{
+  background:linear-gradient(90deg,#001d0e 0%,#075d2b 20%,#1bc74f 43%,#f3df29 66%,#e78121 84%,#e63924 100%)!important;
+  box-shadow:0 0 12px #10d94e34!important;
+}
+.mvi-workbench .mv-controls{right:10px;top:88px}
+.mvi-workbench .mv-controls button{
+  background:#05110fde!important;color:#9affdd!important;
+  border:1px solid #286b55!important;box-shadow:0 4px 12px #000b!important;
+}
+.mvi-workbench .mv-controls button:hover,.mvi-workbench .mv-controls button[aria-pressed=true]{background:#0b3525!important;color:#e7ffe9!important}
+.mvi-workbench .mv-playbutton{border-color:#367968!important;color:#84eec2!important;background:#062116!important}
+.mvi-workbench .mv-disclosure{color:#809a8d!important}
+.mvi-workbench .mvi-main-grid{gap:9px;align-items:start}
+.mvi-workbench .mvi-left,.mvi-workbench .mvi-right{gap:9px}
+.mvi-workbench .mvi-pie-hero{
+  display:block;grid-template-columns:none;padding:11px 10px;margin:0;
+  background:linear-gradient(165deg,#061713,#020c0b)!important;
+  border:1px solid #245344!important;border-radius:8px;
+}
+.mvi-workbench .mvi-pie-heading{font-size:12px;line-height:1.4}
+.mvi-workbench .mvi-pie-heading span{font-size:8px;margin-bottom:5px;color:#79cda6}
+.mvi-workbench .mvi-pie-heading p{font-size:9px;line-height:1.45;margin:5px 0 9px;color:#a4bdab}
+.mvi-workbench .mvi-pie-content{display:flex;align-items:center;gap:8px}
+.mvi-workbench .mvi-real-pie{width:min(43%,135px);min-width:95px;height:auto;aspect-ratio:1;filter:drop-shadow(0 0 7px #49d96d2f)}
+.mvi-workbench .mvi-pie-legend{display:grid;grid-template-columns:1fr;gap:3px}
+.mvi-workbench .mvi-pie-row{padding:2px 0!important;background:none!important;border:none!important;font-size:9px;color:#b8d5c0}
+.mvi-workbench .mvi-pie-row:hover{color:#ecfff2}
+.mvi-workbench .mvi-left>.mvi-pie-hero+.mvi-card{display:none!important} /* single full pie, no duplicate donut */
+.mvi-workbench .mvi-railcard{background:linear-gradient(165deg,#071e17,#030b0b)!important}
+.mvi-workbench .mvi-rail-actions button{background:#081c16;border-color:#28533d;color:#d1e6d5}
+.mvi-workbench .mvi-rail-actions button:hover{background:#12462c}
+.mvi-workbench .mvi-gauge{
+  text-align:center;padding:13px;background:linear-gradient(150deg,#06110f,#020909)!important;
+}
+.mvi-gauge .mvi-card-title{text-align:left}
+.mvi-gauge-ring{
+  width:147px;height:147px;border-radius:50%;margin:10px auto 4px;
+  display:grid;place-items:center;position:relative;
+  background:conic-gradient(from -120deg,#09a46c 0%,#6de160 var(--mvi-cover),#172b20 var(--mvi-cover),#172b20 100%);
+  box-shadow:0 0 19px #00b46e1a;
+}
+.mvi-gauge-ring:before{content:"";position:absolute;inset:17px;border-radius:50%;background:#02090a}
+.mvi-gauge-ring strong{position:relative;color:#ecfff4;font-size:26px;font-variant-numeric:tabular-nums;z-index:1}
+.mvi-gauge-ring small{position:absolute;top:60%;font-size:9px;color:#8eac9b;z-index:2}
+.mvi-gauge-note{display:block;color:#9ab9aa;font-size:9px;line-height:1.5;margin-top:9px}
+@media(min-width:1301px){
+ .mvi-workbench .mvi-main-grid{grid-template-columns:minmax(208px,.84fr) minmax(0,2fr) minmax(215px,.86fr)!important}
+}
+@media(max-width:1300px){
+ .mvi-workbench .mv-mapstage{height:650px!important}
+ .mvi-workbench .mvi-main-grid{grid-template-columns:minmax(190px,.63fr) minmax(0,1.7fr)!important;grid-template-areas:"left map" "right right"!important}
+ .mvi-workbench .mvi-real-pie{width:116px}
+}
+@media(max-width:850px){
+ .mvi-workbench .mvi-main-grid{grid-template-columns:1fr!important;grid-template-areas:"map" "left" "right"!important}
+ .mvi-workbench .mv-mapstage{height:570px!important;min-height:480px!important}
+ .mvi-workbench .mvi-pie-content{flex-direction:row;align-items:center}
+ .mvi-workbench .mvi-real-pie{width:150px}
+ .mvi-workbench .mvi-pie-legend{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:540px){
+ .mvi-workbench .mv-mapstage{height:430px!important;min-height:390px!important}
+ .mvi-workbench .mv-label{font-size:12px!important}
+ .mvi-workbench .mvi-pie-content{flex-direction:row!important;align-items:center!important}
+ .mvi-workbench .mvi-real-pie{width:115px;min-width:100px}
+ .mvi-workbench .mvi-pie-legend{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+ .mvi-workbench .mv-bloom{animation:none!important}
+}
+.motion-paused .mvi-workbench .mv-bloom{animation:none!important}
