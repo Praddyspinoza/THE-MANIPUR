@@ -24,14 +24,14 @@ function $mvMap(filter={},large=false){
  const districtCount=DISTRICTS.map(d=>localEvents(d.name,baseFilter).filter(e=>$mvViolenceRecord(e)&&(e.geographicAssociations||[]).some(g=>g.district===d.name&&g.role==="reported_incident_location")).length),maxCount=Math.max(...districtCount,1);
  const selected=$mvState.year==="all"?"ALL YEARS":$mvState.year;
  const regionShift={"Imphal East":[49,-17],"Imphal West":[-52,-12],"Thoubal":[49,16],"Bishnupur":[-56,8],"Kakching":[35,17],"Jiribam":[-31,-6],"Kangpokpi":[-8,-17],"Churachandpur":[-9,-3]};
- let paths="",edges="",heat="",dots="",labels="",defs="",outlinePaths="";
+ let paths="",edges="",heat="",blooms="",dots="",labels="",defs="",outlinePaths="";
  let total=0;
  DISTRICTS.forEach((d,i)=>{
    const n=districtCount[i];total+=n;
    const polyPoints=d.polygons.map(poly=>poly.map(project));
    const path=polyPoints.map(poly=>poly.map((p,j)=>`${j?"L":"M"}${p[0].toFixed(2)},${p[1].toFixed(2)}`).join(" ")+"Z").join(" ");
    const level=n/maxCount;
-   const base=n===0?"#103427":level>=.67?"#0b9252":level>=.33?"#087847":"#12623e";
+   const base=n===0?"#061611":level>=.67?"#123823":level>=.33?"#0c321d":"#0a241a";
    const [cx,cy]=project(d.label);
    const r=58+Math.min(72,n*7);
    const warm=level>=.74?"#ff684a":level>=.4?"#ffe954":"#a0f84e";
@@ -40,14 +40,41 @@ function $mvMap(filter={},large=false){
    outlinePaths+=`<path d="${path}"/>`;
    edges+=`<path class="mv-border-line" d="${path}"/>`;
    if(n&&$mvState.showHeat){
-     heat+=`<path class="mv-heat-patch" d="${path}" fill="url(#mv-hot-${i})" pointer-events="none"/>`;
-     const rand=$mvPRNG($mvHash(d.name+"|"+selected));
-     const arr=polyPoints.flat(),bx=Math.min(...arr.map(x=>x[0])),ex=Math.max(...arr.map(x=>x[0])),by=Math.min(...arr.map(x=>x[1])),ey=Math.max(...arr.map(x=>x[1]));
-     let count=0,attempts=0,target=Math.min(52,11+Math.ceil(n*7));
-     while(count<target&&attempts<target*55){attempts++;const x=bx+rand()*(ex-bx),y=by+rand()*(ey-by);if(!$mvInside([x,y],polyPoints))continue;
-       const size=.7+rand()*1.65+(level>.68?rand()*1.1:0),shade=rand();
-       const color=shade<.42?"#18ff72":shade<.75?"#eafe42":level>=.5?"#ff4932":"#ffac20",delay=(-rand()*4).toFixed(2);
-       dots+=`<circle class="mv-spark" cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${size.toFixed(2)}" fill="${color}" style="animation-delay:${delay}s" opacity=".86" pointer-events="none"/>`;count++;
+     heat+='<path class="mv-heat-patch" d="'+path+'" fill="url(#mv-hot-'+i+')" pointer-events="none"/>';
+     const rand=$mvPRNG($mvHash(d.name+'|'+selected));
+     const arr=polyPoints.flat(),bx=Math.min(...arr.map(p=>p[0])),ex=Math.max(...arr.map(p=>p[0])),by=Math.min(...arr.map(p=>p[1])),ey=Math.max(...arr.map(p=>p[1]));
+     /* Reproducible, abstract clusters demonstrate district-level comparative coverage.
+        These circles DO NOT mark real geolocated attacks, affected villages or roads. */
+     const anchors=[],clusterTarget=Math.min(7,Math.max(2,Math.ceil(2+Math.sqrt(n))));
+     for(let q=0;q<clusterTarget;q++){
+       let point=null;
+       for(let tries=0;tries<90;tries++){
+         const px=bx+rand()*(ex-bx),py=by+rand()*(ey-by);
+         if($mvInside([px,py],polyPoints)){point=[px,py];break;}
+       }
+       if(!point)continue;
+       anchors.push(point);
+       const radius=Math.max(17,Math.min(39,13+rand()*13+level*17));
+       const hot=level>=.32?'#e93216':'#f5b72e';
+       defs+='<radialGradient id="mv-bloom-'+i+'-'+q+'"><stop offset="0%" stop-color="'+hot+'" stop-opacity=".79"/><stop offset="13%" stop-color="#ffb521" stop-opacity=".70"/><stop offset="37%" stop-color="#e5e72e" stop-opacity=".49"/><stop offset="65%" stop-color="#2ae749" stop-opacity=".27"/><stop offset="100%" stop-color="#00b743" stop-opacity="0"/></radialGradient>';
+       blooms+='<circle class="mv-bloom" cx="'+point[0].toFixed(2)+'" cy="'+point[1].toFixed(2)+'" r="'+radius.toFixed(1)+'" fill="url(#mv-bloom-'+i+'-'+q+')" clip-path="url(#mv-area-'+i+')" opacity=".93"/>';
+     }
+     let count=0,attempts=0,target=Math.min(132,32+Math.round(n*8));
+     while(count<target&&attempts<target*75){
+       attempts++;
+       const anchor=anchors.length?anchors[Math.floor(rand()*anchors.length)]:[cx,cy];
+       const scatter=rand()<.17,spread=10+rand()*19;
+       const x=scatter?bx+rand()*(ex-bx):anchor[0]+(rand()+rand()+rand()-1.5)*spread*1.85;
+       const y=scatter?by+rand()*(ey-by):anchor[1]+(rand()+rand()+rand()-1.5)*spread*1.85;
+       if(!$mvInside([x,y],polyPoints))continue;
+       const distance=Math.hypot(x-anchor[0],y-anchor[1]),shade=rand();
+       const red=level>.23&&distance<9&&shade>.24;
+       const yellow=distance<22&&shade>.26;
+       const color=red?'#ff3c1f':yellow?(shade>.58?'#ffb721':'#faff36'):(shade>.6?'#22ff70':'#64f539');
+       const size=(red?1.3:.48)+rand()*(red?1.5:1.25);
+       const delay=(-rand()*4.6).toFixed(2);
+       dots+='<circle class="mv-spark" cx="'+x.toFixed(2)+'" cy="'+y.toFixed(2)+'" r="'+size.toFixed(2)+'" fill="'+color+'" style="animation-delay:'+delay+'s" opacity=".88" pointer-events="none"/>';
+       count++;
      }
    }
    if($mvState.showLabels){
@@ -60,7 +87,7 @@ function $mvMap(filter={},large=false){
  const zoom=$mvState.zoom,transform=`translate(345 315) scale(${zoom}) translate(-345 -315)`;
  const axisMax=$mvOptions.length-1,yearIndex=Math.max(0,$mvOptions.indexOf($mvState.year));
  return `<div class="map-frame mv-map ${large?"large":""} ${$mvState.expanded?"mv-expanded":""}" data-map-large="${large?"true":"false"}" data-map-yr="${$mvEscape($mvState.year)}">
-   <div class="mv-head"><div><span class="mv-kicker">MANIPUR / GEOGRAPHIC EVIDENCE</span><strong>District impact map</strong><small>${$mvEscape(selected)} · ${total} violence-coded district associations · ${DISTRICTS.length} districts</small></div><span class="mv-head-marker"><i></i> EVIDENCE VIEW</span></div>
+   <div class="mv-head"><div><span class="mv-kicker">MANIPUR / GEOGRAPHIC EVIDENCE</span><strong>Manipur — conflict heat map</strong><small>${$mvEscape(selected)} · ${total} violence-coded district associations · ${DISTRICTS.length} districts</small></div><span class="mv-head-marker"><i></i> EVIDENCE VIEW</span></div>
    <div class="mv-controls" role="group" aria-label="Map layer and view controls">
       <button type="button" data-mv-action="heat" aria-pressed="${$mvState.showHeat}" aria-label="Toggle heat density layer" title="Toggle density layer">◈</button>
       <button type="button" data-mv-action="labels" aria-pressed="${$mvState.showLabels}" aria-label="Toggle district labels" title="Toggle labels">◎</button>
@@ -78,20 +105,20 @@ function $mvMap(filter={},large=false){
        <pattern id="mv-grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" fill="none" stroke="#62c7a5" stroke-width=".45" opacity=".17"/></pattern>
        ${defs}
       </defs>
-      <rect width="690" height="630" fill="#020c13"/>
+      <rect width="690" height="630" fill="#010808"/>
       <rect width="690" height="630" fill="url(#mv-grid)" opacity=".34"/>
       <g transform="${transform}" class="mv-zoom-world">
         <g clip-path="url(#mv-state-area)">
-           <rect x="20" y="0" width="650" height="622" fill="#071e17"/>
+           <rect x="20" y="0" width="650" height="622" fill="#06190e"/>
            <rect x="20" y="0" width="650" height="622" filter="url(#mv-terrain-filter)" class="mv-terrain" opacity=".89" pointer-events="none"/>
         </g>
         <g>${paths}</g>
-        <g class="mv-hotspot-layer" pointer-events="none">${heat}${dots}</g>
+        <g class="mv-hotspot-layer" pointer-events="none">${heat}${blooms}${dots}</g>
         <g pointer-events="none">${edges}</g>
         <g>${labels}</g>
       </g>
       <g class="mv-compass" pointer-events="none"><text x="627" y="84">N</text><path d="M629 116V92M624 97L629 91L634 97"/></g>
-      <text class="mv-map-boundary-note" x="345" y="618" text-anchor="middle">ILLUSTRATIVE BOUNDARIES / NOT A SURVEY-GRADE MAP</text>
+      <text class="mv-map-boundary-note" x="345" y="618" text-anchor="middle">INDEXED DISTRICT ASSOCIATIONS · GLOW IS ILLUSTRATIVE</text>
      </svg>
    </div>
    <div class="mv-bottom"><div class="mv-rangehead"><span class="mv-legend-label">INDEXED VIOLENCE-RECORD DENSITY</span><span class="mv-zoom-readout">${Math.round(zoom*100)}% · ${$mvEscape(selected)}</span></div>
