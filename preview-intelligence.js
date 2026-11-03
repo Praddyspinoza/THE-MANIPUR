@@ -27,7 +27,7 @@ const divisionsX={
  'Tengnoupal':{names:['Moreh','Tengnoupal','Machi'],url:'https://tengnoupal.nic.in/sub-divisions-and-blocks/'}
 };
 const officialPortalX='https://manipur.gov.in/';
-function violentX(e){return categoriesX.has(e.kind)&&Array.isArray(e.geographicAssociations)&&e.geographicAssociations.some(g=>g.role==='reported_incident_location');}
+function violentX(e){const topic=['Armed violence','Gender & protection'].includes(e.topic);const title=/\b(attack(?:s|ed)?|assault|killed|killing|killings|gunfire|clash(?:es)?|arson|abduction|bomb(?:ing)?|shooting|fatal|encounter|violence|hostage|bodies|deaths|murder)\b/i.test(e.title||'');return categoriesX.has(e.kind)&&(topic||title)&&Array.isArray(e.geographicAssociations)&&e.geographicAssociations.some(g=>g.role==='reported_incident_location');}
 function districtLinkedX(e,name){return (e.geographicAssociations||[]).some(g=>g.district===name&&g.role==='reported_incident_location');}
 function getX(filter,year){
  const applied={...filter};
