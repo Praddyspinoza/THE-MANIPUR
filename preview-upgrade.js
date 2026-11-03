@@ -39,7 +39,7 @@ function pie(w){
   const x1=100+88*Math.cos(at),y1=100+88*Math.sin(at),x2=100+88*Math.cos(finish),y2=100+88*Math.sin(finish);
   const geom=angle>=Math.PI*2-.00001?'<circle cx="100" cy="100" r="88" fill="'+color+'"/>':
     '<path d="M100 100L'+x1.toFixed(3)+' '+y1.toFixed(3)+'A88 88 0 '+(angle>Math.PI?1:0)+' 1 '+x2.toFixed(3)+' '+y2.toFixed(3)+'Z" fill="'+color+'" data-mvi-select="'+safe(r.name)+'" tabindex="0" role="button" aria-label="Inspect '+safe(r.name)+'"/>';
-  paths+=geom.replace('Z"','Z"')+'<title>'+safe(r.name)+' — '+r.value+' associations ('+(100*r.value/total).toFixed(1)+'%)</title>';
+  paths+='<g>'+geom+'<title>'+safe(r.name)+' — '+r.value+' associations ('+(100*r.value/total).toFixed(1)+'%)</title></g>';
   legend+='<button type="button" class="mvi-pie-row" data-mvi-select="'+safe(r.name)+'" title="Inspect '+safe(r.name)+'"><i style="background:'+color+'"></i><span>'+safe(r.name)+'</span><b>'+(100*r.value/total).toFixed(1)+'%</b></button>';
   at=finish;
  });
@@ -149,7 +149,7 @@ function draw(el,district,features,roster){
   const d=f.rings.map(r=>r.map((p,i)=>{const q=project(p);return (i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1);}).join(' ')+'Z').join(' ');
   const n=mentionEvents(district,f.name,year).length;
   const fill=selected.mode==='mentions'?(n>=3?'#ba8261':n===2?'#9c8f58':n===1?'#357f60':'#114331'):'#18523e';
-  paths+='<path class="mvi-geo-area '+(selected.name===f.name?'is-selected':'')+'" d="'+d+'" fill-rule="evenodd" fill="'+fill+'" data-geo-pick="'+safe(f.name)+'" data-geo-district="'+safe(district)+'" role="button" tabindex="0" aria-label="Select '+safe(f.name)+'; '+n+' explicit title matches"><title>'+safe(f.name)+': '+n+' explicit evidence-title matches (not verified incident locations)</title></path>';
+  paths+='<path class="mvi-geo-area '+(selected.name===f.name?'is-selected':'')+(n?' is-referenced':'')+'" d="'+d+'" fill-rule="evenodd" fill="'+fill+'" data-geo-pick="'+safe(f.name)+'" data-geo-district="'+safe(district)+'" role="button" tabindex="0" aria-label="Select '+safe(f.name)+'; '+n+' explicit title matches"><title>'+safe(f.name)+': '+n+' explicit evidence-title matches (not verified incident locations)</title></path>';
  }
  const scaleZoom=selected.zoom||1,viewX=(width-width/scaleZoom)/2,viewY=(height-height/scaleZoom)/2;
  const viz='<div class="mvi-geo-canvas"><svg class="mvi-geo-svg" viewBox="'+viewX.toFixed(2)+' '+viewY.toFixed(2)+' '+(width/scaleZoom).toFixed(2)+' '+(height/scaleZoom).toFixed(2)+'" role="group" aria-label="Published GIS subdistrict boundaries for '+safe(district)+'">'+paths+'</svg></div>';
