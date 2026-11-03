@@ -82,7 +82,7 @@
 .mvi-geo-help,.mvi-geo-loading{font-size:10px;line-height:1.6;color:#a8c7b6;margin:6px 0 9px}
 .mvi-geo-canvas{background:radial-gradient(ellipse at 55% 50%,#123e31,#051b17 72%);border:1px solid #2c5947;border-radius:7px;overflow:hidden;position:relative}
 .mvi-geo-svg{width:100%;display:block;aspect-ratio:1.55}
-.mvi-geo-area{stroke:#79bd9e;stroke-width:1.05;fill:#164633;vector-effect:non-scaling-stroke;cursor:pointer;transition:fill .15s,stroke .15s}
+.mvi-geo-area{stroke:#79bd9e;stroke-width:1.05;vector-effect:non-scaling-stroke;cursor:pointer;transition:fill .15s,stroke .15s}
 .mvi-geo-area:hover,.mvi-geo-area:focus-visible{stroke:#efdd9a;stroke-width:2.3;filter:drop-shadow(0 0 6px #b7c59a);outline:none}
 .mvi-geo-area.is-selected{stroke:#eddb9b;stroke-width:2.6;filter:drop-shadow(0 0 5px #e0be7480)}
 .mvi-geo-label{font:10px Arial,sans-serif;fill:#e6f4e9;paint-order:stroke;stroke:#0b2419;stroke-width:2.3;pointer-events:none}
