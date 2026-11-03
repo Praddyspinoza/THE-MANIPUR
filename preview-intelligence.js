@@ -139,6 +139,15 @@ document.addEventListener('click',function(e){
  if(district&&district.dataset.district){X.selected=district.dataset.district;X.tab='overview';syncSelectedX();}
 },true);
 window.addEventListener('hashchange',function(){X.tab='overview';});
+window.MANIPUR_ANALYTICS_REFRESH=function(){
+ document.querySelectorAll('.mvi-workbench').forEach(w=>{
+  const m=w.querySelector('.mv-map');if(!m)return;
+  const filter=state.tab==='atlas'?state.atlas:{};
+  const large=m.dataset.mapLarge==='true'||m.classList.contains('large');
+  w.outerHTML=renderX(m.outerHTML,filter,large);
+ });
+ syncSelectedX();
+};
 route();
 syncSelectedX();
 })();
