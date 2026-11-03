@@ -67,7 +67,7 @@
 .mvi-workbench .mv-heat-patch{opacity:1;filter:drop-shadow(0 0 14px #8dff4b55)}
 .mvi-workbench .mv-hotspot-layer{filter:drop-shadow(0 0 5px #1dff8c);animation:mvi-glow-layer 3.2s ease-in-out infinite alternate}
 .mvi-workbench .mv-spark{filter:drop-shadow(0 0 3px #e6fb45);animation-duration:2s}
-.mvi-workbench .mv-district-fill.mvi-selected-district{stroke:#ffee36;stroke-width:3!important;fill:#0dca6b!important;filter:drop-shadow(0 0 10px #f6fc40) drop-shadow(0 0 6px #ff7f29)}
+.mvi-workbench .mv-district-fill.mvi-selected-district{stroke:#ffee36;stroke-width:3!important;filter:drop-shadow(0 0 10px #f6fc40) drop-shadow(0 0 6px #ff7f29)}
 .mvi-workbench .mv-mapstage:after{opacity:.95!important;background:linear-gradient(92deg,transparent 43%,#40ffab19 48%,#aaff7b26 50%,transparent 57%)!important;animation-duration:9s!important}
 .mvi-workbench .mv-controls button{color:#5dffcc;border-color:#14b084;background:#04291f;box-shadow:0 0 8px #12ff9740}
 .mvi-workbench .mv-controls button:hover{background:#12a86b;color:#fff}
