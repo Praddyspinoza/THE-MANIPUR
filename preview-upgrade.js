@@ -202,8 +202,8 @@ document.addEventListener('click',ev=>{
  const retry=ev.target.closest('[data-geo-retry]');
  if(retry){
   const el=retry.closest('.mvi-geo-panel');if(!el)return;
-  const district=retry.dataset.geoRetry;el.remove();
-  createPanel(retry.closest('.mvi-dossier-body,.mvi-drawer-mini')||document.body,district);
+  const district=retry.dataset.geoRetry,parent=el.parentElement;el.remove();
+  if(parent)createPanel(parent,district);
  }
  if(pick||toggle||zoom){
   const el=ev.target.closest('.mvi-geo-panel'),district=(pick||toggle||zoom).dataset.geoDistrict;
