@@ -1,0 +1,36 @@
+name: Manipur preview validation
+
+on:
+  push:
+    paths:
+      - 'preview/**'
+      - 'preview-*.js'
+      - 'preview-*.css'
+      - '.github/workflows/preview-validation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preview-syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Validate preview JavaScript syntax
+        run: |
+          node --check preview-map.js
+          node --check preview-intelligence.js
+          node --check preview-upgrade.js
+      - name: Verify preview upgrade assets are linked
+        run: |
+          test -f preview-upgrade.css
+          test -f preview-upgrade.js
+          grep -q 'preview-upgrade.css' preview/index.html
+          grep -q 'preview-upgrade.js' preview/index.html
+      - name: Confirm production terminal remains independent
+        run: |
+          test -f index.html
+          test -f preview/index.html
+          ! grep -q 'preview-upgrade.js' index.html
