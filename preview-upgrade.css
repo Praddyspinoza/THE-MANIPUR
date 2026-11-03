@@ -224,7 +224,7 @@
 .mvi-workbench .mvi-pie-legend{display:grid;grid-template-columns:1fr;gap:3px}
 .mvi-workbench .mvi-pie-row{padding:2px 0!important;background:none!important;border:none!important;font-size:9px;color:#b8d5c0}
 .mvi-workbench .mvi-pie-row:hover{color:#ecfff2}
-.mvi-workbench .mvi-left>.mvi-pie-hero+.mvi-card{display:none!important} /* single full pie, no duplicate donut */
+/* Duplicate district donut is removed by the preview script; keep incident-type chart visible. */
 .mvi-workbench .mvi-railcard{background:linear-gradient(165deg,#071e17,#030b0b)!important}
 .mvi-workbench .mvi-rail-actions button{background:#081c16;border-color:#28533d;color:#d1e6d5}
 .mvi-workbench .mvi-rail-actions button:hover{background:#12462c}
@@ -235,7 +235,7 @@
 .mvi-gauge-ring{
   width:147px;height:147px;border-radius:50%;margin:10px auto 4px;
   display:grid;place-items:center;position:relative;
-  background:conic-gradient(from -120deg,#09a46c 0%,#6de160 var(--mvi-cover),#172b20 var(--mvi-cover),#172b20 100%);
+  background:conic-gradient(from 218deg,#09a46c 0%,#6de160 var(--mvi-cover),#172b20 var(--mvi-cover) 76%,transparent 76% 100%);
   box-shadow:0 0 19px #00b46e1a;
 }
 .mvi-gauge-ring:before{content:"";position:absolute;inset:17px;border-radius:50%;background:#02090a}
