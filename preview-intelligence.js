@@ -9,6 +9,13 @@ const fmtX=value=>Number(value||0).toLocaleString('en-IN');
 const snapX=DATA.metadata&&DATA.metadata.snapshot||'2026-10-22';
 const categoriesX=new Set(['Incident','Reported incident cluster','Armed-group incident','Civilian attack / investigation']);
 const divisionsX={
+ 'Bishnupur':{names:['Bishnupur','Nambol','Moirang'],url:'https://bishnupur.nic.in/administrative-setup/'},
+ 'Chandel':{names:['Chandel','Chakpikarong','Khengjoy'],url:'https://chandel.nic.in/blocks/'},
+ 'Kamjong':{names:['Kamjong','Phungyar','Sahamphung','Kasom Khullen'],url:'https://kamjong.nic.in/subdivision-blocks/'},
+ 'Noney':{names:['Noney','Khoupum','Nungba','Haochong'],url:'https://noney.nic.in/subdivision-blocks/'},
+ 'Pherzawl':{names:['Pherzawl','Parbung-Tipaimukh','Vangai Range'],url:'https://pherzawl.nic.in/administrative-profile/'},
+ 'Tamenglong':{names:['Tamenglong','Tamei','Tousem'],url:'https://tamenglong.nic.in/subdivision-blocks/'},
+ 'Ukhrul':{names:['Ukhrul','Chingai','Jessami','Lungchong Maiphei'],url:'https://ukhrul.nic.in/subdivision-blocks/'},
  'Kangpokpi':{names:['Kangpokpi','Saikul','Saitu Gamphazol','Tujang Waichong','Champhai','Kangchup Geljang','Bungte Chiru','Island','Lhungtin'],url:'https://kangpokpi.nic.in/subdivision-blocks/'},
  'Churachandpur':{names:['Churachandpur','Tuibuong','Kangvai','Saikot','Sangaikot','Singhat','Henglep','Mualnuam','Samulamlan','Suangdoh'],url:'https://churachandpur.nic.in/administrative-setup/subdivision-blocks/'},
  'Jiribam':{names:['Jiribam','Borobekra'],url:'https://jiribam.nic.in/subdivision-blocks/'},
@@ -19,7 +26,7 @@ const divisionsX={
  'Thoubal':{names:['Lilong','Thoubal'],url:'https://thoubal.nic.in/subdivision-blocks/'},
  'Tengnoupal':{names:['Moreh','Tengnoupal','Machi'],url:'https://tengnoupal.nic.in/sub-divisions-and-blocks/'}
 };
-const officialPortalX='https://manipur.s3waas.gov.in/';
+const officialPortalX='https://manipur.gov.in/';
 function violentX(e){return categoriesX.has(e.kind)&&Array.isArray(e.geographicAssociations)&&e.geographicAssociations.some(g=>g.role==='reported_incident_location');}
 function districtLinkedX(e,name){return (e.geographicAssociations||[]).some(g=>g.district===name&&g.role==='reported_incident_location');}
 function getX(filter,year){
