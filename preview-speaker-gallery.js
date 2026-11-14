@@ -7,7 +7,7 @@
 "use strict";
 if(document.getElementById("mn-voices-overlay"))return;
 const speakers=[
- {id:"rahul",name:"Rahul Gandhi",role:"Congress MP / Opposition",date:"9 August 2023",topic:"The division and violence in Manipur",source:"Sansad TV / Lok Sabha",video:"QKBNuJNvuCI",start:1851,
+ {id:"rahul",name:"Rahul Gandhi",role:"Congress MP / Opposition",date:"9 August 2023",topic:"The division and violence in Manipur",source:"Sansad TV / Lok Sabha",video:"QKBNuJNvuCI",start:1200,
   summary:"In his no-confidence motion remarks, Gandhi criticised the government's response and argued that Manipur had been divided. Parts of the parliamentary record were subsequently expunged; the original Sansad TV archive is labelled accordingly.",
   quote:"You have divided Manipur into two parts.",quoteNature:"Reported speech excerpt; check original video for full context.",
   original:"https://www.youtube.com/watch?v=QKBNuJNvuCI",reading:"https://www.hindustantimes.com/india-news/rahul-gandhi-lok-sabha-speech-no-confidence-motion-manipur-violence-congresss-jairam-ramesh-101691572218266-amp.html"},
@@ -19,7 +19,7 @@ const speakers=[
   summary:"Then-Chief Minister N. Biren Singh gave his account of possible causes of the violence and defended decisions taken during the crisis. The interview is attributed to its original broadcaster.",
   quote:"It seems pre-planned.",quoteNature:"Brief attributed excerpt from the published interview.",
   original:"https://www.youtube.com/watch?v=jQlW3qS21kI",reading:"https://indianexpress.com/article/india/manipur-news-live-updates-violence-security-forces-biren-singh-governor-8695400/"},
- {id:"shah",name:"Amit Shah",role:"Union Home Minister",date:"9 August 2023",topic:"No-confidence debate and responses to violence",source:"Sansad TV / Lok Sabha",video:"6DnRaWikqlU",start:0,
+ {id:"shah",name:"Amit Shah",role:"Union Home Minister",date:"9 August 2023",topic:"No-confidence debate and responses to violence",source:"Sansad TV / Lok Sabha",video:"6DnRaWikqlU",start:4440,
   summary:"Shah addressed violence and administrative action in Manipur during the Lok Sabha no-confidence debate. Use the full parliamentary footage, not the misleading 2026 out-of-context viral clip.",
   quote:"What happened in Manipur is shameful.",quoteNature:"English rendering of a published paraphrase of the statement.",
   original:"https://www.youtube.com/watch?v=6DnRaWikqlU",reading:"https://www.ptinews.com/fact-detail/edited-2023-video-of-amit-shahs-lok-sabha-speech-falsely-linked-to-manipur-situation/4255839"}
