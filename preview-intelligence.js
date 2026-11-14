@@ -6,7 +6,7 @@ if(typeof DATA==='undefined'||typeof drawMap!=='function'||typeof renderDistrict
 const X={selected:'Kangpokpi',tab:'overview',sub:null};
 const escX=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmtX=value=>Number(value||0).toLocaleString('en-IN');
-const snapX=DATA.metadata&&DATA.metadata.snapshot||'2026-10-22';
+const snapX='22 Oct baseline + 14 Nov addendum';
 const categoriesX=new Set(['Incident','Reported incident cluster','Armed-group incident','Civilian attack / investigation']);
 const divisionsX={
  'Bishnupur':{names:['Bishnupur','Nambol','Moirang'],url:'https://bishnupur.nic.in/administrative-setup/'},
