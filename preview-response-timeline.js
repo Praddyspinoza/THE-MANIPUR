@@ -115,7 +115,7 @@ const tabs=[["timeline","Violence timeline","20","◷"],["stories","Human storie
 tabs.forEach(t=>{if(!NAV.some(x=>x[0]===t[0]))NAV.push(t);});
 const view={timeline:{year:"",district:"",kind:"all"},stories:{q:"",topic:"",medium:"",place:"",publisher:"",origin:""},watch:{q:""}};
 const unique=arr=>[...new Set(arr.filter(Boolean))].sort();
-const sourceOrigin=p=>["BBC News India","Associated Press","Al Jazeera","Deutsche Welle"].includes(p)?"International":["The Sangai Express","India Today NE"].includes(p)?"Regional":"Indian";
+const sourceOrigin=p=>["BBC News India","BBC News","Associated Press","Al Jazeera","Al Jazeera English","Deutsche Welle","The New Humanitarian","Reuters","The Guardian"].includes(p)?"International":["The Sangai Express","India Today NE"].includes(p)?"Regional":"Indian";
 const selectOpts=(arr,value,all)=>`<option value="">${htmlSafe(all)}</option>`+arr.map(v=>`<option value="${htmlSafe(v)}" ${v===value?"selected":""}>${htmlSafe(v)}</option>`).join("");
 const hero=(eyebrow,title,desc,badges)=>`<header class="mi-hero"><div class="mi-eyebrow">${htmlSafe(eyebrow)}</div><h1>${htmlSafe(title)}</h1><p>${desc}</p><div class="mi-summary">${badges.map(x=>`<span>${htmlSafe(x)}</span>`).join("")}</div></header>`;
 function timeline(){
