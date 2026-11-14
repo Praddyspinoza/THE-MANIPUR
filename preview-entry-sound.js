@@ -39,7 +39,7 @@
   const a=localAudio();
   if(!a){say("The local audio player is unavailable. Enter silently or use the terminal sound controls.");return;}
   if(a.hasFile){say("Browser-local audio ready. Your soundtrack will start when you select Enter with Sound.");}
-  else{say("Preview: select an MP3 to enable sound. It stays in this browser, not on the public site.");}
+  else{say("Select the original 104-second Manipur recording to enable sound; no other audio is permitted.");}
  }
  function isCinematicComplete(){
   const opening=document.getElementById("ci-gate");
@@ -79,7 +79,7 @@
   if(a?.hasFile){startSavedSound();return;}
   const picker=audioPicker();
   if(!picker){say("Audio player is not ready. You can enter silently and enable sound later.");return;}
-  say("Choose your MP3. Your file will remain private to this browser.");
+  say("Select the exact original 104-second Manipur recording. Other audio is rejected.");
   try{picker.click();}catch(e){say("Your browser blocked the file picker. Enter silently, then use LOAD MP3.");}
  }
  soundButton.addEventListener("click",enterWithSound);
@@ -93,12 +93,9 @@
   }
  });
  const picker=audioPicker();
- if(picker)picker.addEventListener("change",()=>{
-  if(!overlay.isConnected||closed||!picker.files?.length)return;
-  // The local player already processes this user-selected file in its own
-  // change listener and starts playback during that activation where permitted.
+ document.addEventListener("manipur-original-audio-verified",()=>{
+  if(!overlay.isConnected||closed)return;
   if(localAudio()?.hasFile)startSavedSound();
-  else{say("The selected audio was not accepted. Try a valid MP3 or enter silently.");}
  });
  function mountSoundToggle(){
   if(document.getElementById("manipur-sound-toggle"))return;
@@ -115,7 +112,7 @@
    const playing=!!audio&&!audio.paused&&!audio.ended;
    btn.textContent=playing?"♫ SOUND ON":"◌ SOUND OFF";
    btn.setAttribute("aria-pressed",String(playing));
-   btn.title=playing?"Pause soundtrack":"Play soundtrack or select a local audio file";
+   btn.title=playing?"Pause soundtrack":"Play the original Manipur soundtrack or select its original file";
   };
   btn.addEventListener("click",()=>{
    const a=localAudio();if(!a)return;
