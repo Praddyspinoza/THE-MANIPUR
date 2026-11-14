@@ -80,3 +80,10 @@ body.cx-locked{overflow:hidden!important}
 .cx-gate button:focus-visible,.cx-ambient:focus-visible{outline:2px solid #d6bfdf;outline-offset:3px}
 @media(max-width:700px){.cx-top{left:15px;right:15px}.cx-top-actions button{padding:7px 8px;font-size:9px}.cx-title{font-size:58px}.cx-choices>div{font-size:21px}.cx-copy{left:22px;bottom:115px;width:88%}.cx-copy h2{font-size:37px}.cx-copy p{font-size:10px}.cx-media-credit{left:22px;bottom:43px;font-size:8px}.cx-signals pre{font-size:8px}.cx-stamp{right:5%;font-size:16px;padding:9px 14px}.cx-code{font-size:30px}.cx-ambient{bottom:8px;right:8px}}
 @media(prefers-reduced-motion:reduce){.cx-gate::before,.cx-chrome,.cx-title,.cx-code,.cx-film::after,.cx-cutmask,.cx-media-card img{animation:none!important}}
+
+
+/* Centre the forward-thrown intelligence phrases in true perspective space. */
+.cx-code{top:0!important;left:0!important;height:100%;display:flex;align-items:center;justify-content:center}
+.cx-media-card{isolation:isolate}
+.cx-media-card img{z-index:0!important}
+.cx-media-card iframe{z-index:1;opacity:.95}
