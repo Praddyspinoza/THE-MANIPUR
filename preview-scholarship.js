@@ -5,7 +5,7 @@ const added=[
 {
 id:"S230",date:"2025-02-14",datePrecision:"day",publisher:"International Crisis Group",
 title:"Finding a Way Out of Festering Conflict in India's Manipur — Asia Report No. 346",
-url:"https://www.ecoi.net/en/file/local/2121907/346-festering-conflict-india-manipur_0.pdf",
+url:"https://www.crisisgroup.org/sites/default/files/2025-02/346-festering-conflict-india-manipur_0.pdf",
 officialUrl:"https://www.crisisgroup.org/sites/default/files/2025-02/346-festering-conflict-india-manipur_0.pdf",
 landingUrl:"https://www.ecoi.net/en/document/2121907.html",
 category:"International analytical report",topic:"Conflict resolution and institutional response",
@@ -44,11 +44,11 @@ internationalSet=function(){
 const originalInternational=international;
 international=function(){
  const base=originalInternational();
- const urls={icg:"https://www.ecoi.net/en/file/local/2121907/346-festering-conflict-india-manipur_0.pdf",pucl:"https://pucl.org/wp-content/uploads/2025/08/Manipur-Report-FINAL-1.pdf"};
+ const urls={icg:"https://www.crisisgroup.org/sites/default/files/2025-02/346-festering-conflict-india-manipur_0.pdf",mirror:"https://www.ecoi.net/en/file/local/2121907/346-festering-conflict-india-manipur_0.pdf",pucl:"https://pucl.org/wp-content/uploads/2025/08/Manipur-Report-FINAL-1.pdf"};
  const shelf=`<section class="ci-report-shelf" aria-label="Priority research reports">
  <div class="ci-report-heading"><div><span>FOUNDATIONAL RESEARCH / PRIMARY PUBLISHERS</span><h2>Two reports worth reading in full</h2></div><span>DOCUMENTED · DATED · ATTRIBUTED</span></div>
  <div class="ci-report-grid">
-  <article class="ci-report"><small>14 FEB 2025 · INTERNATIONAL CRISIS GROUP / ASIA REPORT 346</small><h3>Finding a Way Out of Festering Conflict in India's Manipur</h3><p>An independent, interview-based analysis of conflict dynamics, disarmament, political grievances and pathways to dialogue. This is a dated policy assessment—not a verdict.</p><div class="ci-report-links"><a href="${urls.icg}" target="_blank" rel="noopener noreferrer">Read full report (PDF) ↗</a><button data-source="S230">Provenance and methodology ↗</button></div></article>
+  <article class="ci-report"><small>14 FEB 2025 · INTERNATIONAL CRISIS GROUP / ASIA REPORT 346</small><h3>Finding a Way Out of Festering Conflict in India's Manipur</h3><p>An independent, interview-based analysis of conflict dynamics, disarmament, political grievances and pathways to dialogue. This is a dated policy assessment—not a verdict.</p><div class="ci-report-links"><a href="${urls.icg}" target="_blank" rel="noopener noreferrer">Publisher PDF ↗</a><a href="${urls.mirror}" target="_blank" rel="noopener noreferrer">Mirror PDF ↗</a><button data-source="S230">Provenance and methodology ↗</button></div></article>
   <article class="ci-report"><small>20 AUG 2025 · INDEPENDENT PEOPLE'S TRIBUNAL / PUCL, INDIA</small><h3>Independent People's Tribunal on the Ongoing Ethnic Conflict in Manipur</h3><p>Survivor testimony, a review of public institutions and proposals for justice and reconciliation. It is an independent civil-society initiative, not a judicial commission.</p><div class="ci-report-links"><a href="${urls.pucl}" target="_blank" rel="noopener noreferrer">Read tribunal report (PDF) ↗</a><button data-source="S231">Provenance and methodology ↗</button></div></article>
  </div></section>`;
  const marker='<div class="section-gap">';
