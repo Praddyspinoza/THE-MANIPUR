@@ -88,13 +88,14 @@ function divisionsHtmlX(name,D){
 function dossierX(D){
  const name=DISTRICTS.some(d=>d.name===X.selected)?X.selected:D.rows[0]?.name||'Kangpokpi';
  const r=D.rows.find(d=>d.name===name),count=r?r.value:0,last=r?r.events.slice().sort((a,b)=>b.date.localeCompare(a.date)):[];
- const tabs=['overview','subdivisions','records'];
+ const tabs=['overview','records'];
  const buttons=tabs.map(t=>'<button type="button" class="'+(X.tab===t?'active':'')+'" data-mvi-tab="'+t+'" aria-pressed="'+(X.tab===t)+'">'+(t==='records'?'Evidence':t[0].toUpperCase()+t.slice(1))+'</button>').join('');
  const direct=last.slice(0,4).map(e=>'<button class="mvi-local-event" data-event="'+escX(e.id)+'"><span>'+escX(e.date)+'</span><strong>'+escX(e.title)+'</strong><small>'+escX(e.id)+' · original sources linked</small></button>').join('')||'<p class="mvi-empty">No incident-location entries coded to this district in the chosen filters.</p>';
- const map=miniSvgX(name,count,'side');
+ const map=''; // No artificial locality or subdivision heat shapes are rendered; district-level records only.
  let content='';
+ if(X.tab==='subdivisions')X.tab='overview';
  if(X.tab==='overview'){
-   content='<div class="mvi-selected-count"><div><b>'+count+'</b><span>indexed conflict record associations</span></div><div class="mvi-intensity"><i></i><span>Relative index coverage<br><strong>'+(D.total?((count/Math.max(1,D.rows[0].value))*100).toFixed(0):'0')+'% of highest district</strong></span></div></div>'+map+'<p class="mvi-footnote">Glowing overlay is symbolic, not a plotted incident site. Subdivision assignments require verified location data.</p><div class="mvi-mini-heading">Dated conflict entries</div>'+direct;
+   content='<div class="mvi-selected-count"><div><b>'+count+'</b><span>indexed conflict record associations</span></div><div class="mvi-intensity"><i></i><span>Relative index coverage<br><strong>'+(D.total?((count/Math.max(1,D.rows[0].value))*100).toFixed(0):'0')+'% of highest district</strong></span></div></div>'+map+'<p class="mvi-footnote">Records are district associated. No subdivision polygons or inferred locality heat patterns are displayed.</p><div class="mvi-mini-heading">Dated conflict entries</div>'+direct;
  }else if(X.tab==='subdivisions'){
    content=map+'<div class="mvi-mini-heading">Verified subdivision names</div>'+divisionsHtmlX(name,D)+'<p class="mvi-footnote">'+count+' district-associated conflict entries remain unallocated to subdivisions. The source index does not yet provide verified subdistrict coordinates.</p>';
  }else{
