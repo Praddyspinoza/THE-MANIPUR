@@ -9,12 +9,13 @@ if(new URLSearchParams(location.search).get("intro")==="0")return;
 const film=document.getElementById("ci-film"),thesis=document.getElementById("ci-s2");
 if(!film||!thesis||document.getElementById("fm-montage"))return;
 const segments=[
-{from:5.56,to:6.44,id:"pH9jNjc6ii0",publisher:"WildFilmsIndia",date:"8 MAR 2016",kind:"CULTURE / SANGAI FESTIVAL",title:"Pung Cholom · the drums of Manipur",detail:"Documentary performance footage, not a depiction of the conflict",url:"https://www.youtube.com/watch?v=pH9jNjc6ii0"},
-{from:8.00,to:8.78,id:"_dx1hsT3jFw",publisher:"NDTV India",date:"30 MAY 2023",kind:"INDIAN PRESS / HINDI",title:"मणिपुर: हिंसा और संकट",detail:"Hindi news coverage of unrest and security responses",url:"https://www.youtube.com/watch?v=_dx1hsT3jFw"},
-{from:8.78,to:9.55,id:"6XwwSFCOgLk",publisher:"NDTV",date:"26 JUL 2023",kind:"INDIAN PRESS / ENGLISH",title:"The conflict, reported on the ground",detail:"NDTV journalists document nights of gunfire and displacement",url:"https://www.youtube.com/watch?v=6XwwSFCOgLk"},
-{from:9.55,to:10.33,id:"HEsoct7UE5g",publisher:"Rahul Gandhi / official channel",date:"9 AUG 2023",kind:"PARLIAMENTARY STATEMENT / OPPOSITION",title:"Rahul Gandhi addresses Manipur",detail:"No-confidence-motion speech in Parliament",url:"https://www.youtube.com/watch?v=HEsoct7UE5g"},
-{from:10.33,to:11.10,id:"sCHaML6lcMM",publisher:"Narendra Modi / official channel",date:"20 JUL 2023",kind:"PRIME MINISTER / STATEMENT",title:"Narendra Modi speaks on Manipur",detail:"Public condemnation of the violence against women",url:"https://www.youtube.com/watch?v=sCHaML6lcMM"},
-{from:11.10,to:11.96,id:"jQlW3qS21kI",publisher:"The Indian Express / ANI",date:"1 JUL 2023",kind:"THEN-CHIEF MINISTER / STATEMENT",title:"N. Biren Singh speaks on the unrest",detail:"2023 chief minister's televised interview and analysis",url:"https://www.youtube.com/watch?v=jQlW3qS21kI"}
+{from:5.56,to:6.44,id:"pH9jNjc6ii0",publisher:"Cultural documentary archive",date:"2016",kind:"MANIPUR / CULTURAL PERFORMANCE",title:"Pung Cholom · Manipur's drum tradition",detail:"Cultural performance footage (verify archival embed at source).",url:"https://www.youtube.com/watch?v=pH9jNjc6ii0",start:0},
+{from:8.00,to:8.77,id:"0bC6x9fJXhk",publisher:"Aaj Tak (Hindi)",date:"27 JUL 2023",kind:"INDIAN MEDIA / HINDI",title:"मणिपुर: हिंसा और सुरक्षा",detail:"Hindi reporting on Manipur violence and security responses.",url:"https://www.youtube.com/watch?v=0bC6x9fJXhk",start:0},
+{from:8.77,to:9.52,id:"RQK9uqZv1To",publisher:"NDTV (English)",date:"11 JUL 2023",kind:"INDIAN MEDIA / ENGLISH",title:"Conflict zones and displaced families",detail:"An NDTV field report on continuing violence and separated communities.",url:"https://www.youtube.com/watch?v=RQK9uqZv1To",start:0},
+{from:9.52,to:10.13,id:"QKBNuJNvuCI",publisher:"Sansad TV",date:"9 AUG 2023",kind:"RAHUL GANDHI / LOK SABHA",title:"Rahul Gandhi on Manipur",detail:"Official parliamentary recording; portions later expunged from proceedings.",url:"https://www.youtube.com/watch?v=QKBNuJNvuCI",start:1851},
+{from:10.13,to:10.75,id:"dlCQ4YtUvwo",publisher:"Narendra Modi / Official",date:"10 AUG 2023",kind:"NARENDRA MODI / LOK SABHA",title:"Prime Minister on peace in Manipur",detail:"Original no-confidence debate; Manipur chapter begins around 1:32:00.",url:"https://www.youtube.com/watch?v=dlCQ4YtUvwo&t=5520s",start:5520},
+{from:10.75,to:11.36,id:"jQlW3qS21kI",publisher:"The Indian Express / ANI",date:"1 JUL 2023",kind:"N. BIREN SINGH / THEN CM",title:"The chief minister on the violence",detail:"His contemporaneous account in a recorded 2023 interview.",url:"https://www.youtube.com/watch?v=jQlW3qS21kI",start:0},
+{from:11.36,to:11.96,id:"6DnRaWikqlU",publisher:"Sansad TV",date:"9 AUG 2023",kind:"AMIT SHAH / UNION HOME MINISTER",title:"Home Minister addresses Manipur",detail:"Original full parliamentary remarks, not a cropped viral clip.",url:"https://www.youtube.com/watch?v=6DnRaWikqlU",start:0}
 ];
 const orbit=document.createElement("div");
 orbit.className="ci-orbit-system";orbit.setAttribute("aria-hidden","true");
@@ -39,7 +40,7 @@ function preparedFrames(){
  prepared=true;
  box.querySelectorAll("iframe[data-fm-vid]").forEach((frame,i)=>{
    let id=segments[i].id;
-   frame.src="https://www.youtube-nocookie.com/embed/"+id+"?autoplay=1&mute=1&controls=0&playsinline=1&loop=1&playlist="+id+"&rel=0&modestbranding=1";
+   frame.src="https://www.youtube-nocookie.com/embed/"+id+"?autoplay=1&mute=1&controls=0&playsinline=1&loop=1&playlist="+id+"&rel=0&modestbranding=1&start="+(segments[i].start||0);
  });
 }
 function show(idx){
