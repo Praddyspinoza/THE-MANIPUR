@@ -29,3 +29,7 @@
 .mn-voices-open:hover{background:#1b5033!important}
 .mn-voices-overlay :focus-visible{outline:2px solid #a2ffd0;outline-offset:3px}
 @media(max-width:780px){.mn-voices-layout{grid-template-columns:1fr}.mn-voices-picks{grid-template-columns:repeat(2,minmax(0,1fr))}.mn-voices-pick{min-height:92px;padding:10px}.mn-voices-head h2{font-size:26px}}
+
+/* Keep listening control accessible on iPhone/iPad without topbar overflow. */
+@media(max-width:1080px){body .topbar #mn-open-voices{position:fixed;right:12px;bottom:68px;z-index:85;background:#103d23!important;border:1px solid #4add8c!important;box-shadow:0 7px 19px #0009;font-size:9px!important;max-width:155px;text-align:center;white-space:normal}}
+@media(max-width:700px){body .topbar #mn-open-voices{bottom:87px;right:10px;max-width:145px;font-size:8px!important;padding:7px 9px!important}}
