@@ -33,6 +33,20 @@ box.innerHTML=segments.map((s,i)=>
  '<div class="fm-text"><small id="fm-over" class="fm-over"></small><h2 id="fm-headline" class="fm-headline"></h2><p id="fm-detail" class="fm-description"></p></div>'+
  '<div class="fm-credit" id="fm-credit"></div>';
 film.appendChild(box);
+/* Only reveal a remote video once the YouTube player confirms PLAYING.
+   An iframe load event alone is not sufficient; it often means a blank shell. */
+window.addEventListener("message",event=>{
+ if(event.origin!=="https://www.youtube-nocookie.com"&&event.origin!=="https://www.youtube.com")return;
+ let data=event.data;
+ try{if(typeof data==="string")data=JSON.parse(data);}catch(e){return;}
+ if(!data||data.event!=="onStateChange"||Number(data.info)!==1)return;
+ const frames=document.querySelectorAll("#fm-montage .fm-cell iframe");
+ frames.forEach(frame=>{
+  if(frame.contentWindow!==event.source)return;
+  const cell=frame.closest(".fm-cell");
+  if(cell?.classList.contains("active"))cell.classList.add("video-ready");
+ });
+});
 const creditLink=(s)=>'<span>'+s.publisher+' · '+s.date+' · <a href="'+s.url+'" target="_blank" rel="noopener noreferrer">VIEW ORIGINAL VIDEO ↗</a></span>';
 let playing=false,prepared=false,sceneNo=-1,request=0;
 function preparedFrames(){
@@ -45,6 +59,7 @@ function preparedFrames(){
 let liveFrame=-1;
 function activateFrame(index){
  if(index===liveFrame)return;
+ box.querySelectorAll(".fm-cell").forEach(cell=>cell.classList.remove("video-ready"));
  if(liveFrame>=0){
   const previous=box.querySelectorAll("iframe[data-fm-vid]")[liveFrame];
   if(previous)previous.removeAttribute("src");
@@ -55,7 +70,7 @@ function activateFrame(index){
  if(!frame)return;
  const item=segments[index];
  frame.src="https://www.youtube-nocookie.com/embed/"+item.id+
-  "?autoplay=1&mute=1&controls=0&playsinline=1&loop=1&playlist="+item.id+
+  "?enablejsapi=1&autoplay=1&mute=1&controls=0&playsinline=1&loop=1&playlist="+item.id+
   "&rel=0&modestbranding=1&start="+(item.start||0);
 }
 function show(idx){
