@@ -37,7 +37,7 @@ function getX(filter,year){
  const total=rows.reduce((v,r)=>v+r.value,0);
  return {rows,filtered,total,year:year&&year!=='all'?year:applied.year||'all',filter:applied};
 }
-function colorX(i){return ['#ff4939','#ff8b2d','#ffcc22','#e6ff3b','#69f243','#22e5a5','#08bfa7','#168e8c'][Math.min(i,7)];}
+function colorX(i){return ['#caffdf','#7affb4','#34fa8a','#16d977','#12b968','#0e9e5f','#0d7b4e','#0a5639'][Math.min(i,7)];}
 function donutX(D){
  const positive=D.rows.filter(r=>r.value>0),slices=positive.slice(0,6);
  const other=positive.slice(6).reduce((v,r)=>v+r.value,0);
