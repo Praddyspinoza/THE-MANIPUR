@@ -1,0 +1,139 @@
+/* OBSIDIAN CHOICE — PREVIEW ONLY.
+   The 2026-11-14 user's photographed black/champagne Obsidian is the default.
+   Silver is an optional second DARK palette. No changes to layouts, films,
+   animations, evidence, publisher credits, sources or underlying map geometry.
+   Thermal/neon emerald is allowed ONLY in actual geographic map canvases.
+*/
+:root[data-manipur-theme]{color-scheme:dark;
+ --paper:#080b0f!important;--card:#10151b!important;--ink:#edece6!important;
+ --muted:#a5adb5!important;--faint:#77828e!important;--rule:#283139!important;
+ --plum:#cfb584!important;--deep:#07090c!important;--lav:#29271f!important;
+ --rose:#c18f89!important;--mint:#82aeb1!important;--gold:#cfb584!important;
+ --blue:#8aaeb8!important;--shadow:0 12px 32px #0004!important;
+ --t-surface:#10151b;--t-surface2:#171d23;--t-low:#090d11;--t-rail:#07090c;
+ --t-line:#283139;--t-soft:#a5adb5;--t-bright:#edece6;--t-accent:#cfb584;
+ --t-control:#1b252d;--t-border:#48515b;--t-pale:#d4c4a0;
+}
+:root[data-manipur-theme="silver"]{
+ --plum:#b9c6d1!important;--gold:#b9c6d1!important;--lav:#1e2831!important;
+ --rose:#b7a7a3!important;--mint:#8ea9b8!important;
+ --t-surface:#10161c;--t-surface2:#18212a;--t-low:#0a0f14;--t-rail:#070a0d;
+ --t-line:#303c46;--t-soft:#acbbc5;--t-bright:#eef3f5;--t-accent:#b9c6d1;
+ --t-control:#1a2832;--t-border:#526775;--t-pale:#cad8df;
+}
+html[data-manipur-theme],html[data-manipur-theme] body{
+ background:#080b0f!important;color:var(--t-bright)!important;
+}
+html[data-manipur-theme] body .app,html[data-manipur-theme] body #workspace{background:transparent!important;color:var(--t-bright)!important}
+html[data-manipur-theme] body .rail{background:var(--t-rail)!important;color:var(--t-soft)!important;border-color:var(--t-line)!important;scrollbar-color:#41464a #07090c!important}
+html[data-manipur-theme] body .brand{color:var(--t-bright)!important}
+html[data-manipur-theme] body .brand-mark,html[data-manipur-theme] body .rail-action span,html[data-manipur-theme] body .eyebrow{color:var(--t-accent)!important}
+html[data-manipur-theme] body .brand-mark span,html[data-manipur-theme] body .snapshot-dot,html[data-manipur-theme] body .nav-item.active:before{background:var(--t-accent)!important}
+html[data-manipur-theme] body .nav-item.active{background:#1b1b19!important;color:var(--t-pale)!important;border-color:#68593b70!important}
+html[data-manipur-theme] body .nav-item.active .nav-icon{color:var(--t-accent)!important}
+html[data-manipur-theme] body .nav-item:hover{background:var(--t-surface2)!important}
+html[data-manipur-theme] body .nav-item .num,html[data-manipur-theme] body .rail-section{color:#82919b!important}
+html[data-manipur-theme] body .rail-bottom strong{color:var(--t-accent)!important}
+html[data-manipur-theme] body .topbar{background:#090d11f3!important;border-color:var(--t-line)!important}
+html[data-manipur-theme] body .topbar .breadcrumbs,html[data-manipur-theme] body .snapshot-label{color:var(--t-soft)!important}
+html[data-manipur-theme] body .topbar .breadcrumbs strong{color:var(--t-pale)!important}
+html[data-manipur-theme] body :is(.command,kbd,.motion-toggle,.toolbar,.panel,.metric,.source-card,.event-card,.claim-card,.feature-card,.video-card,.drawer,.modal-content,.drawer-panel,.source-dialog,.search-dialog){
+ color:var(--t-bright)!important;border-color:var(--t-line)!important;
+}
+html[data-manipur-theme] body :is(.panel,.metric,.source-card,.event-card,.claim-card,.feature-card,.video-card,.modal-content,.drawer-panel,.source-dialog,.search-dialog){background:var(--t-surface)!important;box-shadow:none!important}
+html[data-manipur-theme] body .command,html[data-manipur-theme] body .toolbar,html[data-manipur-theme] body .motion-toggle{background:var(--t-low)!important;color:var(--t-soft)!important}
+html[data-manipur-theme] body :is(.btn,.mini-link,.source-ref,.page-footer button,a:not(.mn-voices-links a)){color:var(--t-accent)}
+html[data-manipur-theme] body .btn.primary,html[data-manipur-theme] body .pill.active{background:var(--t-accent)!important;border-color:var(--t-accent)!important;color:#0b0d0f!important}
+html[data-manipur-theme] body .hero-copy h1{color:var(--t-bright)!important}
+html[data-manipur-theme] body .hero-copy h1 em{background:linear-gradient(110deg,#b39561 0%,#efe5c9 32%,#9cb6bf 55%,#c5ac7c 75%,#f0e5c3 100%);background-size:260% 100%;background-clip:text;-webkit-background-clip:text;color:transparent}
+html[data-manipur-theme="silver"] body .hero-copy h1 em{background:linear-gradient(110deg,#8ea4b3 0%,#f0f5f8 38%,#95abb9 72%,#dae6ec 100%);background-size:260% 100%;background-clip:text;-webkit-background-clip:text;color:transparent}
+html[data-manipur-theme] body :is(.metric-value,.page-intro h1,.page-intro h2,.panel-head h2,.section-title h2,.latest-item h3,.event-card h3,.source-card h3){color:var(--t-bright)!important}
+html[data-manipur-theme] body :is(.metric-sub,.metric-top,.page-intro p,.section-title p,.panel-head p,.event-card p,.source-card p,.latest-item p,.fine,.muted){color:var(--t-soft)!important}
+html[data-manipur-theme] body .page-footer{background:var(--t-low)!important;color:var(--t-soft)!important;border-color:var(--t-line)!important}
+/* Embedded research console — undo previously forced purple and bright-green chrome. */
+html[data-manipur-theme] .mvi-workbench{--mvi-bg:var(--t-low)!important;--mvi-pane:var(--t-surface)!important;--mvi-line:var(--t-line)!important;--mvi-teal:var(--t-accent)!important;--mvi-lime:var(--t-pale)!important;--mvi-note:var(--t-soft)!important;
+ background:var(--t-low)!important;color:var(--t-bright)!important;border-color:var(--t-line)!important;box-shadow:none!important}
+html[data-manipur-theme] .mvi-workbench :is(.mvi-banner,.mvi-kpis>div,.mvi-card,.mvi-dossier,.mvi-insight,.mvi-risk,.mvi-drawer-mini,.mvi-pie-hero,.mvi-railcard,.mvi-gauge,.mi-live-card,.mi-quick-lead,.mi-source-status,.mvi-tabstrip,.mvi-method,.mvi-division,.mvi-division-list){
+ background:var(--t-surface)!important;border-color:var(--t-line)!important;box-shadow:none!important}
+html[data-manipur-theme] .mvi-workbench :is(.mvi-banner h2,.mvi-banner h2 i,.mvi-card h3,.mvi-card-title,.mvi-kpis strong,.mvi-selected-count,.mvi-dossier h3){color:var(--t-bright)!important;text-shadow:none!important}
+html[data-manipur-theme] .mvi-workbench :is(.mvi-eyebrow,.mvi-banner-tag,.mvi-kicker,.mvi-footnote,.mvi-kpis small,.mvi-ranked small){color:var(--t-accent)!important;text-shadow:none!important}
+html[data-manipur-theme] .mvi-workbench :is(.mvi-banner p,.mvi-kpis span,.mvi-card-title small,.mvi-footer,.mvi-map-shortcuts small,.mvi-method,.mi-quick-caption){color:var(--t-soft)!important}
+html[data-manipur-theme] .mvi-workbench :is(.mvi-banner-tag,.mvi-tabstrip button.active,.mvi-tabstrip button[aria-selected="true"],.mvi-rail-actions button,.mi-map-shortcuts button,.mvi-map-shortcuts button,.mvi-division,.mvi-source-link,.mvi-open-full){
+ background:var(--t-control)!important;color:var(--t-pale)!important;border-color:var(--t-border)!important;box-shadow:none!important}
+html[data-manipur-theme] .mvi-workbench :is(.mvi-left,.mvi-right,.mvi-side,.mvi-banner,.mvi-kpis) :is(a,button,p,span,small,label,strong,em){color:var(--t-pale)!important;text-shadow:none!important}
+html[data-manipur-theme] .mvi-workbench :is(.mvi-left,.mvi-right,.mvi-side) :is(button,input,select){background:var(--t-control)!important;border-color:var(--t-border)!important;color:var(--t-bright)!important}
+html[data-manipur-theme] .mvi-workbench :is(.mvi-left,.mvi-right,.mvi-side) :is(.mvi-pie-row,.mvi-rail-actions button,.mi-map-shortcuts button){background:var(--t-control)!important;color:var(--t-pale)!important;border-color:var(--t-border)!important}
+html[data-manipur-theme] .mvi-workbench :is(.mvi-rank-track,.mvi-mix-track){background:#303941!important}
+html[data-manipur-theme] .mvi-workbench :is(.mvi-rank-track>i,.mvi-mix-track>i){background:var(--t-accent)!important;box-shadow:none!important}
+html[data-manipur-theme] .mvi-workbench :is(.mvi-left,.mvi-right,.mvi-side) :is(.mvi-ranked,.mvi-trend-bars,.mvi-gauge-ring,.mvi-donut,.mvi-real-pie,.mvi-pie-visual,.mvi-pie-content){filter:grayscale(1) saturate(0) contrast(1.1)!important}
+html[data-manipur-theme] .mvi-workbench :is(.mvi-left,.mvi-right,.mvi-side) .mvi-card-title{color:var(--t-bright)!important}
+/* Timelines, actual measures and human stories share the dark terminal palette. */
+html[data-manipur-theme] .mi-view,html[data-manipur-theme] .hr-page{color:var(--t-bright)!important}
+html[data-manipur-theme] .mi-view :is(.mi-hero,.mi-card,.mi-record,.mi-quick-lead,.mi-source-status,.mi-leads,.mi-district-actions){background:var(--t-surface)!important;border-color:var(--t-line)!important;color:var(--t-bright)!important;box-shadow:none!important}
+html[data-manipur-theme] .mi-view :is(.mi-hero h1,.mi-card h3,.mi-record h3,.mi-district-actions h3){color:var(--t-bright)!important}
+html[data-manipur-theme] .mi-view :is(.mi-hero p,.mi-card p,.mi-record p,.mi-footer,.mi-quick-caption,.mi-source-status,.mi-leads,.mi-hero .mi-summary span){color:var(--t-soft)!important}
+html[data-manipur-theme] .mi-view :is(.mi-hero .mi-eyebrow,.mi-eyebrow,.mi-meta){color:var(--t-accent)!important}
+html[data-manipur-theme] .mi-view :is(.mi-controls input,.mi-controls select,.mi-controls button,.mi-action,.mi-actions button,.mi-actions a,.mi-chip,.mi-summary span,.mi-note){
+ background:var(--t-control)!important;border-color:var(--t-border)!important;color:var(--t-pale)!important;box-shadow:none!important}
+html[data-manipur-theme] .mi-view .mi-timeline:before{background:linear-gradient(var(--t-accent),#707e86)!important}
+html[data-manipur-theme] .mi-view .mi-time:before{background:var(--t-accent)!important;border-color:var(--t-line)!important;box-shadow:none!important}
+html[data-manipur-theme] .hr-page .hr-hero{background:linear-gradient(120deg,#0c141b,#1b252b 78%,#0a1015)!important;border:1px solid var(--t-line)!important;color:var(--t-bright)!important;box-shadow:none!important}
+html[data-manipur-theme] .hr-page .hr-hero :is(h1,p,span){color:var(--t-bright)!important}
+html[data-manipur-theme] .hr-page :is(.hr-toolbar,.hr-action,.hr-method,.hr-scale,.hr-caveat,.hr-district,.hr-story,.hr-empty){background:var(--t-surface)!important;color:var(--t-bright)!important;border-color:var(--t-line)!important;box-shadow:none!important}
+html[data-manipur-theme] .hr-page :is(.hr-toolbar input,.hr-toolbar select,.hr-toolbar button,.hr-go,.hr-links a,.hr-links button,.hr-tag){background:var(--t-control)!important;color:var(--t-pale)!important;border-color:var(--t-border)!important}
+html[data-manipur-theme] .hr-page :is(.hr-action h3,.hr-district h3,.hr-story strong){color:var(--t-bright)!important}
+html[data-manipur-theme] .hr-page :is(.hr-action p,.hr-scale,.hr-caveat,.hr-story p,.hr-district .hr-sub){color:var(--t-soft)!important}
+html[data-manipur-theme] .hr-page :is(.hr-kicker,.hr-scale b,.hr-action-head .hr-tag){color:var(--t-accent)!important}
+/* District officials remain factual and readable, not pale purple boxes. */
+html[data-manipur-theme] :is(.mv-person-evidence,.mv-statement-item,.mv-no-statement,.new-official-panel,.new-official,.new-mla-accordion,.new-mla-entry){
+ background:var(--t-surface)!important;border-color:var(--t-line)!important;color:var(--t-bright)!important;box-shadow:none!important}
+html[data-manipur-theme] :is(.mv-person-kicker,.mv-statement-meta,.new-official-header .eyebrow){color:var(--t-accent)!important}
+html[data-manipur-theme] :is(.mv-name-trigger,.mv-statement-source,.new-official-panel button){
+ background:var(--t-control)!important;border-color:var(--t-border)!important;color:var(--t-pale)!important}
+html[data-manipur-theme] :is(.new-official-panel a,.new-official-panel button,.mi-view a,.mvi-dossier a){color:var(--t-accent)!important}
+/* Only the geographic interior, including polygon heat shaders, remains neon. */
+html[data-manipur-theme] .mv-map{background:var(--t-surface)!important;border-color:var(--t-line)!important;box-shadow:none!important}
+html[data-manipur-theme] .mvi-workbench .mv-map{border-color:var(--t-line)!important;box-shadow:none!important}
+html[data-manipur-theme] .mv-map :is(.mv-head,.mv-bottom){background:var(--t-surface)!important;border-color:var(--t-line)!important;box-shadow:none!important}
+html[data-manipur-theme] .mv-map :is(.mv-head strong,.mv-kicker,.mv-head small,.mv-head-marker,.mv-time-output,.mv-zoom-readout,.mv-disclosure){color:var(--t-pale)!important}
+html[data-manipur-theme] .mv-map .mv-head-marker{background:var(--t-control)!important;border-color:var(--t-border)!important}
+html[data-manipur-theme] .mv-map .mv-head-marker i{background:var(--t-accent)!important;box-shadow:none!important}
+html[data-manipur-theme] .mv-map :is(.mv-head,.mv-bottom,.mv-controls) button{background:var(--t-control)!important;border-color:var(--t-border)!important;color:var(--t-pale)!important;box-shadow:none!important}
+html[data-manipur-theme] .mvi-workbench .mv-map .mv-mapstage{background:radial-gradient(ellipse at 50% 43%,#07583a,#041e20 59%,#020b0e 100%)!important;box-shadow:inset 0 0 60px #000a!important}
+html[data-manipur-theme] .new-evidence-map{background:radial-gradient(ellipse at 48% 43%,#0b4a30,#061d1d 59%,#020d0d)!important;border-color:#215a44!important}
+html[data-manipur-theme] .new-evidence-map :is(.map-district:hover,.map-district.selected){fill:#43f28a!important;stroke:#cbffe0!important;filter:drop-shadow(0 0 11px #22ff835b)!important}
+/* Public statement player: video remains unaltered; GREEN interface chrome replaced. */
+html[data-manipur-theme] .mn-voices-overlay{background:#010306ed!important;color:var(--t-bright)!important}
+html[data-manipur-theme] .mn-voices-card{background:var(--t-low)!important;border-color:var(--t-line)!important;box-shadow:0 20px 90px #000b!important}
+html[data-manipur-theme] .mn-voices-card :is(.mn-voices-pick,.mn-voices-player,.mn-voices-info){background:var(--t-surface)!important;border-color:var(--t-line)!important;color:var(--t-bright)!important}
+html[data-manipur-theme] .mn-voices-card :is(.mn-voices-head h2,.mn-voices-pick b,.mn-voices-player h3){color:var(--t-bright)!important}
+html[data-manipur-theme] .mn-voices-card :is(.mn-voices-head small,.mn-voices-pick small){color:var(--t-accent)!important}
+html[data-manipur-theme] .mn-voices-card :is(.mn-voices-head p,.mn-voices-pick span,.mn-voices-player p,.mn-voices-disclaimer){color:var(--t-soft)!important}
+html[data-manipur-theme] .mn-voices-card :is(button,.mn-voices-links a){background:var(--t-control)!important;border-color:var(--t-border)!important;color:var(--t-pale)!important;box-shadow:none!important}
+html[data-manipur-theme] .mn-voices-card .mn-voices-pick.selected{border-color:var(--t-accent)!important;box-shadow:inset 3px 0 var(--t-accent)!important}
+html[data-manipur-theme] .mn-voices-open,html[data-manipur-theme] .topbar #mn-open-voices{background:var(--t-control)!important;border-color:var(--t-border)!important;color:var(--t-pale)!important;box-shadow:none!important}
+/* Uploaded personal soundtrack toolbar (browser-local file, no distribution). */
+html[data-manipur-theme] .manipur-music{background:#10161dee!important;border-color:var(--t-border)!important;color:var(--t-bright)!important}
+html[data-manipur-theme] .manipur-music :is(button,label){background:var(--t-control)!important;border-color:var(--t-border)!important;color:var(--t-bright)!important}
+html[data-manipur-theme] .manipur-music :is(.music-title,.music-status,.music-sub){color:var(--t-soft)!important}
+html[data-manipur-theme] .manipur-music input[type=range]{accent-color:var(--t-accent)!important}
+/* Opening two pages are ALWAYS BLACK/SILVER, regardless of selected terminal theme.
+   All original orbit, glint, star, focus and flight animations are retained. */
+html[data-manipur-theme] .ci-gate{background:radial-gradient(ellipse 80% 65% at 48% 44%,#0c131e 0%,#05080d 44%,#010205 100%)!important;color:#edf2f6!important}
+html[data-manipur-theme] .ci-gate .ci-star{background:#f1f4f7!important;box-shadow:0 0 calc(var(--s,1px) * 7) #acbccb!important}
+html[data-manipur-theme] .ci-gate :is(.ci-title,.ci-accent,.ci-pretitle,.ci-line,.ci-thesis-copy){color:#e5ecf3!important}
+html[data-manipur-theme] .ci-dossier-backdrop .ci-dossier-grid{background:repeating-linear-gradient(0deg,transparent 0 35px,#bac7d52e 36px),repeating-linear-gradient(90deg,transparent 0 42px,#c1d0da27 43px)!important}
+html[data-manipur-theme] .ci-dossier-backdrop .ci-dossier-sheet{background:#1017229c!important;border-color:#abb7c67a!important;box-shadow:0 0 28px #9ea8b71c,inset 0 0 18px #d0d7e20b!important;color:#e3eaf0!important}
+html[data-manipur-theme] .ci-dossier-sheet :is(.ci-dossier-line,.ci-dossier-tag){color:#cbd6e0!important;text-shadow:none!important}
+html[data-manipur-theme] .ci-dossier-sheet b{color:#f0f2f6!important}
+html[data-manipur-theme] .ci-dossier-backdrop .ci-dossier-side{color:#9aa8b8!important}
+html[data-manipur-theme] .ci-gate #ci-s2 .ci-orbit-system .ci-orbit{border-color:#b8c3d377!important;box-shadow:0 0 12px #d3dce520,inset 0 0 11px #c1cbd521!important;filter:drop-shadow(0 0 6px #d0d9e52e)!important}
+html[data-manipur-theme] .ci-gate #ci-s2 .ci-orbit-system:before{background:radial-gradient(ellipse at center,#b7c7d114 0,transparent 45%)!important}
+html[data-manipur-theme] .ci-gate .ci-credits-card{background:#0e151e!important;color:#e2e8ec!important;border-color:#6b7c8a!important}
+/* One compact choice AFTER the cinematic gate, usable on iPad and desktop. */
+.manipur-theme-switch{display:flex;align-items:center;gap:6px;flex:0 0 auto;white-space:nowrap}
+.manipur-theme-switch label{font:8px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.11em;color:var(--t-soft)}
+.manipur-theme-switch select{min-height:30px;max-width:155px;padding:6px 8px;border-radius:5px;border:1px solid var(--t-border);background:var(--t-low);color:var(--t-pale);font:9px ui-monospace,SFMono-Regular,Menlo,monospace;cursor:pointer}
+.manipur-theme-switch select:focus-visible{outline:2px solid var(--t-accent);outline-offset:2px}
+@media(max-width:1250px){.manipur-theme-switch label{display:none}.manipur-theme-switch select{max-width:130px}}
+@media(max-width:850px){.manipur-theme-switch{position:fixed;z-index:160;right:12px;top:68px;background:#0b1117f5;padding:5px;border:1px solid var(--t-line);border-radius:7px;box-shadow:0 7px 18px #0008}.manipur-theme-switch select{max-width:145px}}
