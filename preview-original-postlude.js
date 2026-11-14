@@ -48,21 +48,55 @@ document.body.appendChild(coda);
 const $=id=>document.getElementById(id);
 let started=false,done=false,last=-1,raf=0,startAt=0,fxOn=true,fxTriggered={};
 let previousOverflow='';
-let audioReady=false;const sound={
-gun:null,child:null,
-init(){
- if(audioReady)return;audioReady=true;
- this.gun=new Audio("https://commons.wikimedia.org/wiki/Special:FilePath/Gunshots_8.ogg");this.gun.preload="auto";this.gun.volume=.15;
- this.child=new Audio("https://commons.wikimedia.org/wiki/Special:FilePath/Crying_newborn_baby.ogg");this.child.preload="auto";this.child.volume=.09;
-},
-play(name){
- if(!fxOn)return;this.init();
- const x=this[name];if(!x)return;
- try{x.currentTime=0;x.play().catch(()=>{});}catch(e){}
-},
-stop(){
- for(const x of [this.gun,this.child])if(x){try{x.pause();x.currentTime=0;}catch(e){}}
-}
+/* Only illustrative ambience, never the recorded sound of a Manipur incident.
+   CC0 / public-domain sources are linked in credits. Real reporting videos
+   remain muted; viewers may open their original sources to hear source audio. */
+const FX_SOURCES={
+ gun:{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Gunshots_8.ogg",volume:.30},
+ war:{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Dragout_-_War_sounds_%28cc0%29_%28freesound%29.ogg",volume:.19},
+ blast:{src:"https://commons.wikimedia.org/wiki/Special:FilePath/Explosions-LS100150.ogg",volume:.24},
+ crowd:{src:"https://sfxmint.com/dl/angry-crowd-02.mp3",volume:.125}
+};
+let audioReady=false;
+const sound={
+ assets:{},
+ init(){
+  if(audioReady)return; audioReady=true;
+  for(const [key,info] of Object.entries(FX_SOURCES)){
+   const audio=new Audio(info.src);
+   audio.preload="auto";audio.loop=false;audio.volume=info.volume;
+   audio.setAttribute("aria-label","Illustrative soundtrack effect");
+   this.assets[key]=audio;
+  }
+ },
+ play(name){
+  if(!fxOn)return;
+  this.init();
+  const x=this.assets[name];if(!x)return;
+  try{
+   x.pause();x.currentTime=0;
+   x.volume=FX_SOURCES[name].volume;
+   const p=x.play();if(p&&typeof p.catch==="function")p.catch(()=>{});
+  }catch(e){}
+ },
+ stop(){
+  for(const x of Object.values(this.assets)){
+   try{x.pause();x.currentTime=0;}catch(e){}
+  }
+ },
+ prime(){
+  // Called only on a real click on Explore, to unlock HTML audio when allowed.
+  this.init();
+  for(const x of Object.values(this.assets)){
+   try{
+    x.muted=true;
+    const p=x.play();
+    if(p&&typeof p.then==="function")p.then(()=>{x.pause();x.currentTime=0;x.muted=false;})
+       .catch(()=>{x.muted=false;});
+    else{x.pause();x.currentTime=0;x.muted=false;}
+   }catch(e){x.muted=false;}
+  }
+ }
 };
 let embedsPrepared=false;
 function loadEmbeds(){
@@ -88,10 +122,20 @@ function show(index){
   $("mp-coda-title").textContent=e.title;$("mp-coda-sub").textContent=e.text;
   $("mp-coda-credit").innerHTML='SOURCE: '+raw(e.publisher)+' · <a class="mp-coda-archive-link" href="'+e.url+'" target="_blank" rel="noopener noreferrer">VIEW ORIGINAL REPORT ↗</a>'+
   '<small class="mp-coda-archive-note">Archived publisher footage. Embedded streams are muted and may be blocked by the provider.</small>'+
-  (e.kind==="conflict"?'<small class="mp-coda-archive-note">Illustrative public-domain sound effects, not original Manipur incident audio.</small>':'');
+  (e.kind==="conflict"?'<small class="mp-coda-archive-note">ILLUSTRATIVE AUDIO — simulated firearm and blast effects and synthetic crowd shouting; NOT sound recorded during any Manipur incident. Open the publisher report for original audio.</small>':'');
  }
- if(e.key==="gunfire"&&!fxTriggered.gun){fxTriggered.gun=true;sound.play("gun");}
- if(e.key==="shelter"&&!fxTriggered.child){fxTriggered.child=true;sound.play("child");}
+ // The houses and gunfire scenes carry louder weapon and explosion effects,
+ // with a restrained, explicitly synthetic crowd-shouting layer.
+ // Crying infants are deliberately no longer used.
+ if(e.key==="homes"&&!fxTriggered.homes){
+  fxTriggered.homes=true;sound.play("crowd");sound.play("blast");
+ }
+ if(e.key==="gunfire"&&!fxTriggered.gunfire){
+  fxTriggered.gunfire=true;sound.play("gun");sound.play("war");
+ }
+ if(e.key==="shelter"&&!fxTriggered.shelter){
+  fxTriggered.shelter=true;sound.stop(); // leave displaced families' scene silent
+ }
  if(e.key==="dossier")sound.stop();
 }
 function exit(){
@@ -127,14 +171,7 @@ function start(){
 document.getElementById("ci-explore")?.addEventListener("click",function(){
  loadEmbeds();
  sound.init();
- [sound.gun,sound.child].forEach(x=>{
-  if(!x)return;
-  x.muted=true;
-  try{const p=x.play();
-   if(p&&typeof p.then==="function")p.then(()=>{x.pause();x.currentTime=0;x.muted=false;}).catch(()=>{x.muted=false;});
-   else{x.pause();x.currentTime=0;x.muted=false;}
-  }catch(e){x.muted=false;}
- });
+ sound.prime();
 });
 const monitor=new MutationObserver(function(mutations){
  for(const m of mutations){
@@ -153,7 +190,7 @@ if(card){
  const sec=document.createElement("section");
  sec.innerHTML='<h3>Global reporting and final sound effects</h3><p>These are dated, directly linked broadcaster reports, not live pictures from November 2026. Sound effects are illustrative and should not be mistaken for original incident recordings.</p><ol>'+
  shots.map(e=>'<li>'+raw(e.publisher)+' · '+raw(e.date)+' — <a href="'+e.url+'" target="_blank" rel="noopener noreferrer">'+raw(e.title)+'</a></li>').join("")+
- '</ol><p>Openly licensed illustration SFX: <a href="https://commons.wikimedia.org/wiki/File:Gunshots_8.ogg" target="_blank" rel="noopener noreferrer">gunshots (aradlaw, public domain)</a> and <a href="https://commons.wikimedia.org/wiki/File:Crying_newborn_baby.ogg" target="_blank" rel="noopener noreferrer">infant cry (the_yura, CC0)</a>.</p>';
+ '</ol><p>Sound design is illustrative, not original sound from Manipur violence. Public-domain/CC0 sources: <a href="https://commons.wikimedia.org/wiki/File:Gunshots_8.ogg" target="_blank" rel="noopener noreferrer">simulated gunshots (aradlaw, public domain)</a>; <a href="https://commons.wikimedia.org/wiki/File:Dragout_-_War_sounds_(cc0)_(freesound).ogg" target="_blank" rel="noopener noreferrer">simulated war sounds (Dragout, CC0)</a>; <a href="https://commons.wikimedia.org/wiki/File:Explosions-LS100150.ogg" target="_blank" rel="noopener noreferrer">festival explosions (Fg2, public domain)</a>; <a href="https://sfxmint.com/sounds/angry-crowd" target="_blank" rel="noopener noreferrer">AI-generated crowd shouting (SFXMint, CC0)</a>. Child-crying sound effects are not used.</p>';
  card.appendChild(sec);
 }
 })();
