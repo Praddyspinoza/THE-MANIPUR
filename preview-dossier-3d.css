@@ -1,0 +1,24 @@
+/* Original prologue additive forensic 3D overlays. No genuine CIA material is claimed.
+   Decorative code layers are inert; existing MANIPUR choices, typography and sound stay functional. */
+.ci-gate #ci-s1,.ci-gate #ci-s2{perspective:1100px}
+.ci-dossier-backdrop{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;perspective:1100px;isolation:isolate}
+.ci-dossier-backdrop .ci-dossier-grid{position:absolute;inset:-35%;opacity:.14;background:repeating-linear-gradient(0deg,transparent 0 35px,#82ffc650 36px),repeating-linear-gradient(90deg,transparent 0 42px,#bdf9d832 43px);transform:perspective(850px) rotateX(52deg) scale(1.4);animation:ci-dossier-scroll 12s linear infinite}
+.ci-dossier-backdrop .ci-dossier-sheet{position:absolute;left:50%;top:50%;width:min(92vw,880px);padding:18px 26px;border:1px solid #8bfab26b;background:#08241553;box-shadow:0 0 45px #26f6791a,inset 0 0 30px #17e7760f;color:#d9ffe7;text-align:left;transform-style:preserve-3d;opacity:0;animation:ci-dossier-surge var(--dur,5.3s) cubic-bezier(.18,.64,.26,1) infinite;animation-delay:var(--delay,0s)}
+.ci-dossier-sheet .ci-dossier-line{display:block;font:9px/1.85 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;color:#b6ffcc;text-shadow:0 0 12px #4aff9788}
+.ci-dossier-sheet b{display:block;font:500 clamp(14px,2vw,24px)/1.2 ui-monospace,Menlo,monospace;letter-spacing:.19em;color:#e7fff3;margin:8px 0}
+.ci-dossier-sheet .ci-dossier-tag{font:9px ui-monospace,monospace;letter-spacing:.2em;color:#8ff8b1}
+.ci-dossier-backdrop .ci-dossier-side{position:absolute;top:18%;left:3%;font:9px/1.7 ui-monospace,monospace;color:#78bd90;writing-mode:vertical-rl;letter-spacing:.16em}
+.ci-dossier-backdrop .ci-dossier-side.right{left:auto;right:3%;transform:rotate(180deg)}
+@keyframes ci-dossier-surge{0%{opacity:0;transform:translate(-50%,-50%) translateZ(-800px) scale(.34) rotateX(-25deg);filter:blur(8px)}18%{opacity:.31;filter:blur(2px)}44%{opacity:.43;transform:translate(-50%,-50%) translateZ(75px) scale(1.02) rotateX(0);filter:blur(0)}71%{opacity:.2;transform:translate(-50%,-50%) translateZ(235px) scale(1.18)}90%,100%{opacity:0;transform:translate(-50%,-50%) translateZ(700px) scale(1.7);filter:blur(11px)}}
+@keyframes ci-dossier-scroll{to{transform:perspective(850px) rotateX(52deg) scale(1.5) translateY(60px)}}
+.ci-gate #ci-s1>.ci-pretitle,.ci-gate #ci-s1>.ci-gate-h1,.ci-gate #ci-s1>.ci-main-choices,.ci-gate #ci-s1>.ci-microcopy{position:relative;z-index:3}
+.ci-gate #ci-s2>.ci-dossier-backdrop{z-index:1;opacity:.64}
+.ci-gate #ci-s2>.ci-orbit-system{z-index:1;opacity:1!important;pointer-events:none}
+.ci-gate #ci-s2>.ci-pretitle,.ci-gate #ci-s2>.ci-thesis,.ci-gate #ci-s2>.ci-explore{position:relative;z-index:3}
+.ci-gate #ci-s2 .ci-orbit-system .ci-orbit{opacity:.91!important;border-width:2px!important;box-shadow:0 0 12px #42ff9c66,inset 0 0 11px #40ff9c38!important;filter:drop-shadow(0 0 7px #40ff9c5b)!important}
+.ci-gate #ci-s2 .ci-orbit-system .ci-orbit:nth-child(2){animation-duration:7.5s!important}
+.ci-gate #ci-s2 .ci-orbit-system .ci-orbit:nth-child(3){animation-duration:11s!important}
+.ci-gate #ci-s2 .ci-orbit-system .ci-orbit:nth-child(4){animation-duration:9s!important}
+.ci-gate #ci-s2 .ci-orbit-system:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,#3cffa019 0,transparent 45%);filter:blur(5px)}
+@media(max-width:680px){.ci-dossier-backdrop .ci-dossier-sheet{padding:12px}.ci-dossier-sheet .ci-dossier-line{font-size:6.5px}.ci-dossier-backdrop .ci-dossier-side{display:none}.ci-gate #ci-s2>.ci-orbit-system{opacity:.65!important}}
+@media(prefers-reduced-motion:reduce){.ci-dossier-backdrop *, .ci-gate #ci-s2 .ci-orbit-system .ci-orbit{animation:none!important}.ci-dossier-backdrop .ci-dossier-sheet:first-of-type{opacity:.15!important}}
