@@ -30,8 +30,8 @@ function applyUI(){
  play.textContent=audio.paused?"▶":"Ⅱ";
  play.setAttribute("aria-label",audio.paused?"Play soundtrack":"Pause soundtrack");
 }
-function terminalShown(){return !document.getElementById("ci-gate")&&!document.getElementById("mp-coda");}
-function maybeShow(){const visible=terminalShown();music.hidden=!visible;if(visible&&chosen&&audio.paused){wanted=true;tryPlay();}}
+function terminalShown(){const gate=document.getElementById("ci-gate"),coda=document.getElementById("mp-coda");return (!gate||!gate.isConnected)&&(!coda||!coda.isConnected||coda.hidden);}
+function maybeShow(){const visible=terminalShown();music.hidden=!visible;if(visible&&chosen&&wanted&&audio.paused)tryPlay();}
 function tryPlay(){
  if(!terminalShown()||!chosen)return;
  const result=audio.play();if(result&&typeof result.then==="function"){result.then(()=>{wanted=true;applyUI();showState("Playing local soundtrack · loop enabled · no server upload")})
@@ -81,10 +81,11 @@ music.querySelector('label[for="ms-file"]').addEventListener("keydown",e=>{
  if(e.key==="Enter"||e.key===" "){e.preventDefault();el("ms-file").click();}
 });
 audio.addEventListener("play",applyUI);audio.addEventListener("pause",applyUI);
-document.addEventListener("click",()=>{if(chosen&&audio.paused){wanted=true;if(terminalShown())tryPlay();}},true);
+document.addEventListener("click",e=>{if(e.target.closest("#ms-play,#ms-remove,#ms-file,#manipur-personal-music"))return;if(chosen&&audio.paused&&wanted&&terminalShown())tryPlay();},false);
 const monitor=new MutationObserver(maybeShow);
 monitor.observe(document.body,{childList:true,subtree:false});
 window.addEventListener("pageshow",maybeShow);
+window.addEventListener("hashchange",maybeShow);
 openDatabase();
 maybeShow();
 window.MANIPUR_LOCAL_AUDIO={get hasFile(){return !!chosen},get playing(){return !audio.paused},get fileName(){return chosen?.name||null},play:tryPlay,pause(){audio.pause();wanted=false;},remove:remove};
