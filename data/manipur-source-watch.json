@@ -1,0 +1,23 @@
+{
+  "status": "not_started",
+  "last_checked_utc": null,
+  "items": [
+    {
+      "title": "Four civilians reportedly killed in Ukhrul New Heaven ambush",
+      "source": "ThePrint",
+      "published_at": "2026-11-13T11:00:00Z",
+      "category": "Manually checked seed — not a live RSS result",
+      "url": "https://theprint.in/india/4-nagas-killed-in-suspected-militant-attack-on-two-vehicles-in-manipurs-ukhrul/3098009/",
+      "review_status": "manual_seed"
+    },
+    {
+      "title": "Woman killed and others injured in Senapati–Kangpokpi border violence",
+      "source": "ThePrint / PTI",
+      "published_at": "2026-11-12T11:00:00Z",
+      "category": "Manually checked seed — not a live RSS result",
+      "url": "https://theprint.in/india/1-killed-3-injured-in-separate-kuki-naga-clashes-as-violence-continues-in-manipur/3097275/",
+      "review_status": "manual_seed"
+    }
+  ],
+  "note": "Pre-automation seed of manually checked reporting links, published 12–13 November 2026. These are not live data. Scheduled RSS ingestion has not yet completed; check the last checked timestamp before treating the feed as recent."
+}
