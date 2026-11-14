@@ -38,10 +38,25 @@ let playing=false,prepared=false,sceneNo=-1,request=0;
 function preparedFrames(){
  if(prepared)return;
  prepared=true;
- box.querySelectorAll("iframe[data-fm-vid]").forEach((frame,i)=>{
-   let id=segments[i].id;
-   frame.src="https://www.youtube-nocookie.com/embed/"+id+"?autoplay=1&mute=1&controls=0&playsinline=1&loop=1&playlist="+id+"&rel=0&modestbranding=1&start="+(segments[i].start||0);
- });
+ // One live player at a time: seven simultaneous 1080p embeds can starve iPad
+ // memory and network bandwidth, leaving all frames blank. The original
+ // publisher thumbnail remains visible beneath each player as a fallback.
+}
+let liveFrame=-1;
+function activateFrame(index){
+ if(index===liveFrame)return;
+ if(liveFrame>=0){
+  const previous=box.querySelectorAll("iframe[data-fm-vid]")[liveFrame];
+  if(previous)previous.removeAttribute("src");
+ }
+ liveFrame=index;
+ if(index<0)return;
+ const frame=box.querySelectorAll("iframe[data-fm-vid]")[index];
+ if(!frame)return;
+ const item=segments[index];
+ frame.src="https://www.youtube-nocookie.com/embed/"+item.id+
+  "?autoplay=1&mute=1&controls=0&playsinline=1&loop=1&playlist="+item.id+
+  "&rel=0&modestbranding=1&start="+(item.start||0);
 }
 function show(idx){
  if(idx===sceneNo)return;
@@ -49,6 +64,7 @@ function show(idx){
  const active=idx>=0;
  film.classList.toggle("fm-active",active);
  box.querySelectorAll(".fm-cell").forEach((e,k)=>e.classList.toggle("active",k===idx));
+ activateFrame(idx);
  if(active){const s=segments[idx];document.getElementById("fm-over").textContent=s.kind;
  document.getElementById("fm-headline").textContent=s.title;
  document.getElementById("fm-detail").textContent=s.detail;
