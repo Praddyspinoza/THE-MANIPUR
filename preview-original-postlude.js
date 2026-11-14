@@ -64,7 +64,10 @@ stop(){
  for(const x of [this.gun,this.child])if(x){try{x.pause();x.currentTime=0;}catch(e){}}
 }
 };
+let embedsPrepared=false;
 function loadEmbeds(){
+ if(embedsPrepared)return;
+ embedsPrepared=true;
  const frames=coda.querySelectorAll(".mp-coda-shot iframe");
  frames.forEach((n,i)=>{
   const e=shots[i];
@@ -122,6 +125,7 @@ function start(){
 /* Prepare CC0 sound cues under the existing Explore-button gesture.
    Keep them muted and paused until the final archival scenes. */
 document.getElementById("ci-explore")?.addEventListener("click",function(){
+ loadEmbeds();
  sound.init();
  [sound.gun,sound.child].forEach(x=>{
   if(!x)return;
