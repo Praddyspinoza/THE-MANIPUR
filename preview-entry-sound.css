@@ -125,3 +125,32 @@ html[data-manipur-theme] body .ci-gate #ci-s1 .ci-main-choices button.ci-line.ci
  .manipur-entry-frame{padding:30px 20px}
  .manipur-entry-actions button{font-size:10px}
 }
+
+/* Source markup now uses plain .ci-line (no .ci-chrome).
+   Force transparent, legible first-page text even under the global theme rules. */
+html[data-manipur-theme] body .ci-gate #ci-s1 .ci-main-choices > button.ci-line[data-ci-enter]{
+ background:none!important;
+ background-color:transparent!important;
+ background-image:none!important;
+ -webkit-background-clip:border-box!important;
+ background-clip:border-box!important;
+ -webkit-text-fill-color:#fff!important;
+ color:#fff!important;
+ border:0!important;
+ box-shadow:none!important;
+ border-radius:0!important;
+ opacity:1!important;
+ filter:none!important;
+ text-shadow:0 2px 8px #000,0 0 16px #000!important;
+ animation:none!important;
+ font:italic 400 clamp(21px,3.2vw,42px)/1.3 Georgia,"Times New Roman",serif!important;
+ padding:8px 12px!important;
+ max-width:min(94vw,980px)!important;
+ white-space:normal!important;
+ text-align:center!important;
+}
+@media(max-width:680px){
+ html[data-manipur-theme] body .ci-gate #ci-s1 .ci-main-choices > button.ci-line[data-ci-enter]{
+  font-size:clamp(19px,5vw,29px)!important;
+ }
+}
