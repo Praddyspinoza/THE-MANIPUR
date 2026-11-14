@@ -214,6 +214,7 @@ function renderFeed(){
 const baseMapAnalyticsRefresh=window.MANIPUR_ANALYTICS_REFRESH;
 if(typeof baseMapAnalyticsRefresh==='function')window.MANIPUR_ANALYTICS_REFRESH=function(){baseMapAnalyticsRefresh();updateMapQuick();};
 setInterval(()=>{if(document.hidden)return;if(state.tab==="watch")checkFeed();else if(["overview","atlas"].includes(state.tab)){feedData=null;updateMapQuick();}},120000);
+window.MANIPUR_RESEARCH_MEASURES=measures;window.MANIPUR_RESEARCH_NATIONAL=national;window.MANIPUR_RESEARCH_STORIES=stories;
 window.MANIPUR_RESEARCH_EXT={responseCount:measures.length,storyCount:stories.length,addendumEventCount:EVENTS.filter(x=>['E65','E66','E67'].includes(x.id)).length,tabs:tabs.map(x=>x[0])};
 route();
 })();
