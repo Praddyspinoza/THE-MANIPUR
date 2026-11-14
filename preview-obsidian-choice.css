@@ -284,3 +284,9 @@ html[data-manipur-theme="ivory"] body .mv-map .mv-mapstage,html[data-manipur-the
 html[data-manipur-theme="ivory"] .manipur-theme-switch select{
  color:#694f2d!important;background:#fffaf2!important;border-color:#c9b89c!important
 }
+
+html[data-manipur-theme] .mi-watch-facets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}
+html[data-manipur-theme] .mi-watch-facets span{display:block;background:var(--t-control);border:1px solid var(--t-border);border-radius:6px;padding:9px;font-size:11px;color:var(--t-bright)}
+html[data-manipur-theme] .mi-watch-facets b{display:block;font:8px/1.6 ui-monospace,monospace;color:var(--t-accent);margin-bottom:4px}
+html[data-manipur-theme] .mi-watch-caution{font-size:10px!important;color:var(--t-soft)!important}
+@media(max-width:740px){html[data-manipur-theme] .mi-watch-facets{grid-template-columns:1fr}}
