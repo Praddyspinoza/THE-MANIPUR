@@ -47,6 +47,7 @@ coda.innerHTML='<div class="mp-coda-media">'+shots.map((e,i)=>'<div class="mp-co
 document.body.appendChild(coda);
 const $=id=>document.getElementById(id);
 let started=false,done=false,last=-1,raf=0,startAt=0,fxOn=true,fxTriggered={};
+let previousOverflow='';
 let audioReady=false;const sound={
 gun:null,child:null,
 init(){
@@ -91,7 +92,7 @@ function show(index){
  if(e.key==="dossier")sound.stop();
 }
 function exit(){
- if(done)return;done=true;cancelAnimationFrame(raf);sound.stop();
+ if(done)return;done=true;cancelAnimationFrame(raf);sound.stop();document.body.style.overflow=previousOverflow;
  coda.querySelectorAll("iframe").forEach(n=>{try{n.src="about:blank";}catch(e){}});
  coda.remove();window.MANIPUR_POSTLUDE={finished:true,played:started,sources:shots.map(e=>({publisher:e.publisher,date:e.date,url:e.url}))};
 }
@@ -107,7 +108,7 @@ function step(now){
 }
 function start(){
  if(started||done)return;
- started=true;coda.hidden=false;
+ started=true;coda.hidden=false;previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
  loadEmbeds();sound.init();
  $("mp-coda-skip").addEventListener("click",exit,{once:true});
  $("mp-coda-fx").addEventListener("click",()=>{
