@@ -4,7 +4,7 @@ if(typeof document==="undefined"||document.getElementById("ci-gate"))return;
 if(new URLSearchParams(location.search).get("intro")==="0")return;
 const photos=[
 ["4 Loktak lake Manipur India.jpg","ch_15march","CC BY 2.0"],
-["Sangai Brow-antlered Deer Rucervus eldii eldii Manipur by Dr. Raju Kasambe (1).jpg","Dr Raju Kasambe","Wikimedia Commons; check source license"],
+["Sangai Brow-antlered Deer Rucervus eldii eldii Manipur by Dr. Raju Kasambe (1).jpg","Dr Raju Kasambe (Manipur Zoological Garden)","CC BY-SA 4.0"],
 ["Lake atop Phangrei hill (50100576178).jpg","shankar s.","CC BY 2.0"],
 ["Ima Market, imphal.jpeg","PP Yoonus","CC BY-SA 3.0"],
 ["City of Imphal.jpg","Ritezh Thoudam","CC BY-SA 3.0"],
