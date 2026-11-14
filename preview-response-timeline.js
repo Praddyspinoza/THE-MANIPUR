@@ -144,6 +144,12 @@ function quickLeadHTML(items){
  }).join('');
 }
 function updateMapQuick(){
+ const host=document.querySelector('.mvi-workbench');
+ if(host&&!host.querySelector('.mi-map-shortcuts')){
+  const shortcuts=document.createElement('div');shortcuts.className='mi-map-shortcuts';
+  shortcuts.innerHTML='<button data-nav="timeline">◷ Violence timeline</button><button data-nav="stories">♡ Human stories</button><button data-nav="watch">◉ Current source watch</button>';
+  host.querySelector('.mvi-main-grid')?.insertAdjacentElement('beforebegin',shortcuts);
+ }
  const right=document.querySelector('.mvi-workbench .mvi-right');
  if(!right)return;
  let node=right.querySelector('.mi-live-card');
@@ -204,6 +210,8 @@ function renderFeed(){
  const filtered=(d.items||[]).filter(x=>!view.watch.q||[x.title,x.source,x.category].join(" ").toLowerCase().includes(view.watch.q.toLowerCase())).slice(0,120);
  list.innerHTML=filtered.map(x=>`<article class="mi-record"><div class="mi-meta">${htmlSafe(x.source||"Publisher unspecified")} · ${fmt(x.published_at||"")} <span class="mi-chip unverified">UNVERIFIED HEADLINE</span></div><h3>${htmlSafe(x.title)}</h3><p>${htmlSafe(x.category||"News search lead")}</p><div class="mi-actions">${safeUrl(x.url)?`<a target="_blank" rel="noopener noreferrer" href="${htmlSafe(x.url)}">Inspect publisher / RSS listing ↗</a>`:""}</div></article>`).join("")||'<div class="mi-empty">No headlines match or no feed is available. This does not establish that no new incidents occurred.</div>';
 }
+const baseMapAnalyticsRefresh=window.MANIPUR_ANALYTICS_REFRESH;
+if(typeof baseMapAnalyticsRefresh==='function')window.MANIPUR_ANALYTICS_REFRESH=function(){baseMapAnalyticsRefresh();updateMapQuick();};
 setInterval(()=>{if(document.hidden)return;if(state.tab==="watch")checkFeed();else if(["overview","atlas"].includes(state.tab)){feedData=null;updateMapQuick();}},120000);
 window.MANIPUR_RESEARCH_EXT={responseCount:measures.length,storyCount:stories.length,addendumEventCount:EVENTS.filter(x=>['E65','E66','E67'].includes(x.id)).length,tabs:tabs.map(x=>x[0])};
 route();
