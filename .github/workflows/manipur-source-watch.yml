@@ -1,0 +1,40 @@
+name: Manipur public reporting watch
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "7,37 * * * *"
+permissions:
+  contents: write
+concurrency:
+  group: manipur-public-reporting-watch
+  cancel-in-progress: false
+jobs:
+  scan-public-rss:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Discover public reporting without automatic incident classification
+        id: collect
+        continue-on-error: true
+        run: python3 scripts/update_manipur_source_watch.py
+      - name: Commit feed status and discovered publisher links
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/manipur-source-watch.json
+          if git diff --cached --quiet; then
+            echo "No change to source watch."
+          else
+            git commit -m "Update Manipur reporting discovery snapshot"
+            git push
+          fi
+      - name: Report degraded upstream service
+        if: steps.collect.outcome == 'failure'
+        run: |
+          echo "::warning::Some or all upstream RSS discovery endpoints failed. Dashboard must label cached feed stale."
