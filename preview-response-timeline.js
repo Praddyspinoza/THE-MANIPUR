@@ -245,11 +245,28 @@ route();
   if(!top)return;
   const b=document.createElement("button");b.id="manipur-live-top";b.type="button";b.textContent="◉ LIVE TRACKER";b.setAttribute("aria-label","Open live reporting tracker");
   b.style.cssText="border:1px solid #a58b5f;background:#171a1c;color:#d8c08f;border-radius:5px;padding:8px 10px;font:10px ui-monospace,monospace;letter-spacing:.06em;cursor:pointer;flex-shrink:0";
-  b.onclick=()=>{location.hash="watch";if(typeof route==="function")route();};
+  b.onclick=()=>{location.hash="watch";};
   top.appendChild(b);
  }
  document.addEventListener("DOMContentLoaded",mountLiveAccess);
  if(document.readyState!=="loading")mountLiveAccess();
  const observer=new MutationObserver(mountLiveAccess);
  observer.observe(document.body,{childList:true,subtree:false});
+})();
+
+/* Persistent opening-page entry, visible independently of the sidebar. */
+(function(){
+ function install(){
+  if(document.getElementById("manipur-live-entry"))return;
+  const b=document.createElement("button");
+  b.id="manipur-live-entry";b.type="button";
+  b.innerHTML='<strong>◉ LIVE TRACKER</strong><small>REPORTS · DISTRICTS · RESPONSES</small>';
+  b.style.cssText="position:fixed;right:12px;bottom:12px;z-index:9200;display:flex;flex-direction:column;gap:3px;align-items:flex-start;padding:12px 14px;background:#11161c;color:#e1c99c;border:1px solid #8b7656;border-radius:9px;box-shadow:0 7px 28px #000a;cursor:pointer;font:10px ui-monospace,monospace;letter-spacing:.09em";
+  b.querySelector("small").style.cssText="font-size:8px;color:#c7c0b4";
+  b.onclick=()=>{location.hash="watch";};
+  document.body.appendChild(b);
+  const update=()=>{const gate=document.getElementById("ci-gate"),coda=document.getElementById("mp-coda");b.hidden=!!(gate&&gate.isConnected)||!!(coda&&coda.isConnected&&!coda.hidden);};
+  new MutationObserver(update).observe(document.body,{childList:true,subtree:false});update();
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",install);else install();
 })();
