@@ -145,3 +145,8 @@ body.ci-locked{overflow:hidden!important}
 #workspace .ci-report .ci-report-links{display:flex;gap:7px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
 #workspace .ci-report .ci-report-links a,#workspace .ci-report .ci-report-links button{padding:7px 10px;background:#f1eaf6;border:1px solid #e1d6ed;border-radius:6px;font-size:10px;color:#6c5280}
 @media(max-width:650px){#workspace .ci-report-grid{grid-template-columns:1fr}#workspace .ci-report-shelf{padding:14px}}
+
+/* Keep film controls unambiguous and place the last line above all tinted layers. */
+.ci-gate:has(.ci-film.active)>.ci-top{opacity:0;pointer-events:none}
+.ci-gate .ci-film-final{z-index:6}
+.ci-gate .ci-film.dark .ci-film-visual{background:#000}
