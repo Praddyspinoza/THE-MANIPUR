@@ -18,9 +18,9 @@ const entries=[
 {from:4.36,to:5.24,key:"homes",kind:"conflict",provider:"youtube",video:"ge9ReWg_Poc",publisher:"NDTV",date:"15 JUN 2023",title:"Homes set on fire.",text:"Published coverage of house fires and protests in Imphal.",url:"https://www.youtube.com/watch?v=ge9ReWg_Poc"},
 {from:5.24,to:6.12,key:"gunfire",kind:"conflict",provider:"youtube",video:"6XwwSFCOgLk",publisher:"NDTV",date:"26 JUL 2023",title:"Gunfire, fear and displacement.",text:"A published nighttime ground report from the conflict zone.",url:"https://www.youtube.com/watch?v=6XwwSFCOgLk"},
 {from:6.12,to:7.10,key:"shelter",kind:"conflict",provider:"youtube",video:"deHnJ5DoOMw",publisher:"BBC News India",date:"23 MAY 2026",title:"Families in temporary shelter.",text:"BBC reporting on displaced civilians; audio effects are illustrative.",url:"https://www.youtube.com/watch?v=deHnJ5DoOMw"},
-{from:7.10,to:8.90,key:"dossier",kind:"code"}
+{from:7.10,to:10.40,key:"dossier",kind:"code"}
 ];
-const filmDuration=8.90;
+const filmDuration=10.40;
 const raw=x=>String(x==null?"":x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const shots=entries.filter(e=>e.kind!=="code");
 const coda=document.createElement("section");coda.id="mp-coda";coda.className="mp-coda";coda.hidden=true;
