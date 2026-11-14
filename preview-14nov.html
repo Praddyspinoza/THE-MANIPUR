@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>MANIPUR | Obsidian Intelligence Terminal — 14 November Review</title>
+<meta name="description" content="Unlisted review edition of the existing Manipur conflict intelligence terminal, with a cinematic opening and map-only green heat visualisation. Historical source-linked research, not a real-time violence count.">
+<style>
+:root{--void:#050408;--chrome:#e4e4e9;--silver:#9da1ae;--purple:#867c96}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;background:var(--void);color:var(--chrome);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow:hidden}
+button,a{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:focus-visible,a:focus-visible{outline:2px solid #c2a9ce;outline-offset:3px}a{color:#d4bce2}
+#terminalFrame{position:absolute;inset:0;width:100%;height:100%;border:0;background:#0f0d15;display:block}
+#veil{position:fixed;inset:0;z-index:80;background:radial-gradient(ellipse at 52% 39%,#1c1b2b 0,#080910 47%,#010103 100%);overflow:hidden;transition:opacity .9s ease,visibility .9s ease}
+#veil.done{opacity:0;visibility:hidden;pointer-events:none}
+#veil::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.4;background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,#b8b6c106 4px);z-index:30}
+#veil::after{content:"";position:absolute;inset:-60%;background:conic-gradient(from 30deg,transparent 12%,#c0a0de0b 20%,transparent 33%,#b0bed008 44%,transparent 55%);animation:orbit 30s linear infinite;pointer-events:none}
+@keyframes orbit{to{transform:rotate(360deg)}}@keyframes blink{50%{opacity:.3}}
+@keyframes shine{to{background-position:230% 0}}
+@keyframes comeForward{0%{opacity:0;filter:blur(12px);transform:translate3d(0,18px,-600px) rotateX(-32deg) scale(.76)}55%{opacity:1;filter:blur(0);transform:translate3d(0,0,90px) rotateX(3deg) scale(1.08)}100%{opacity:1;transform:translate3d(0,0,0) rotateX(0) scale(1)}}
+@keyframes collapse{0%{opacity:1;transform:translateZ(0) scale(1)}80%{opacity:.75;transform:translateZ(260px) scale(1.8);filter:blur(1px)}100%{opacity:0;transform:translateZ(-800px) scale(.06);filter:blur(20px)}}
+@keyframes scan{0%{transform:translateY(-110%)}100%{transform:translateY(110%)}}
+@keyframes flicker{0%,91%,100%{opacity:1}93%,97%{opacity:.58}}
+@keyframes floating{0%,100%{transform:translateY(0) rotateX(0)}50%{transform:translateY(-8px) rotateX(1deg)}}
+@keyframes jump{0%,100%{transform:translateX(0)}48%{transform:translateX(-5px)}50%{transform:translateX(8px)}54%{transform:translateX(-3px)}}
+@keyframes advance{from{width:0}to{width:100%}}
+.chrome{background:linear-gradient(111deg,#7b7785 0%,#fefcfd 18%,#a7a3b1 29%,#ffffff 41%,#8f8a96 52%,#dedde8 67%,#8d7f95 82%,#e9e8ee 95%);background-size:230% auto;background-clip:text;-webkit-background-clip:text;color:transparent;animation:shine 9s linear infinite}
+.mono{font:10px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.23em;text-transform:uppercase}
+#gateTop{position:absolute;top:clamp(18px,4vh,40px);left:clamp(22px,4vw,75px);right:clamp(22px,4vw,75px);z-index:35;display:flex;justify-content:space-between;align-items:center;gap:20px}
+#gateTop .signature{display:flex;align-items:center;gap:13px;color:#c5c2cc}
+#gateTop .signature b{font:italic 30px Georgia,serif;width:40px;height:40px;border:1px solid #a7a1b361;display:grid;place-items:center;border-radius:50%}
+#gateTop .signature small{font-size:8px;color:#838393;letter-spacing:.2em;display:block;margin-top:3px}
+#gateTop button,#credits button,#reviewBar button{background:#15121b;border:1px solid #716879;color:#e4dce8;border-radius:5px;padding:10px 13px;font:10px ui-monospace,monospace;letter-spacing:.1em}
+#gateTop button:hover,#reviewBar button:hover{background:#38303e}
+.screen{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:112px 26px 90px;transition:opacity .6s ease,transform .8s ease;opacity:1;visibility:visible}
+.screen[hidden]{display:none!important}
+#firstScreen h1{font:400 clamp(54px,10vw,155px)/1 Georgia,serif;letter-spacing:-.085em;margin:0 0 30px;text-shadow:0 5px 32px #ffffff18;animation:floating 7s ease-in-out infinite}
+.kicker{color:#c0bac9;margin:0 0 29px}
+#firstScreen .options{display:flex;flex-direction:column;gap:16px}
+#firstScreen .options button{border:0;border-bottom:1px solid #a69bb440;background:transparent;color:#eee8ee;padding:8px 20px;font:italic clamp(20px,3vw,39px)/1.35 Georgia,serif;transition:border-color .25s,color .25s}
+#firstScreen .options button:hover{color:#fff;border-color:#eee}
+.micro{color:#8c8595;margin-top:34px}
+#secondScreen{perspective:1150px}
+#secondScreen h2{font:400 clamp(38px,6.3vw,92px)/1.1 Georgia,serif;letter-spacing:-.059em;max-width:1140px;margin:0 auto;text-wrap:balance}
+#secondScreen h3{font:italic 400 clamp(23px,3.25vw,49px)/1.3 Georgia,serif;letter-spacing:-.02em;margin:21px auto 0;color:#e8ddeb}
+.words{display:flex;flex-wrap:wrap;justify-content:center;gap:.2em .25em;perspective:1150px;transform-style:preserve-3d}
+.word{display:inline-block;opacity:0;transform-style:preserve-3d;animation:comeForward 1.45s cubic-bezier(.13,.74,.15,1) forwards;animation-delay:calc(var(--i)*125ms)}
+#secondScreen.compress .word{animation:collapse .62s ease-in forwards!important;animation-delay:calc(var(--i)*45ms)!important}
+#startFilm{margin-top:49px;border:1px solid #a79bac;background:#332a3a50;color:#ece5f1;padding:17px 28px;font:11px ui-monospace,monospace;letter-spacing:.19em;text-transform:uppercase;box-shadow:0 0 40px #9e819b1a}
+#startFilm:hover{background:#493a4f}
+#film{position:absolute;inset:0;z-index:20;display:none;isolation:isolate;overflow:hidden;background:#020205}
+#film.running{display:block}
+#filmVisual,#filmData,#filmGrain,#filmScan{position:absolute;inset:0}
+#filmVisual{background:radial-gradient(ellipse at 50% 51%,#2f3045 0,#0b0e1d 48%,#000 100%);transition:background .4s}
+#filmVisual::before{content:"";position:absolute;inset:-20%;background:repeating-linear-gradient(90deg,transparent 0,transparent 54px,#c8c4d414 55px,transparent 56px),repeating-linear-gradient(0deg,transparent 0,transparent 42px,#c8c4d415 43px,transparent 44px);transform:perspective(420px) rotateX(36deg) scale(1.5);filter:blur(.3px);animation:floating 6s ease-in-out infinite}
+#filmVisual::after{content:"";position:absolute;inset:-40%;background:radial-gradient(ellipse at center,#bbb0d013,transparent 45%);animation:orbit 21s linear infinite}
+#filmData{z-index:4;pointer-events:none}
+#filmData .codes{position:absolute;top:19%;left:9%;width:45%;max-width:620px;white-space:pre-wrap;line-height:2;font:10px ui-monospace,monospace;color:#c7bdcf94;letter-spacing:.13em;text-shadow:0 0 5px #d6cae633}
+#filmData .stamped{position:absolute;right:9%;top:32%;padding:17px 26px;border:3px double #cbb3c6aa;color:#e9d7e6b8;font:bold clamp(20px,3vw,43px) ui-monospace,monospace;letter-spacing:.18em;transform:rotate(-11deg);text-shadow:0 0 18px #fffe}
+#filmData .guide{position:absolute;right:10%;bottom:19%;font:10px ui-monospace,monospace;letter-spacing:.2em;color:#d1bdcd85;text-align:right}
+#filmGrain{z-index:25;pointer-events:none;opacity:.28;background:repeating-linear-gradient(0deg,#d6dee908 0 1px,transparent 1px 3px),repeating-linear-gradient(90deg,transparent 0 7px,#eee8e808 8px 9px);animation:flicker .3s steps(2) infinite}
+#filmScan{z-index:24;pointer-events:none;opacity:.6;background:linear-gradient(180deg,transparent 0,#e8e0f508 48%,#ece4f714 49%,transparent 51%);height:60%;animation:scan 2.8s linear infinite}
+#filmScene{position:absolute;left:clamp(24px,7vw,110px);bottom:clamp(100px,20vh,190px);z-index:29;max-width:min(980px,85vw);text-shadow:0 2px 25px #000}
+#filmScene small{font:11px ui-monospace,monospace;letter-spacing:.24em;color:#cbb9d0}
+#filmScene h2{font:400 clamp(33px,5.5vw,78px)/1.05 Georgia,serif;letter-spacing:-.04em;margin:15px 0 16px;color:#f2edf6}
+#filmScene p{font:12px ui-monospace,monospace;letter-spacing:.05em;line-height:1.6;color:#c6b9cd;max-width:700px}
+#filmTop{position:absolute;z-index:31;top:clamp(82px,11vh,130px);left:clamp(24px,7vw,110px);right:clamp(24px,7vw,110px);display:flex;justify-content:space-between;gap:12px;align-items:center;color:#bcb3c5}
+#filmTop button{color:#e1d6e8;background:#2a202fab;border:1px solid #8e7c93;border-radius:4px;padding:9px 13px;font:10px ui-monospace,monospace;letter-spacing:.08em}
+#filmProgress{position:absolute;z-index:45;bottom:0;left:0;width:100%;height:3px;background:#ffffff30}
+#filmProgress>span{display:block;height:100%;width:0;background:linear-gradient(90deg,#70627f,#d8cedf,#fefaff)}
+#film[data-phase="headlines"] #filmVisual{background:radial-gradient(ellipse at 48% 50%,#4c3a44,#120e15 57%,#000)}
+#film[data-phase="intercept"] #filmVisual{background:radial-gradient(ellipse at 35% 60%,#222e3b,#0a1017 50%,#000)}
+#film[data-phase="displacement"] #filmVisual{background:radial-gradient(ellipse at 55% 41%,#534037,#11101c 58%,#010102)}
+#film[data-phase="displacement"] #filmData .stamped{transform:rotate(-13deg) scale(1.2)}
+#film[data-phase="fracture"] #filmVisual{background:radial-gradient(ellipse at 50% 44%,#352333,#0f0d19 51%,#000)}
+#film[data-phase="fracture"] #filmData .codes{animation:jump .35s steps(2) infinite}
+#film[data-phase="report"] #filmVisual{background:#050405}
+#realReport{position:absolute;inset:0;z-index:18;display:none;background:#050405}
+#realReport iframe{width:100%;height:100%;border:0;opacity:.92;filter:grayscale(.6) contrast(1.16);pointer-events:none}
+#realReport:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#010103b9,transparent 68%),linear-gradient(0deg,#0009,transparent 50%);pointer-events:none}
+#realSource{position:absolute;bottom:65px;left:clamp(24px,7vw,110px);z-index:32;display:none;font:10px ui-monospace,monospace;letter-spacing:.12em;color:#f0e5ef}
+#realSource a{color:#ede0f3;text-decoration:underline;text-underline-offset:4px}
+#film[data-phase="report"] #realReport,#film[data-phase="report"] #realSource{display:block}
+#film[data-phase="report"] #filmData,#film[data-phase="report"] #filmScene{display:none}
+#finalCard{position:absolute;inset:0;z-index:34;background:#020203;display:none;align-items:center;justify-content:center;text-align:center;padding:24px}
+#film[data-phase="end"] #finalCard{display:flex}
+#finalCard h2{font:400 clamp(34px,5.4vw,83px)/1.12 Georgia,serif;letter-spacing:-.048em;max-width:1040px;margin:0}
+#finalCard small{font:10px ui-monospace,monospace;letter-spacing:.25em;color:#ac9fb3;display:block;margin-top:22px}
+#credits{position:absolute;inset:0;z-index:90;background:#000c;backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:24px}
+#credits.open{display:flex}
+#credits article{width:min(660px,100%);background:#1b1622;border:1px solid #675773;padding:26px 30px;box-shadow:0 20px 100px #000}
+#credits h2{font:400 30px Georgia,serif;margin:0 0 16px}
+#credits p,#credits li{font-size:12px;line-height:1.7;color:#d1c5d5}
+#credits ul{padding-left:19px}
+#credits .buttons{display:flex;justify-content:flex-end}
+#reviewBar{position:fixed;right:16px;bottom:14px;z-index:7;background:#130f19ef;border:1px solid #66556e;border-radius:9px;box-shadow:0 6px 29px #000b;padding:8px 10px;display:none;gap:6px;align-items:center;flex-wrap:wrap;max-width:calc(100vw - 32px);backdrop-filter:blur(16px)}
+#reviewBar.on{display:flex}
+#reviewBar strong{font:9px ui-monospace,monospace;letter-spacing:.14em;color:#d9cede;padding:4px 8px}
+#reviewBar button{padding:8px;font-size:9px;white-space:nowrap}
+#reviewBar .pill{color:#bbaec5;border:1px solid #65506d;background:#231b2c;border-radius:15px;font:8px ui-monospace,monospace;padding:5px 7px}
+#renderNotice{position:fixed;left:16px;bottom:15px;z-index:7;font:9px ui-monospace,monospace;color:#a399ad;display:none;max-width:285px;background:#130f19de;border:1px solid #56475c;padding:9px 12px;border-radius:8px}
+#renderNotice.on{display:block}
+@media(max-width:700px){#gateTop .signature small{display:none}#gateTop{left:17px;right:17px}.kicker{font-size:8px}.screen{padding-left:17px;padding-right:17px}#firstScreen h1{font-size:54px}#firstScreen .options button{font-size:21px}#secondScreen h2{font-size:42px}#secondScreen h3{font-size:25px}#filmData .stamped{right:4%;top:26%;font-size:20px}#filmData .codes{left:4%;font-size:8px}#filmScene{left:24px;bottom:105px}#filmScene h2{font-size:39px}#reviewBar{right:7px;left:7px;bottom:7px;justify-content:center}#reviewBar strong{display:none}#renderNotice{display:none!important}}
+@media(prefers-reduced-motion:reduce){#veil::after,.chrome,.word,#filmScan,#filmGrain,#firstScreen h1{animation:none!important}.word{opacity:1!important}}
+</style>
+</head>
+<body>
+<iframe id="terminalFrame" src="./preview.html?intro=0&amp;review=14nov#overview" title="Working Manipur violence intelligence terminal — isolated review build"></iframe>
+<main id="veil" aria-label="Manipur terminal cinematic prologue">
+  <div id="gateTop"><div class="signature"><b>M</b><span class="mono">MANIPUR <small>INTELLIGENCE / EVIDENCE EDITION</small></span></div><div><button id="showCredits" type="button">SOURCES</button> <button id="skipIntro" type="button">SKIP TO TERMINAL ↗</button></div></div>
+  <section id="firstScreen" class="screen" aria-label="Opening selection">
+    <div class="kicker mono">2023—2026 / AN UNFINISHED CONFLICT</div>
+    <h1 class="chrome">MANIPUR</h1>
+    <div class="options"><button type="button" data-enter>A land divided, a story unfinished.</button><button type="button" data-enter>The cost of being forgotten.</button></div>
+    <p class="micro mono">Select either line to continue the prologue</p>
+  </section>
+  <section id="secondScreen" class="screen" hidden aria-label="Prologue thesis">
+    <p class="kicker mono">THE LAND / THE PEOPLE / THE UNFINISHED WORK</p>
+    <h2 class="words chrome" id="floatingLine" aria-label="Beyond the headlines lies Manipur."></h2>
+    <h3 class="words" id="floatingThesis" aria-label="A paradigmatic conflict."></h3>
+    <button id="startFilm" type="button">EXPLORE THE REALITY ↗</button>
+    <p class="micro mono">AN ANALOG INTELLIGENCE PROLOGUE / REAL REPORTING ATTRIBUTED</p>
+  </section>
+  <section id="film" aria-label="Cinematic film sequence">
+    <div id="filmVisual"></div>
+    <div id="filmData" aria-hidden="true"><pre class="codes" id="cipherLines"></pre><div class="stamped" id="stamp">RESTRICTED / 26</div><div class="guide" id="guide">ARCHIVE / DOCUMENTARY VISUAL LANGUAGE<br>SIMULATED INTERFACE, NOT CLASSIFIED RECORDS</div></div>
+    <div id="realReport"><iframe id="bbcEmbed" title="BBC News India documentary footage from Manipur (May 2026)" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe></div>
+    <div id="filmGrain"></div><div id="filmScan"></div>
+    <div id="filmTop"><span class="mono">MANIPUR / RESEARCH PROLOGUE <span id="filmIndex">01 / 06</span></span><div><button id="toggleSound" type="button">SOUND OFF</button> <button id="filmSkip" type="button">SKIP FILM ↗</button></div></div>
+    <div id="filmScene"><small id="sceneLabel">THE CONTEXT / 2023</small><h2 id="sceneTitle">History is not a single headline.</h2><p id="sceneDetail">Contrasting histories, displacement and institutions: explore the evidence, not a simulated reconstruction of specific incidents.</p></div>
+    <div id="realSource">ACTUAL DOCUMENTARY FOOTAGE / BBC NEWS INDIA / 23 MAY 2026 · <a href="https://www.youtube.com/watch?v=deHnJ5DoOMw" target="_blank" rel="noopener noreferrer">VIEW ORIGINAL REPORT ↗</a><br><span style="font-size:9px;color:#bdaebf">Video embedding depends on YouTube availability and permissions.</span></div>
+    <div id="finalCard"><div><h2 class="chrome">What happens when a place becomes a conflict?</h2><small>A QUESTION / NOT A CONCLUSION</small></div></div>
+    <div id="filmProgress"><span id="progressMark"></span></div>
+  </section>
+  <section id="credits" role="dialog" aria-modal="true" aria-label="Prologue media credits">
+    <article><h2>Research & media provenance</h2><p>The analog dossier, scanning, signal interference and typography are original stylised visual effects — not authentic classified records or factual maps of combat locations. The final report player embeds an existing documentary; it is not a claim that those frames depict the incidents of 12–13 November 2026.</p><ul><li><a href="https://www.youtube.com/watch?v=deHnJ5DoOMw" target="_blank" rel="noopener noreferrer">BBC News India, 23 May 2026</a> — documentary of displacement and the human cost of the conflict.</li><li><a href="https://www.hindustantimes.com/india-news/manipur-woman-killed-2-injured-as-armed-people-open-fire-at-farmers-in-senapati-paddy-field-101794484453455.html" target="_blank" rel="noopener noreferrer">Hindustan Times, 13 November 2026</a> — Senapati/Ukhrul incidents.</li><li><a href="https://www.etnownews.com/news/four-killed-as-unidentified-armed-miscreants-open-fire-on-two-vehicles-in-manipurs-ukhrul-article-156506669/amp" target="_blank" rel="noopener noreferrer">ET Now, 14 November 2026</a> — Ukhrul ambush and reported police measures.</li></ul><p>Inside the terminal, map glows denote curated source-record associations, not measured current violence intensity; the source watch shows published leads, not verified live incidents.</p><div class="buttons"><button id="closeCredits" type="button">RETURN ↗</button></div></article>
+  </section>
+</main>
+<div id="reviewBar" aria-label="Preview controls"><strong>14 NOV / REVIEW BUILD</strong><span class="pill">MAP-ONLY NEON</span><button id="jumpMap" type="button">MAP / DISTRICTS</button><button id="jumpTimeline" type="button">TIMELINE</button><button id="jumpStories" type="button">HUMAN STORIES</button><button id="jumpWatch" type="button">SOURCE WATCH</button><button id="replay" type="button">REPLAY INTRO</button></div>
+<div id="renderNotice">SOURCE-LINKED RESEARCH EDITION · Automated headlines are leads, not verified live incidents.</div>
+<script>
+(function(){
+"use strict";
+var frame=document.getElementById("terminalFrame"),veil=document.getElementById("veil"),film=document.getElementById("film");
+var progress=document.getElementById("progressMark"),soundOn=false,audioCtx=null,raf=0,lastPhase="",startAt=0,playerLoaded=false,active=false;
+var q=function(id){return document.getElementById(id);};
+var reportUrl="https://www.youtube-nocookie.com/embed/deHnJ5DoOMw?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&start=50&end=54";
+function words(node,txt){node.innerHTML=txt.split(/\s+/).map(function(w,i){return '<span class="word" style="--i:'+i+'">'+w+'</span>';}).join(' ');}
+words(q("floatingLine"),"Beyond the headlines lies Manipur.");
+words(q("floatingThesis"),"A paradigmatic conflict.");
+var cipher=[
+"INTELLIGENCE / MANIPUR                           DOCUMENTARY FRAME",
+"1980s ANALOG SIGNAL / RESEARCH VISUALISATION      NOT ARCHIVAL FILM",
+"// PERIOD: MAY 2023 - NOV 2026",
+"// INSTITUTIONS / DISPLACEMENT / CONTESTED NARRATIVES",
+"// RECORD LINKAGE :::::::::::::::::: [SOURCE REQUIRED]",
+"// CHRONOLOGY ............. 2023 / 2024 / 2025 / 2026",
+"// DISPLACEMENT .... HUMAN STORIES AND TESTIMONY",
+"// RESPONSE .............. ACTION / CLAIM / OUTCOME",
+"// OBSERVATION .......... EVIDENCE, NOT SPECULATION"
+].join("\n");
+q("cipherLines").textContent=cipher;
+function installPalette(){
+  try{
+    var d=frame.contentDocument;if(!d)return;
+    if(!d.getElementById("nov14-palette")){
+      var link=d.createElement("link");link.id="nov14-palette";link.rel="stylesheet";link.href="./preview-14nov-palette.css?v=20261114-review1";d.head.appendChild(link);
+    }
+    if(!d.getElementById("nov14-evidence")){
+      var n=d.createElement("div");n.id="nov14-evidence";n.className="review-status";
+      n.innerHTML='<strong>14 NOV / REVIEW · Graphite/silver interface, neon only within geographic map</strong><small>Existing district evidence, response ledger, timeline, human stories and periodic public-RSS research watch are preserved. RSS headlines are unverified leads, not verified live violence measurements.</small>';
+      var main=d.querySelector("#workspace");if(main&&main.firstChild)main.insertBefore(n,main.firstChild);
+    }
+  }catch(e){q("renderNotice").textContent="The review display could not access the terminal frame. Try refreshing the page.";q("renderNotice").classList.add("on");}
+}
+frame.addEventListener("load",function(){installPalette();});
+function openTerminal(){
+  if(!active&&film.classList.contains("running"))cancelAnimationFrame(raf);
+  active=false;
+  veil.classList.add("done");
+  q("reviewBar").classList.add("on");q("renderNotice").classList.add("on");
+  q("bbcEmbed").src="";playerLoaded=false;
+  setTimeout(function(){veil.setAttribute("aria-hidden","true");},920);
+}
+function goTab(tab){
+  openTerminal();
+  try{frame.contentWindow.location.hash="#"+tab;frame.contentWindow.scrollTo(0,0);}catch(e){frame.src="./preview.html?intro=0&review=14nov#"+tab;}
+}
+function enterThesis(){
+  q("firstScreen").hidden=true;
+  q("secondScreen").hidden=false;
+  q("secondScreen").classList.remove("compress");
+}
+var scenes=[
+{until:2.4,phase:"context",label:"THE LAND / THE UNFINISHED WORK",title:"Beyond the headlines.",detail:"An evidence-led study of Manipur's conflict, communities and public institutions.",stamp:"ARCHIVE / 2023",guide:"ANALOG INTELLIGENCE VISUAL / AESTHETIC REFERENCE ONLY"},
+{until:4.5,phase:"headlines",label:"MAY 2023 / THE RUPTURE",title:"When violence reorders daily life.",detail:"Communities are displaced; competing narratives and public responses demand source-by-source scrutiny.",stamp:"FILE 03 / 23",guide:"HEADLINES / ARCHIVAL CONTEXT / VERIFIED CHRONOLOGY"},
+{until:6.8,phase:"intercept",label:"INSTITUTIONS / SECURITY / LAW",title:"Orders. Measures. Consequences.",detail:"Track what officials actually did, separately from statements, intentions and reported outcomes.",stamp:"EVIDENCE",guide:"RESPONSE LEDGER / POLICE / RELIEF / COURTS"},
+{until:9.1,phase:"displacement",label:"CIVILIANS / DISPLACEMENT",title:"People are not data points.",detail:"Listen to survivors through attributed interviews, publisher reports and carefully labelled testimony.",stamp:"WITNESS",guide:"HUMAN STORIES / SOURCE ATTRIBUTION"},
+{until:12.0,phase:"fracture",label:"2026 / THE CHRONOLOGY CONTINUES",title:"The story has not ended.",detail:"Read dated November reporting and distinguish verified records from automatically discovered headlines.",stamp:"REVIEW / 26",guide:"NOVEMBER 2026 / SOURCE LINKS / DISTRICT DOSSIERS"},
+{until:15.0,phase:"report",label:"FIELD REPORT / REAL FOOTAGE",title:"",detail:"",stamp:"",guide:""},
+{until:18.1,phase:"end",label:"",title:"",detail:"",stamp:"",guide:""}
+];
+function tone(freq,duration){
+ if(!soundOn)return;
+ try{
+ if(!audioCtx)audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+ var o=audioCtx.createOscillator(),g=audioCtx.createGain(),t=audioCtx.currentTime;
+ o.type="sine";o.frequency.setValueAtTime(freq,t);g.gain.setValueAtTime(.025,t);g.gain.exponentialRampToValueAtTime(.0001,t+duration);o.connect(g);g.connect(audioCtx.destination);o.start(t);o.stop(t+duration);
+ }catch(e){}
+}
+function setPhase(sc,index){
+ if(sc.phase===lastPhase)return;
+ lastPhase=sc.phase;
+ film.dataset.phase=sc.phase;
+ q("filmIndex").textContent=String(index+1).padStart(2,"0")+" / 07";
+ q("sceneLabel").textContent=sc.label;
+ q("sceneTitle").textContent=sc.title;
+ q("sceneDetail").textContent=sc.detail;
+ q("stamp").textContent=sc.stamp;
+ q("guide").textContent=sc.guide;
+ tone(110+(index*24),.09);
+ if(sc.phase==="report"&&!playerLoaded){q("bbcEmbed").src=reportUrl;playerLoaded=true;}
+}
+function tick(now){
+ if(!active)return;
+ var elapsed=(now-startAt)/1000,idx=scenes.findIndex(function(x){return elapsed<x.until;});
+ if(idx<0){openTerminal();return;}
+ setPhase(scenes[idx],idx);
+ progress.style.width=Math.min(100,elapsed/18.1*100).toFixed(2)+"%";
+ raf=requestAnimationFrame(tick);
+}
+function startFilm(){
+ q("secondScreen").classList.add("compress");
+ setTimeout(function(){
+ if(veil.classList.contains("done"))return;
+ q("secondScreen").hidden=true;
+ film.classList.add("running");
+ lastPhase="";active=true;progress.style.width="0";
+ startAt=performance.now();
+ raf=requestAnimationFrame(tick);
+ },650);
+}
+function replay(){
+ veil.classList.remove("done");veil.removeAttribute("aria-hidden");
+ q("reviewBar").classList.remove("on");q("renderNotice").classList.remove("on");
+ q("bbcEmbed").src="";playerLoaded=false;
+ q("secondScreen").hidden=true;q("firstScreen").hidden=false;film.classList.remove("running");lastPhase="";active=false;cancelAnimationFrame(raf);
+}
+q("skipIntro").addEventListener("click",openTerminal);
+q("filmSkip").addEventListener("click",openTerminal);
+document.querySelectorAll("[data-enter]").forEach(function(b){b.addEventListener("click",enterThesis);});
+q("startFilm").addEventListener("click",startFilm);
+q("replay").addEventListener("click",replay);
+q("jumpMap").addEventListener("click",function(){goTab("atlas");});
+q("jumpTimeline").addEventListener("click",function(){goTab("timeline");});
+q("jumpStories").addEventListener("click",function(){goTab("stories");});
+q("jumpWatch").addEventListener("click",function(){goTab("watch");});
+q("toggleSound").addEventListener("click",function(){soundOn=!soundOn;this.textContent=soundOn?"SOUND ON":"SOUND OFF";tone(220,.12);});
+q("showCredits").addEventListener("click",function(){q("credits").classList.add("open");});
+q("closeCredits").addEventListener("click",function(){q("credits").classList.remove("open");});
+q("credits").addEventListener("click",function(e){if(e.target.id==="credits")this.classList.remove("open");});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){if(q("credits").classList.contains("open"))q("credits").classList.remove("open");else if(!veil.classList.contains("done"))openTerminal();}});
+if(new URLSearchParams(location.search).has("skip")){
+  openTerminal();
+  if(location.hash){try{frame.contentWindow.location.hash=location.hash;}catch(e){frame.src="./preview.html?intro=0&review=14nov"+location.hash;}}
+}
+})();
+</script>
+</body>
+</html>
