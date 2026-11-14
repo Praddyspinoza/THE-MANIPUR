@@ -33,13 +33,13 @@
  let prompted=false, closed=false, previousOverflow="", checkPending=0;
 
  function localAudio(){return window.MANIPUR_LOCAL_AUDIO||null;}
+ function ambience(){return window.MANIPUR_AMBIENCE||null;}
  function audioPicker(){return document.getElementById("ms-file");}
  function say(text){status.textContent=text;}
  function updateAudioStatus(){
-  const a=localAudio();
-  if(!a){say("The local audio player is unavailable. Enter silently or use the terminal sound controls.");return;}
-  if(a.hasFile){say("Browser-local audio ready. Your soundtrack will start when you select Enter with Sound.");}
-  else{say("Only the original recording is supported; public one-click playback requires an authorized hosted copy.");}
+  const a=ambience();
+  if(a){say("Original dark investigative ambience is ready. No upload required; tap Enter with Sound to begin.");}
+  else{say("This browser has not loaded the ambient audio engine. Enter silently if necessary.");}
  }
  function isCinematicComplete(){
   const opening=document.getElementById("ci-gate");
@@ -64,7 +64,7 @@
   overlay.remove();
  }
  function enterSilently(){
-  try{localAudio()?.pause?.();}catch(e){}
+  try{ambience()?.stop?.();localAudio()?.pause?.();}catch(e){}
   close();
  }
  function startSavedSound(){
@@ -75,18 +75,12 @@
   return true;
  }
  function enterWithSound(){
-  const a=localAudio();
-  if(a?.hasFile){startSavedSound();return;}
-  if(a&&!a.storageReady){
-   say("Checking this browser for the saved original soundtrack…");
-   a.ready.then(()=>{
-    if(closed)return;
-    if(localAudio()?.hasFile)startSavedSound();
-    else say("This browser has no saved soundtrack. Public one-click playback requires an authorized hosted audio file.");
-   });
-   return;
-  }
-  say("The original soundtrack is not available in this browser. Public one-click playback requires a licensed hosted audio file. You may enter silently.");
+  // The visitor tap unlocks Web Audio. Never request a file upload.
+  const score=ambience();
+  if(!score){say("Ambient score unavailable in this browser. Choose Enter Silently.");return;}
+  let ok=false;try{ok=score.start();}catch(e){}
+  if(ok){try{localAudio()?.pause?.();}catch(e){}close();}
+  else say("Audio could not start on this device. Check its volume or enter silently.");
  }
  soundButton.addEventListener("click",enterWithSound);
  silentButton.addEventListener("click",enterSilently);
@@ -109,31 +103,26 @@
   const btn=document.createElement("button");
   btn.id="manipur-sound-toggle";btn.type="button";btn.className="manipur-sound-toggle";
   btn.textContent="◌ SOUND OFF";
-  btn.setAttribute("aria-label","Enable or disable personal soundtrack");
+  btn.setAttribute("aria-label","Turn original investigative ambience on or off");
   btn.setAttribute("aria-pressed","false");
   const theme=document.getElementById("manipur-theme-switch");
   if(theme)top.insertBefore(btn,theme);else top.appendChild(btn);
-  const audio=document.getElementById("manipur-personal-audio");
   const update=()=>{
-   const playing=!!audio&&!audio.paused&&!audio.ended;
+   const playing=!!ambience()?.playing;
    btn.textContent=playing?"♫ SOUND ON":"◌ SOUND OFF";
    btn.setAttribute("aria-pressed",String(playing));
-   btn.title=playing?"Pause soundtrack":"Play the original Manipur soundtrack when available in this browser";
+   btn.title=playing?"Pause original investigative ambience":"Play original investigative ambience";
   };
   btn.addEventListener("click",()=>{
-   const a=localAudio();if(!a)return;
-   if(a.playing){a.pause();update();return;}
-   if(a.hasFile){a.play();update();}
-   else{
-    const file=audioPicker();
-    if(file)file.click();
-   }
+   const score=ambience();if(!score)return;
+   if(score.playing)score.stop();
+   else score.start();
+   update();
   });
-  audio?.addEventListener("play",update);
-  audio?.addEventListener("pause",update);
-  audio?.addEventListener("ended",update);
+  document.addEventListener("manipur-ambience-change",update);
   update();
  }
+
  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>{mountSoundToggle();check();},{once:true});
  else{mountSoundToggle();check();}
  new MutationObserver(check).observe(document.body,{childList:true,subtree:false});
