@@ -1,0 +1,169 @@
+/* MANIPUR preview / IVORY GOLD LIGHT — only active on selecting Ivory / Gold.
+   OBISDIAN/default has zero selectors here: its visuals remain byte-for-byte unchanged.
+   The two cinema pages and the news film remain black; the green geographic
+   district heat-map stays green in both modes. Everything else is white/ivory. */
+:root[data-manipur-theme="ivory"]{
+ color-scheme:light;
+ --paper:#fffdfa!important;--card:#ffffff!important;--ink:#31281c!important;
+ --muted:#746b60!important;--faint:#9b8b77!important;--rule:#dfd2bf!important;
+ --plum:#7d5d35!important;--deep:#e7decf!important;--lav:#f6efdf!important;
+ --rose:#a57d59!important;--mint:#b6a58e!important;--gold:#805c2c!important;
+ --blue:#766854!important;--shadow:0 8px 24px #4a39200b!important;
+ --t-surface:#ffffff!important;--t-surface2:#f8f2e8!important;
+ --t-low:#fffdfa!important;--t-rail:#faf5ec!important;
+ --t-line:#e2d7c8!important;--t-soft:#746758!important;--t-bright:#33291d!important;
+ --t-accent:#835e2f!important;--t-control:#f8f1e6!important;
+ --t-border:#c6b293!important;--t-pale:#705029!important;
+}
+html[data-manipur-theme="ivory"],html[data-manipur-theme="ivory"] body{
+ background:#fffdfa!important;color:#33291d!important;color-scheme:light!important;
+}
+html[data-manipur-theme="ivory"] body :is(.app,#workspace,.workspace,main,.content,.main-content,.layout,.page,.site-shell,.command-center){
+ background-color:#fffdfa!important;color:#33291d!important;
+}
+/* Main shell, navigation and typography. */
+html[data-manipur-theme="ivory"] body :is(.rail,.topbar,.page-footer,.rail-bottom,.rail-header,.rail-section,.rail-links){
+ background:#faf6ee!important;color:#564737!important;border-color:#e2d6c2!important;
+ box-shadow:none!important;
+}
+html[data-manipur-theme="ivory"] body :is(.rail .brand,.brand-mark,.rail-bottom strong,.rail-section,.breadcrumbs strong,.snapshot-label strong,.eyebrow,.kicker,.micro-label){
+ color:#785a32!important;text-shadow:none!important;
+}
+html[data-manipur-theme="ivory"] body :is(.breadcrumbs,.nav-item,.rail-action,.rail-bottom p,.rail .muted,.topbar .snapshot-label){
+ color:#6f6355!important;
+}
+html[data-manipur-theme="ivory"] body .nav-item:hover{background:#f1e9da!important;color:#624c2f!important}
+html[data-manipur-theme="ivory"] body .nav-item.active{
+ background:#eee4d0!important;border:1px solid #cbb896!important;color:#694c26!important;box-shadow:none!important;
+}
+html[data-manipur-theme="ivory"] body :is(.nav-item.active .nav-icon,.nav-item.active .num,.brand-mark,.rail-bottom strong){
+ color:#735125!important;
+}
+html[data-manipur-theme="ivory"] body :is(h1,h2,h3,h4,.page-intro h1,.hero-copy h1,.hero-copy h1 em,.page-intro h2,.section-title h2,.panel-head h2,.panel-head h3,.metric-value,.metric-top,.event-card h3,.source-card h3,.latest-item h3){
+ color:#715329!important;text-shadow:none!important;
+}
+html[data-manipur-theme="ivory"] body .hero-copy h1 em{
+ -webkit-text-fill-color:#76532b!important;background:none!important;color:#76532b!important;
+}
+html[data-manipur-theme="ivory"] body :is(p,.fine,.muted,.description,.panel-head p,.page-intro p,.section-title p,.metric-label,.metric-sub,.metric-summary,.event-card p,.source-card p,.latest-item p){
+ color:#675b4b!important;
+}
+/* Cards, section surfaces, reading lists and forms. */
+html[data-manipur-theme="ivory"] body :is(
+ .panel,.metric,.source-card,.event-card,.claim-card,.feature-card,.video-card,
+ .drawer-panel,.modal-content,.source-dialog,.search-dialog,.search-results,.global-result,
+ .toolbar,.command,.motion-toggle,.card,.edition-strip,.quotation-band,
+ .scope-switch,.obsidian-hero,.dial-wrap,.dial-center,.dial-choice,.hero-ledger,
+ .hero-edition,.quote-item,.quote-band,.metric-summary,.region-impact,
+ .research-task,.record-card,.research-card,.source-shelf,.coverage-matrix,
+ .page-footer,.source-snapshot,.issue-column,.map-description,.drawer,.flow-node,
+ .flow-box,.connection-evidence,.evidence-location,.briefing-preview,
+ .ci-report-shelf,.ci-report,.research-queue,.filter-bar,.filters,.stat-card
+ ){
+ background:#ffffff!important;color:#33291d!important;border-color:#e0d5c5!important;
+ box-shadow:0 2px 11px #38291708!important;
+}
+html[data-manipur-theme="ivory"] body :is(.obsidian-hero,.hero-ledger,.hero-edition,.quotation-band,.dial-wrap,.dial-center,.flow-canvas){
+ background:linear-gradient(145deg,#fffdfa,#f6efe2)!important;color:#443626!important;
+}
+html[data-manipur-theme="ivory"] body :is(.metric-value,.metric-label,.metric-sub,.feature-card h3,.region-impact h3,.ci-report h3){
+ color:#79582f!important;
+}
+html[data-manipur-theme="ivory"] body :is(button,.btn,.pill,.badge,.chip,.filter-toggle,.topbar button,.rail-action,select,input,textarea,.command,kbd,.mini-link,.motion-toggle,.scope-button,.dial-choice){
+ background:#f8f1e5!important;color:#654a2b!important;border-color:#cfbea6!important;
+ box-shadow:none!important;text-shadow:none!important;
+}
+html[data-manipur-theme="ivory"] body :is(.btn.primary,.scope-button.active,.pill.active,.tab.active,.segmented-control .selected){
+ background:#806133!important;color:#fffdfa!important;border-color:#806133!important;
+}
+html[data-manipur-theme="ivory"] body :is(a,.source-ref,.mini-link,.quote-speaker,.quote-role,.page-footer button){
+ color:#79572a!important;
+}
+html[data-manipur-theme="ivory"] body input::placeholder{color:#938778!important}
+/* Extensive research overlays and official dossiers. */
+html[data-manipur-theme="ivory"] body :is(
+ .mvi-workbench,.mvi-banner,.mvi-card,.mvi-kpis>div,.mvi-dossier,.mvi-insight,
+ .mvi-risk,.mvi-drawer-mini,.mvi-pie-hero,.mvi-railcard,.mvi-gauge,.mvi-tabstrip,
+ .mvi-method,.mvi-division,.mvi-division-list,.mvi-detail,.mvi-map-shortcuts,
+ .mi-view,.mi-hero,.mi-card,.mi-record,.mi-live-card,.mi-note,.mi-source-status,
+ .mi-quick-lead,.mi-leads,.mi-empty,.mi-district-actions,.mi-controls,
+ .hr-page,.hr-hero,.hr-toolbar,.hr-action,.hr-method,.hr-scale,.hr-caveat,
+ .hr-district,.hr-story,.hr-empty,.mv-person-evidence,.mv-statement-item,
+ .mv-no-statement,.new-official-panel,.new-official,.new-mla-accordion,
+ .new-mla-entry,.new-mla-details,.new-official-header,.mn-voices-card,
+ .mn-voices-player,.mn-voices-pick,.mn-voices-head,.mn-voices-info,
+ .mn-voices-frame,.mvi-banner-tag,.mvi-live-card,.mi-watch-facets span
+ ){
+ background:#ffffff!important;color:#33291d!important;border-color:#e0d4c4!important;
+ box-shadow:none!important;text-shadow:none!important;
+}
+html[data-manipur-theme="ivory"] body :is(
+ .mvi-workbench,.mi-view,.hr-page,.mvi-method,.mvi-tabstrip,.mi-hero,.hr-hero
+ ){background:#fffdfa!important}
+html[data-manipur-theme="ivory"] body :is(
+ .mvi-workbench h1,.mvi-workbench h2,.mvi-workbench h3,.mvi-workbench h4,
+ .mvi-workbench strong,.mvi-banner h2,.mvi-kpis strong,.mi-view h1,.mi-view h2,
+ .mi-view h3,.hr-page h1,.hr-page h2,.hr-page h3,.hr-page strong,
+ .new-official-panel h3,.new-official strong,.mv-name-trigger,.mv-statement-item b,
+ .mn-voices-card h2,.mn-voices-card h3,.mn-voices-pick b,.mvi-detail h3
+ ){color:#76542c!important;text-shadow:none!important}
+html[data-manipur-theme="ivory"] body :is(
+ .mvi-workbench p,.mvi-workbench small,.mvi-workbench span,.mvi-workbench label,
+ .mi-view p,.mi-view small,.mi-view span,.mi-view label,
+ .hr-page p,.hr-page small,.hr-page span,.mn-voices-card p,.mn-voices-card small,
+ .new-official-panel p,.new-official-panel small,.mv-statement-meta
+ ){color:#645747!important;text-shadow:none!important}
+html[data-manipur-theme="ivory"] body :is(
+ .mvi-workbench input,.mvi-workbench select,.mvi-workbench button,
+ .mi-view input,.mi-view select,.mi-view button,.mi-view .mi-actions a,
+ .hr-page input,.hr-page select,.hr-page button,.hr-page .hr-go,
+ .new-official-panel button,.mv-name-trigger,.mn-voices-card button,
+ .mn-voices-links a,.mvi-map-shortcuts button,.mvi-rail-actions button
+ ){
+ background:#f8f2e8!important;color:#70512d!important;border-color:#d5c3ab!important;
+ box-shadow:none!important;
+}
+html[data-manipur-theme="ivory"] body :is(.mvi-ranked,.mvi-trend-bars,.mvi-gauge-ring,.mvi-real-pie,.mvi-pie-visual,.mvi-pie-content,.mvi-donut,.mvi-detail-svg,.mi-chart,.mi-stat-chart){
+ filter:grayscale(.75) sepia(.17) contrast(1.06)!important;
+}
+html[data-manipur-theme="ivory"] body :is(.mvi-rank-track,.mvi-mix-track,.bar-track){background:#e8dfd1!important}
+html[data-manipur-theme="ivory"] body :is(.mvi-rank-track>i,.mvi-mix-track>i,.bar-fill){background:#96734a!important}
+html[data-manipur-theme="ivory"] body .mi-timeline:before{background:#beae95!important}
+html[data-manipur-theme="ivory"] body .mi-time:before{background:#8e6b42!important;border-color:#bba78b!important}
+/* The Live Tracker access and audio controls should match the selected palette. */
+html[data-manipur-theme="ivory"] body :is(#manipur-live-top,#manipur-live-entry,#manipur-sound-toggle,.manipur-music,.manipur-music button,.manipur-music label){
+ background:#f8f3e9!important;color:#76562e!important;border-color:#c9b491!important;
+}
+html[data-manipur-theme="ivory"] body :is(.manipur-music .music-title,.manipur-music .music-status,.manipur-music .music-sub){color:#6f5d43!important}
+html[data-manipur-theme="ivory"] body .manipur-theme-switch{background:#fff9eef3!important;border:1px solid #d5c4ab!important;border-radius:6px}
+html[data-manipur-theme="ivory"] body .manipur-theme-switch select{background:#ffffff!important;color:#76552b!important;border-color:#bca889!important}
+/* Grounded map is EXCLUDED from theme inversion: neon green only here. */
+html[data-manipur-theme="ivory"] body :is(.new-evidence-map,.mv-map .mv-mapstage,.mvi-workbench .mv-map .mv-mapstage){
+ background:radial-gradient(ellipse at 50% 43%,#075739,#041c20 59%,#020b0e 100%)!important;
+ box-shadow:inset 0 0 60px #000a!important;
+}
+html[data-manipur-theme="ivory"] body :is(.mv-map .mv-mapstage,.new-evidence-map) svg path{
+ filter:none;
+}
+/* Map frame and legend chrome (not the map) stays pale. */
+html[data-manipur-theme="ivory"] body :is(.mv-map,.mv-map .mv-head,.mv-map .mv-bottom,.mv-map .mv-controls,.new-map-tools){
+ background:#fffdfa!important;color:#795c32!important;border-color:#ddcdb4!important;
+ box-shadow:none!important;
+}
+html[data-manipur-theme="ivory"] body :is(.mv-map .mv-head button,.mv-map .mv-bottom button,.new-map-tools button){
+ background:#f8f1e7!important;color:#795c32!important;border-color:#c7b596!important;
+}
+/* The two black/silver introductory pages, archival footage and entrance gate
+   deliberately ignore the light palette. These are not the terminal body. */
+html[data-manipur-theme="ivory"] body :is(#ci-gate,#mp-coda,#manipur-entry-sound),
+html[data-manipur-theme="ivory"] body :is(#ci-gate *,#mp-coda *,#manipur-entry-sound *){
+ color-scheme:dark!important;
+}
+html[data-manipur-theme="ivory"] body #ci-gate{background:radial-gradient(ellipse at 48% 44%,#0c131e,#010205 72%)!important}
+html[data-manipur-theme="ivory"] body #mp-coda{background:#020305!important}
+html[data-manipur-theme="ivory"] body #manipur-entry-sound{background:radial-gradient(ellipse at center,#111a24,#020305)!important}
+html[data-manipur-theme="ivory"] body #ci-gate :is(.ci-line,.ci-pretitle,.ci-film-caption,.ci-film-detail,.ci-brand),
+html[data-manipur-theme="ivory"] body #mp-coda :is(.mp-coda-text,.mp-coda-text h2,.mp-coda-label,.mp-coda-credit),
+html[data-manipur-theme="ivory"] body #manipur-entry-sound :is(h2,p,.manipur-entry-sound-icon){
+ color:#e9e7e2!important;
+}
