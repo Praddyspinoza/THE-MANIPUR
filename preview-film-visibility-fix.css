@@ -6,6 +6,10 @@
 .mp-coda .mp-coda-shot iframe{
  opacity:0!important;visibility:hidden!important;
 }
+.fm-montage .fm-cell.video-ready iframe,
+.mp-coda .mp-coda-shot.video-ready iframe{
+ opacity:.94!important;visibility:visible!important;
+}
 .fm-montage .fm-cell img,
 .mp-coda .mp-coda-shot img{
  opacity:1!important;visibility:visible!important;
