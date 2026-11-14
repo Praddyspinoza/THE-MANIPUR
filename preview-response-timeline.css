@@ -41,3 +41,13 @@
 .mi-quick-lead strong{font-size:10px;font-weight:550;color:#e4fff0;line-height:1.5}
 .mi-quick-lead a,.mi-quick-more{color:#9dffd0!important;font-size:9px}
 .mi-quick-more{border:1px solid #267c60;background:#0a3327;border-radius:5px;padding:7px 10px;width:100%;margin-top:10px;cursor:pointer}
+
+
+/* Give all research modules a usable, scrollable navigation rail. */
+.rail{overflow:hidden}
+#mainNav{overflow-y:auto;overscroll-behavior:contain;scrollbar-color:#58816c transparent;scrollbar-width:thin;flex:1;min-height:0;padding-right:3px;align-content:start}
+.rail .rail-bottom{flex-shrink:0;margin-top:10px;padding-top:10px}
+.mi-map-shortcuts{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 10px;padding:3px 2px}
+.mi-map-shortcuts button{font:10px ui-monospace,monospace;color:#a8ffe0!important;border:1px solid #1b8c6b;background:#0b2a23;border-radius:7px;padding:9px 11px;box-shadow:0 0 8px #00f6a51c}
+.mi-map-shortcuts button:hover{border-color:#a5ffc9;color:#fff!important;background:#12644b}
+@media(max-width:700px){.mi-map-shortcuts{gap:5px}.mi-map-shortcuts button{font-size:9px;padding:7px 8px}}
