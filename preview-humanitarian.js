@@ -132,8 +132,8 @@ function bodyReports(){
  '<div class="hr-toolbar"><input data-hr-report-search value="'+ESC(filt.reportQ)+'" placeholder="Search publisher, report or topic…" aria-label="Search independent reporting"/></div>'+
  '<div class="hr-cards">'+rows.map(r=>'<article class="hr-action"><div class="hr-kicker">'+ESC(r.publisher)+' / '+ESC(r.date)+'</div><h3>'+ESC(r.title)+'</h3><p>'+ESC(r.summary)+'</p><div class="hr-links">'+label(r.class)+' <a href="'+ESC(r.url)+'" target="_blank" rel="noopener noreferrer">Read original report ↗</a></div></article>').join('')+'</div><p class="hr-method">Reports by advocacy organisations and independent tribunals present the publishers’ findings; they are not judicial findings or confirmations of policy implementation. The original evidence library and international lens remain available.</p></div>';
 }
-if(!NAV.some(x=>x[0]==="humanitarian"))NAV.push(["humanitarian","NGO action & relief","14","◇"]);
-if(!NAV.some(x=>x[0]==="ngoreports"))NAV.push(["ngoreports","International / NGO reports","15","◎"]);
+if(!NAV.some(x=>x[0]==="humanitarian"))NAV.push(["humanitarian","NGO action & relief",String(NAV.length+1).padStart(2,"0"),"◇"]);
+if(!NAV.some(x=>x[0]==="ngoreports"))NAV.push(["ngoreports","International / NGO reports",String(NAV.length+1).padStart(2,"0"),"◎"]);
 function showNew(tab){
  try{closeDrawer();}catch(e){}
  state.tab=tab;
@@ -163,6 +163,7 @@ function sectionStories(name){
  const rows=currentStories.filter(x=>x.place&&x.place.toLowerCase().includes(name.toLowerCase())).slice(0,12);
  return '<section class="hr-district"><div class="hr-head"><h3>Human accounts / grounded field reporting</h3><span>'+rows.length+' selected features</span></div><p class="hr-sub">Publisher testimonies and documentaries are attributed; pseudonyms and individual accounts are not representative district surveys.</p><div class="hr-district-list">'+(rows.map(s=>'<article class="hr-story"><small>'+ESC(s.date)+' / '+ESC(s.p)+' / '+ESC(s.medium)+'</small><strong>'+ESC(s.title)+'</strong><p>'+ESC(s.text)+'</p><a href="'+ESC(s.url)+'" target="_blank" rel="noopener noreferrer">Read or watch the original ↗</a></article>').join('')||'<div class="hr-empty">No separately coded district-specific human testimony in this collection; this is not evidence of no harm.</div>')+'</div><button class="hr-go" data-nav="stories" type="button">Explore all human stories ↗</button></section>';
 }
+window.addEventListener("hashchange",function(e){const tab=location.hash.slice(1).split("?")[0];if(["humanitarian","ngoreports","timeline","stories","watch"].includes(tab)){e.stopImmediatePropagation();route();}},true);
 const oldDistrict=renderDistrict;
 renderDistrict=function(){
  oldDistrict();
