@@ -115,3 +115,15 @@
 .rail{overflow-y:auto;overscroll-behavior:contain;scrollbar-color:#9785a6 #251d31;scrollbar-width:thin}
 .rail nav{flex:0 0 auto}
 .rail .rail-bottom{margin-top:20px;flex:0 0 auto}
+
+
+/* Final containment pass: non-map analytics, labels, responses and timelines use muted silver/plum. */
+.mvi-workbench :is(.mvi-left,.mvi-right,.mvi-side,.mvi-banner,.mvi-kpis) :is(a,button,p,span,small,label,strong,em){color:#d7c7de!important;text-shadow:none!important}
+.mvi-workbench :is(.mvi-left,.mvi-right,.mvi-side) :is(button,input,select){background-color:#302538!important;border-color:#695575!important;box-shadow:none!important}
+.mvi-workbench :is(.mvi-left,.mvi-right,.mvi-side) .mvi-card-title{color:#efe7f1!important}
+.mvi-workbench :is(.mvi-left,.mvi-right,.mvi-side) :is(.mvi-ranked,.mvi-trend-bars,.mvi-gauge-ring,.mvi-donut,.mvi-real-pie,.mvi-pie-visual,.mvi-pie-content){filter:grayscale(1) saturate(0) contrast(1.1)!important}
+.mvi-workbench :is(.mvi-left,.mvi-right,.mvi-side) :is(.mvi-pie-hero,.mvi-railcard,.mvi-gauge,.mi-live-card){background:#221b2b!important;border-color:#554664!important;box-shadow:none!important}
+.mvi-workbench :is(.mvi-left,.mvi-right,.mvi-side) :is(.mvi-pie-row,.mvi-rail-actions button,.mi-map-shortcuts button){background:#35293e!important;color:#d8c6df!important;border-color:#6b5677!important;box-shadow:none!important}
+.mi-view :is(.mi-source-status,.mi-leads,.mi-quick-lead){background:#faf8fc!important;border-color:#e2d6e9!important;color:#675972!important;box-shadow:none!important}
+.mi-view :is(.mi-leads,.mi-source-status) :is(span,small,em,p,strong){color:#786884!important}
+.mi-view :is(.mi-leads,.mi-source-status) .dot{background:#a493b2!important;box-shadow:none!important}
