@@ -89,3 +89,6 @@ openDatabase();
 maybeShow();
 window.MANIPUR_LOCAL_AUDIO={get hasFile(){return !!chosen},get playing(){return !audio.paused},get fileName(){return chosen?.name||null},play:tryPlay,pause(){audio.pause();wanted=false;},remove:remove};
 })();
+
+/* Preview-only palette selector: injected after the original research desk is ready. */
+(function(){if(document.getElementById("manipur-theme-script"))return;const s=document.createElement("script");s.id="manipur-theme-script";s.src="/THE-MANIPUR/preview-obsidian-choice.js?v=20261114-obsidian2";document.head.appendChild(s);})();
