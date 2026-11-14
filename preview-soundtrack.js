@@ -55,9 +55,9 @@ async function choose(file){
  if(serial!==validationSerial)return;
  if(!valid){showState("Audio rejected: this file does not match the original supplied recording.");return;}
  chosen=file;
- document.dispatchEvent(new CustomEvent("manipur-original-audio-verified"));
  if(source)URL.revokeObjectURL(source);
  source=URL.createObjectURL(file);audio.src=source;audio.load();
+ document.dispatchEvent(new CustomEvent("manipur-original-audio-verified"));
  wanted=true;applyUI();showState("Verified original Manipur soundtrack · looping from this device.");
  if(db){
  try{const tx=db.transaction("files","readwrite");tx.objectStore("files").put({id:"personal-audio",file:file,at:Date.now()});tx.onerror=()=>showState("Playing without browser storage: this device blocked local saving.");}catch(e){}
