@@ -123,7 +123,7 @@
 @keyframes mvi-glow-layer{from{filter:drop-shadow(0 0 2px #00ee9a);opacity:.91}to{filter:drop-shadow(0 0 10px #b3ff3b);opacity:1}}
 @keyframes mvi-pulse{0%{transform:scale(.55);opacity:.78}85%{transform:scale(1.65);opacity:.03}100%{transform:scale(1.65);opacity:0}}
 @keyframes mvi-drifting-haze{from{opacity:.82;filter:brightness(.9) saturate(1.25)}to{opacity:1;filter:brightness(1.4) saturate(1.6)}}
-@media(max-width:1280px){
+@media(max-width:1180px){
  .mvi-main-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:'map map' 'left right'}
  .mvi-left{grid-area:left}.mvi-right{grid-area:right}.mvi-map-center{grid-area:map}
  .mvi-workbench .mv-mapstage{height:clamp(485px,67vw,740px)}
