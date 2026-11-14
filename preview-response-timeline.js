@@ -136,9 +136,41 @@ function storyPage(){
 function watchPage(){
  return `<div class="mi-view">${hero("PERIODIC PUBLIC RSS DISCOVERY / UNVERIFIED LEADS","Manipur — source watch","An automated research feed checks news-search RSS when GitHub Actions executes. Headline discoveries are separated from verified incidents, may include duplicates and are never mapped as actual attacks without review.",["Planned workflow: every 30 minutes","Browser refresh: every 2 minutes","Curated map is separate","No invented real-time casualty counter"])}<div class="mi-controls"><input type="search" data-mi-watch-query value="${htmlSafe(view.watch.q)}" placeholder="Search reported headlines and publishers"><button data-mi-watch-refresh>Fetch newest published feed</button></div><div id="mi-watch-status" class="mi-note">Checking publication status...</div><div id="mi-watch-list" class="mi-leads"></div><div class="mi-footer">Research watch, not an emergency warning system. GitHub schedule delays and RSS provider outages can interrupt updates; staleness is explicitly reported. All leads require article-level verification.</div></div>`;
 }
-const oldRoute=route;let feedData=null;
+const oldRoute=route;let feedData=null;let mapFeedPending=false;
+function quickLeadHTML(items){
+ return (items||[]).slice(0,5).map(x=>{
+  const href=safeUrl(x.url);
+  return '<div class="mi-quick-lead"><small>'+htmlSafe(x.published_at?fmt(x.published_at):'Undated')+' · '+htmlSafe(x.source||'Publisher')+'</small><strong>'+htmlSafe(x.title||'Unattributed headline')+'</strong>'+(href?'<a href="'+htmlSafe(href)+'" target="_blank" rel="noopener noreferrer">Open source ↗</a>':'')+'</div>';
+ }).join('');
+}
+function updateMapQuick(){
+ const right=document.querySelector('.mvi-workbench .mvi-right');
+ if(!right)return;
+ let node=right.querySelector('.mi-live-card');
+ if(!node){node=document.createElement('section');node.className='mvi-card mi-live-card';right.insertBefore(node,right.firstChild);}
+ if(!feedData){
+  node.innerHTML='<div class="mvi-card-title">CURRENT REPORTING WATCH <small>RSS / not yet verified</small></div><p>Fetching the latest published news-source snapshot…</p>';
+  if(!mapFeedPending){
+   mapFeedPending=true;
+   fetch('/THE-MANIPUR/data/manipur-source-watch.json?last='+Date.now(),{cache:'no-store'})
+   .then(r=>{if(!r.ok)throw Error('RSS snapshot unavailable');return r.json();})
+   .then(d=>{if(!Array.isArray(d.items))throw Error('No feed list');feedData=d;updateMapQuick();})
+   .catch(()=>{const e=document.querySelector('.mi-live-card');if(e)e.innerHTML='<div class="mvi-card-title">CURRENT REPORTING WATCH</div><p>Automatic feed has not been verified. <a href="#watch" data-nav="watch">Inspect source-watch status ↗</a></p>';})
+   .finally(()=>{mapFeedPending=false;});
+  }
+  return;
+ }
+ const at=feedData.last_checked_utc?new Date(feedData.last_checked_utc):null;
+ const age=at&&!isNaN(at.getTime())?(Date.now()-at.getTime())/60000:Infinity;
+ const fresh=feedData.status==='ok'&&age>=0&&age<=100;
+ node.innerHTML='<div class="mvi-card-title">CURRENT REPORTING WATCH <small>'+htmlSafe(fresh?'RECENT RSS CHECK':'NOT LIVE / STALE')+'</small></div>'+
+ '<p class="mi-quick-caption">Publisher headlines are <b>research leads only</b>, not confirmed local attacks or map heat points. Automatic feed '+htmlSafe(fresh?'recently checked':'not yet reliably running')+'.</p>'+
+ (quickLeadHTML(feedData.items)||'<p>No discovered links available. Do not infer zero incidents.</p>')+
+ '<button class="mi-quick-more" data-nav="watch">Open full source watch ↗</button>';
+}
+
 route=function(){
- const id=location.hash.slice(1).split("?")[0];if(!tabs.some(t=>t[0]===id)){oldRoute();return;}
+ const id=location.hash.slice(1).split("?")[0];if(!tabs.some(t=>t[0]===id)){oldRoute();updateMapQuick();return;}
  try{closeDrawer();}catch(e){}
  state.tab=id;
  const nav=document.getElementById("mainNav");if(nav)nav.innerHTML=NAV.map(([n,label,num,ic])=>`<button class="nav-item ${n===id?"active":""}" data-nav="${htmlSafe(n)}" ${n===id?'aria-current="page"':""}><span class="nav-icon" aria-hidden="true">${htmlSafe(ic)}</span><span>${htmlSafe(label)}</span><span class="num">${num}</span></button>`).join("");
@@ -172,7 +204,7 @@ function renderFeed(){
  const filtered=(d.items||[]).filter(x=>!view.watch.q||[x.title,x.source,x.category].join(" ").toLowerCase().includes(view.watch.q.toLowerCase())).slice(0,120);
  list.innerHTML=filtered.map(x=>`<article class="mi-record"><div class="mi-meta">${htmlSafe(x.source||"Publisher unspecified")} · ${fmt(x.published_at||"")} <span class="mi-chip unverified">UNVERIFIED HEADLINE</span></div><h3>${htmlSafe(x.title)}</h3><p>${htmlSafe(x.category||"News search lead")}</p><div class="mi-actions">${safeUrl(x.url)?`<a target="_blank" rel="noopener noreferrer" href="${htmlSafe(x.url)}">Inspect publisher / RSS listing ↗</a>`:""}</div></article>`).join("")||'<div class="mi-empty">No headlines match or no feed is available. This does not establish that no new incidents occurred.</div>';
 }
-setInterval(()=>{if(state.tab==="watch"&&!document.hidden)checkFeed();},120000);
+setInterval(()=>{if(document.hidden)return;if(state.tab==="watch")checkFeed();else if(["overview","atlas"].includes(state.tab)){feedData=null;updateMapQuick();}},120000);
 window.MANIPUR_RESEARCH_EXT={responseCount:measures.length,storyCount:stories.length,addendumEventCount:EVENTS.filter(x=>['E65','E66','E67'].includes(x.id)).length,tabs:tabs.map(x=>x[0])};
 route();
 })();
