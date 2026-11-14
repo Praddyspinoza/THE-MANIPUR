@@ -24,6 +24,9 @@ audio.loop=true;audio.preload="auto";audio.volume=.27;
 audio.setAttribute("aria-label","Browser-local uploaded audio");
 document.body.appendChild(audio);
 let db=null,source=null,chosen=null,wanted=false,started=false,opening=false,validationSerial=0;
+let storageReady=false,resolveStorage;
+const ready=new Promise(resolve=>{resolveStorage=resolve;});
+function settled(){if(storageReady)return;storageReady=true;resolveStorage(true);document.dispatchEvent(new Event("manipur-local-audio-ready"));}
 const ORIGINAL_SHA256="721da92196590192604c431ef8e27dfdffad3885404441e75549780f295570bb";
 const ORIGINAL_BYTES=4779867;
 async function isOriginal(file){
@@ -46,7 +49,7 @@ function tryPlay(){
  const result=audio.play();if(result&&typeof result.then==="function"){result.then(()=>{wanted=true;applyUI();showState("Playing local soundtrack · loop enabled · no server upload")})
  .catch(()=>{applyUI();showState("Tap ▶ to start local soundtrack; browser autoplay requires interaction.");});}
 }
-async function choose(file){
+async function choose(file,{restore=false}={}){
  const serial=++validationSerial;
  if(!file||!/^audio\//.test(file.type)&&!/\.(mp3|ogg|m4a|wav)$/i.test(file.name)){showState("Choose an MP3 or other audio file.");return;}
  if(file.size!==ORIGINAL_BYTES){showState("Not the supplied soundtrack. Only the original 104-second recording is accepted.");return;}
@@ -58,23 +61,32 @@ async function choose(file){
  if(source)URL.revokeObjectURL(source);
  source=URL.createObjectURL(file);audio.src=source;audio.load();
  document.dispatchEvent(new CustomEvent("manipur-original-audio-verified"));
- wanted=true;applyUI();showState("Verified original Manipur soundtrack · looping from this device.");
+ wanted=!restore;applyUI();
+ showState(restore?"Original soundtrack verified in this browser · tap ENTER WITH SOUND to play.":"Verified original soundtrack · tap Play if Safari blocks the first attempt.");
  if(db){
  try{const tx=db.transaction("files","readwrite");tx.objectStore("files").put({id:"personal-audio",file:file,at:Date.now()});tx.onerror=()=>showState("Playing without browser storage: this device blocked local saving.");}catch(e){}
  }
- if(terminalShown())tryPlay();
+ if(terminalShown()&&!restore)tryPlay();
 }
 function openDatabase(){
- if(!("indexedDB" in window))return;
+ if(!("indexedDB" in window)){settled();return;}
  try{
  const request=indexedDB.open("manipur-personal-audio-v1",1);
  request.onupgradeneeded=()=>{const base=request.result;if(!base.objectStoreNames.contains("files"))base.createObjectStore("files",{keyPath:"id"});};
+ request.onerror=settled;
+ request.onblocked=settled;
  request.onsuccess=()=>{
  db=request.result;
  const tx=db.transaction("files","readonly"),r=tx.objectStore("files").get("personal-audio");
- r.onsuccess=()=>{const val=r.result;if(val&&val.file&&!chosen){choose(val.file);wanted=true;}};
+ r.onsuccess=async()=>{
+  try{
+   const val=r.result;
+   if(val&&val.file&&!chosen)await choose(val.file,{restore:true});
+  }finally{settled();}
  };
- }catch(e){/* private browsing may disable storage */ }
+ r.onerror=settled;
+ };
+ }catch(e){/* private browsing may disable storage */ settled();}
 }
 function remove(){
  validationSerial++;audio.pause();wanted=false;audio.removeAttribute("src");audio.load();
@@ -103,7 +115,7 @@ window.addEventListener("pageshow",maybeShow);
 window.addEventListener("hashchange",maybeShow);
 openDatabase();
 maybeShow();
-window.MANIPUR_LOCAL_AUDIO={get hasFile(){return !!chosen},get playing(){return !audio.paused},get fileName(){return chosen?.name||null},get originalVerified(){return !!chosen},play:tryPlay,pause(){audio.pause();wanted=false;},remove:remove};
+window.MANIPUR_LOCAL_AUDIO={get hasFile(){return !!chosen},get playing(){return !audio.paused},get fileName(){return chosen?.name||null},get originalVerified(){return !!chosen},get storageReady(){return storageReady},ready,play:tryPlay,pause(){audio.pause();wanted=false;},remove:remove};
 })();
 
 /* Preview-only palette selector: injected after the original research desk is ready. */
