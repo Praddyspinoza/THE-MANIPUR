@@ -237,3 +237,19 @@ window.MANIPUR_RESEARCH_MEASURES=measures;window.MANIPUR_RESEARCH_NATIONAL=natio
 window.MANIPUR_RESEARCH_EXT={responseCount:measures.length,storyCount:stories.length,addendumEventCount:EVENTS.filter(x=>['E65','E66','E67'].includes(x.id)).length,tabs:tabs.map(x=>x[0])};
 route();
 })();
+// Prominent live reporting window: available from the research desk top bar and home page.
+(function(){
+ function mountLiveAccess(){
+  if(document.getElementById("manipur-live-top"))return;
+  const top=document.querySelector(".topbar");
+  if(!top)return;
+  const b=document.createElement("button");b.id="manipur-live-top";b.type="button";b.textContent="◉ LIVE TRACKER";b.setAttribute("aria-label","Open live reporting tracker");
+  b.style.cssText="border:1px solid #a58b5f;background:#171a1c;color:#d8c08f;border-radius:5px;padding:8px 10px;font:10px ui-monospace,monospace;letter-spacing:.06em;cursor:pointer;flex-shrink:0";
+  b.onclick=()=>{location.hash="watch";if(typeof route==="function")route();};
+  top.appendChild(b);
+ }
+ document.addEventListener("DOMContentLoaded",mountLiveAccess);
+ if(document.readyState!=="loading")mountLiveAccess();
+ const observer=new MutationObserver(mountLiveAccess);
+ observer.observe(document.body,{childList:true,subtree:false});
+})();
