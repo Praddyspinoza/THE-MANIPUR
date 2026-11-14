@@ -7,7 +7,8 @@
 .ci-orbit:nth-child(3){width:min(88vw,1100px);height:min(88vw,1100px);border-color:#bbc5de33;--speed:18s;animation-direction:reverse}
 .ci-orbit:nth-child(4){width:min(45vw,560px);height:min(45vw,560px);border-style:dashed;opacity:.5;--speed:16s}
 @keyframes ci-orbit-ring{from{transform:translate(-50%,-50%) rotateX(73deg) rotateY(33deg) rotateZ(0)}to{transform:translate(-50%,-50%) rotateX(73deg) rotateY(33deg) rotateZ(360deg)}}
-.ci-gate #ci-s2>*:not(.ci-orbit-system){position:relative;z-index:2}
+.ci-gate #ci-s2>.ci-thesis-spark{position:absolute!important;z-index:0}
+.ci-gate #ci-s2>.ci-pretitle,.ci-gate #ci-s2>.ci-thesis,.ci-gate #ci-s2>.ci-explore,.ci-gate #ci-s2>.ci-microcopy{position:relative;z-index:2}
 .ci-gate #ci-film.fm-active .ci-film-body,.ci-gate #ci-film.fm-active .ci-film-source{opacity:0!important;visibility:hidden!important}
 .ci-gate .fm-montage{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .18s ease;isolation:isolate}
 .ci-gate #ci-film.fm-active .fm-montage{opacity:1;visibility:visible}
