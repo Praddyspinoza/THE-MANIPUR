@@ -39,7 +39,7 @@
   const a=localAudio();
   if(!a){say("The local audio player is unavailable. Enter silently or use the terminal sound controls.");return;}
   if(a.hasFile){say("Browser-local audio ready. Your soundtrack will start when you select Enter with Sound.");}
-  else{say("Select the original 104-second Manipur recording to enable sound; no other audio is permitted.");}
+  else{say("Only the original recording is supported; public one-click playback requires an authorized hosted copy.");}
  }
  function isCinematicComplete(){
   const opening=document.getElementById("ci-gate");
@@ -77,10 +77,16 @@
  function enterWithSound(){
   const a=localAudio();
   if(a?.hasFile){startSavedSound();return;}
-  const picker=audioPicker();
-  if(!picker){say("Audio player is not ready. You can enter silently and enable sound later.");return;}
-  say("Select the exact original 104-second Manipur recording. Other audio is rejected.");
-  try{picker.click();}catch(e){say("Your browser blocked the file picker. Enter silently, then use LOAD MP3.");}
+  if(a&&!a.storageReady){
+   say("Checking this browser for the saved original soundtrack…");
+   a.ready.then(()=>{
+    if(closed)return;
+    if(localAudio()?.hasFile)startSavedSound();
+    else say("This browser has no saved soundtrack. Public one-click playback requires an authorized hosted audio file.");
+   });
+   return;
+  }
+  say("The original soundtrack is not available in this browser. Public one-click playback requires a licensed hosted audio file. You may enter silently.");
  }
  soundButton.addEventListener("click",enterWithSound);
  silentButton.addEventListener("click",enterSilently);
@@ -112,7 +118,7 @@
    const playing=!!audio&&!audio.paused&&!audio.ended;
    btn.textContent=playing?"♫ SOUND ON":"◌ SOUND OFF";
    btn.setAttribute("aria-pressed",String(playing));
-   btn.title=playing?"Pause soundtrack":"Play the original Manipur soundtrack or select its original file";
+   btn.title=playing?"Pause soundtrack":"Play the original Manipur soundtrack when available in this browser";
   };
   btn.addEventListener("click",()=>{
    const a=localAudio();if(!a)return;
