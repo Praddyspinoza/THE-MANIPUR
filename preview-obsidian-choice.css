@@ -216,3 +216,24 @@ html[data-manipur-theme] .mi-watch-facets span{display:block;background:var(--t-
 html[data-manipur-theme] .mi-watch-facets b{display:block;font:8px/1.6 ui-monospace,monospace;color:var(--t-accent);margin-bottom:4px}
 html[data-manipur-theme] .mi-watch-caution{font-size:10px!important;color:var(--t-soft)!important}
 @media(max-width:740px){html[data-manipur-theme] .mi-watch-facets{grid-template-columns:1fr}}
+
+/* FINAL ISOLATION: preserve geographic heat; no green, purple or white panels. */
+html[data-manipur-theme] body :is(.ci-gate,.mp-coda){background-color:#020407!important}
+html[data-manipur-theme] body .ci-gate .ci-chrome{background-image:linear-gradient(110deg,#8895a6,#f8fbff 30%,#9eaebd 60%,#f5f7fa)!important}
+html[data-manipur-theme] body .ci-gate :is(.ci-top-btn,.ci-explore,.ci-film-actions button){color:#f0f3f6!important;border-color:#9eacbb!important;background-color:#080d14a8!important}
+html[data-manipur-theme] body .ci-gate .ci-bottom{color:#d7e1e8!important}
+html[data-manipur-theme] body .ci-dossier-backdrop .ci-dossier-sheet{background:#111720a0!important;border-color:#8798a8!important;box-shadow:none!important}
+html[data-manipur-theme] body .ci-dossier-backdrop .ci-dossier-sheet :is(.ci-dossier-line,.ci-dossier-tag){color:#dbe3ed!important;text-shadow:none!important}
+html[data-manipur-theme] body .ci-gate #ci-s2 .ci-orbit-system .ci-orbit{border-color:#c2cad5a0!important;box-shadow:0 0 12px #c5d0dc22!important;filter:none!important}
+html[data-manipur-theme] body .mp-coda :is(.mp-coda-top button,.mp-coda-credit a){color:#e8e5dd!important;border-color:#9b9ca4!important;background-color:#12151bbb!important}
+html[data-manipur-theme] body .mp-coda .mp-coda-codeframe{background:radial-gradient(ellipse at center,#1c222d,#030408 70%)!important}
+html[data-manipur-theme] body .mp-coda-codeframe :is(.mp-code-title,.mp-code-sub,.mp-code-lead,.mp-code-line){color:#f0f2f4!important}
+html[data-manipur-theme] body :is(.mi-view,.hr-page,.mvi-workbench,.mn-voices-overlay,.mn-voices-card,.mn-voices-player,.mn-voices-pick,.mn-voices-head,.mn-voices-frame){background-color:#0c1015!important;color:#ece8df!important;border-color:#4a4339!important}
+html[data-manipur-theme] body .mi-view :is(.mi-hero,.mi-card,.mi-record,.mi-live-card,.mi-note,.mi-empty,.mi-source-status,.mi-quick-lead,.mi-leads){background:#141a20!important;color:#e9e4d9!important;border-color:#4c463c!important;box-shadow:none!important}
+html[data-manipur-theme] body .mi-view :is(h1,h2,h3,p,small,.mi-meta,.mi-eyebrow,.mi-footer,.mi-quick-caption){color:#e5dfd3!important}
+html[data-manipur-theme] body .mi-view :is(input,select,button,.mi-chip,.mi-summary span){background:#1c2228!important;color:#e9e2d3!important;border-color:#5c5346!important}
+html[data-manipur-theme] body .mn-voices-overlay :is(h2,h3,p,small,b,span,a,button){color:#e8e1d2!important}
+html[data-manipur-theme] body .mn-voices-overlay :is(button,.mn-voices-pick,.mn-voices-links a){background:#192028!important;border-color:#5b5346!important;box-shadow:none!important}
+html[data-manipur-theme] body :is(.mi-watch-facets span,.manipur-music,.manipur-music button,.manipur-music label){background:#141b22!important;color:#e6decf!important;border-color:#625746!important}
+html[data-manipur-theme] body :is(.mn-voices-open,.mn-voices-open:hover){background:#1b232a!important;color:#e6d9b8!important;border-color:#6c5e48!important}
+html[data-manipur-theme] body :is(.ci-gate,.mp-coda,.mi-view,.hr-page,.mn-voices-overlay) :is(button,input,select){accent-color:#cdb78c!important}
