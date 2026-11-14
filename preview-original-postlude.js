@@ -20,6 +20,20 @@ const entries=[
 {from:6.12,to:7.10,key:"shelter",kind:"conflict",provider:"youtube",video:"deHnJ5DoOMw",publisher:"BBC News India",date:"23 MAY 2026",title:"Families in temporary shelter.",text:"BBC reporting on displaced civilians; audio effects are illustrative.",url:"https://www.youtube.com/watch?v=deHnJ5DoOMw"},
 {from:7.10,to:10.40,key:"dossier",kind:"code"}
 ];
+/* Only reveal a remote video once the YouTube player confirms PLAYING.
+   An iframe load event alone is not sufficient; it often means a blank shell. */
+window.addEventListener("message",event=>{
+ if(event.origin!=="https://www.youtube-nocookie.com"&&event.origin!=="https://www.youtube.com")return;
+ let data=event.data;
+ try{if(typeof data==="string")data=JSON.parse(data);}catch(e){return;}
+ if(!data||data.event!=="onStateChange"||Number(data.info)!==1)return;
+ const frames=document.querySelectorAll("#mp-coda .mp-coda-shot iframe");
+ frames.forEach(frame=>{
+  if(frame.contentWindow!==event.source)return;
+  const cell=frame.closest(".mp-coda-shot");
+  if(cell?.classList.contains("active"))cell.classList.add("video-ready");
+ });
+});
 const filmDuration=10.40;
 const raw=x=>String(x==null?"":x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const shots=entries.filter(e=>e.kind!=="code");
@@ -74,6 +88,7 @@ function loadEmbeds(){
 let liveEmbed=-1;
 function activateEmbed(index){
  if(index===liveEmbed)return;
+ coda.querySelectorAll(".mp-coda-shot").forEach(cell=>cell.classList.remove("video-ready"));
  if(liveEmbed>=0){
   const previous=coda.querySelectorAll(".mp-coda-shot iframe")[liveEmbed];
   if(previous)previous.removeAttribute("src");
@@ -83,7 +98,7 @@ function activateEmbed(index){
  const frame=coda.querySelectorAll(".mp-coda-shot iframe")[index],e=shots[index];
  if(!frame||!e)return;
  if(e.provider==="youtube")
-  frame.src="https://www.youtube-nocookie.com/embed/"+e.video+"?autoplay=1&mute=1&controls=0&playsinline=1&loop=1&playlist="+e.video+"&rel=0&modestbranding=1";
+  frame.src="https://www.youtube-nocookie.com/embed/"+e.video+"?enablejsapi=1&autoplay=1&mute=1&controls=0&playsinline=1&loop=1&playlist="+e.video+"&rel=0&modestbranding=1";
  else frame.src="https://www.dailymotion.com/embed/video/"+e.video+"?autoplay=1&mute=1&controls=0&queue-enable=false";
 }
 function show(index){
