@@ -68,14 +68,23 @@ let embedsPrepared=false;
 function loadEmbeds(){
  if(embedsPrepared)return;
  embedsPrepared=true;
- const frames=coda.querySelectorAll(".mp-coda-shot iframe");
- frames.forEach((n,i)=>{
-  const e=shots[i];
-  if(e.provider==="youtube")
-    n.src="https://www.youtube-nocookie.com/embed/"+e.video+"?autoplay=1&mute=1&controls=0&playsinline=1&loop=1&playlist="+e.video+"&rel=0&modestbranding=1";
-  else
-    n.src="https://www.dailymotion.com/embed/video/"+e.video+"?autoplay=1&mute=1&controls=0&queue-enable=false";
- });
+ // Do not load eight autoplay players at once. Preserve every original source,
+ // title, thumbnail, sequence and duration. Stream only the visible scene.
+}
+let liveEmbed=-1;
+function activateEmbed(index){
+ if(index===liveEmbed)return;
+ if(liveEmbed>=0){
+  const previous=coda.querySelectorAll(".mp-coda-shot iframe")[liveEmbed];
+  if(previous)previous.removeAttribute("src");
+ }
+ liveEmbed=index;
+ if(index<0||index>=shots.length)return;
+ const frame=coda.querySelectorAll(".mp-coda-shot iframe")[index],e=shots[index];
+ if(!frame||!e)return;
+ if(e.provider==="youtube")
+  frame.src="https://www.youtube-nocookie.com/embed/"+e.video+"?autoplay=1&mute=1&controls=0&playsinline=1&loop=1&playlist="+e.video+"&rel=0&modestbranding=1";
+ else frame.src="https://www.dailymotion.com/embed/video/"+e.video+"?autoplay=1&mute=1&controls=0&queue-enable=false";
 }
 function show(index){
  if(index===last)return;last=index;
@@ -83,6 +92,7 @@ function show(index){
  const isCode=e.kind==="code";
  coda.classList.toggle("mp-coda-dossier",isCode);
  coda.querySelectorAll(".mp-coda-shot").forEach(n=>n.classList.toggle("active",n.dataset.mpIndex===String(index)));
+ activateEmbed(isCode?-1:index);
  if(!isCode){
   $("mp-coda-over").textContent=(e.kind==="international"?"INTERNATIONAL BROADCASTER":"CONFLICT / HUMAN IMPACT")+" · "+e.publisher+" · "+e.date;
   $("mp-coda-title").textContent=e.title;$("mp-coda-sub").textContent=e.text;
