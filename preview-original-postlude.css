@@ -1,0 +1,26 @@
+/* Separate archival montage AFTER the untouched classic Manipur cultural prologue.
+   Sourced publisher footage; no new soundtrack, no re-timing of original scenes. */
+.mp-coda[hidden]{display:none!important}
+.mp-coda{position:fixed;inset:0;z-index:10050;background:#020204;color:#f4f2f4;overflow:hidden;isolation:isolate;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.mp-coda *{box-sizing:border-box}
+.mp-coda-media,.mp-coda-video,.mp-coda-tint,.mp-coda-filmgrain{position:absolute;inset:0}
+.mp-coda-shot{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .21s linear,visibility .21s linear;background:radial-gradient(ellipse at 50% 45%,#1b1721,#030305)}
+.mp-coda-shot.active{opacity:1;visibility:visible}
+.mp-coda-shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.54) contrast(1.18) brightness(.58);animation:mp-coda-drift 5s ease-in-out infinite alternate}
+.mp-coda-shot iframe{position:absolute;inset:-11%;width:122%;height:122%;border:0;opacity:.89;filter:grayscale(.6) contrast(1.17) brightness(.7);pointer-events:none;background:transparent}
+.mp-coda-shot:after{position:absolute;inset:0;content:"";z-index:3;pointer-events:none;background:linear-gradient(90deg,#010102d8 0%,#0101024c 53%,#0101038c 100%),linear-gradient(0deg,#010102b5 0%,transparent 34%,transparent 70%,#0101028a 100%)}
+.mp-coda-filmgrain{z-index:5;pointer-events:none;opacity:.31;background:repeating-linear-gradient(0deg,transparent 0 2px,#efebf810 3px,transparent 4px),repeating-linear-gradient(90deg,transparent 0 7px,#f1eaf808 8px,transparent 9px)}
+.mp-coda-text{position:absolute;z-index:8;left:clamp(25px,6vw,110px);bottom:clamp(92px,15vh,154px);right:clamp(22px,6vw,100px);max-width:880px;text-shadow:0 3px 22px #000}
+.mp-coda-text small,.mp-coda-label{display:block;font:10px ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.2em;color:#d1c7db;text-transform:uppercase}
+.mp-coda-text h2{font:400 clamp(36px,5.6vw,81px)/1.07 Georgia,"Times New Roman",serif;letter-spacing:-.045em;color:#f4eff5;margin:15px 0}
+.mp-coda-text p{font:11px/1.65 ui-monospace,monospace;letter-spacing:.06em;color:#e2dbe7;max-width:660px}
+.mp-coda-top{position:absolute;z-index:10;top:clamp(24px,4vw,60px);left:clamp(22px,6vw,108px);right:clamp(22px,6vw,108px);display:flex;align-items:center;justify-content:space-between;gap:13px}
+.mp-coda-top button{color:#e7e0eb;background:#211b288f;border:1px solid #86718f;border-radius:4px;padding:9px 13px;font:10px ui-monospace,monospace;letter-spacing:.06em;cursor:pointer}
+.mp-coda-credit{position:absolute;z-index:12;bottom:43px;left:clamp(25px,6vw,110px);right:clamp(22px,6vw,108px);font:10px ui-monospace,monospace;line-height:1.6;letter-spacing:.065em;color:#eee2f0}
+.mp-coda-credit a{color:#f3e8f3;text-decoration:underline;text-underline-offset:3px}
+.mp-coda-bottom{position:absolute;bottom:0;left:0;right:0;height:3px;background:#a6a3a32b;z-index:17}
+.mp-coda-bottom span{display:block;width:0;height:100%;background:linear-gradient(90deg,#6e6377,#cabbd4,#f7f5f6)}
+@keyframes mp-coda-drift{from{transform:scale(1.035)}to{transform:scale(1.16)}}
+.mp-coda :focus-visible{outline:2px solid #e3d0ea;outline-offset:3px}
+@media (max-width:720px){.mp-coda-shot iframe{inset:-14% -60%;height:128%;width:220%}.mp-coda-top{left:19px;right:19px}.mp-coda-text{left:23px;right:22px;bottom:130px}.mp-coda-text h2{font-size:40px}.mp-coda-credit{left:23px;bottom:44px;font-size:8.5px}}
+@media (prefers-reduced-motion:reduce){.mp-coda-shot img{animation:none}}
