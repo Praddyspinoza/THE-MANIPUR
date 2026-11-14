@@ -101,6 +101,8 @@ function show(index){
   (e.kind==="conflict"?'<small class="mp-coda-archive-note">Illustrative public-domain sound effects, not original Manipur incident audio.</small>':'');
  }
  if(e.key==="gunfire"&&!fxTriggered.gun){fxTriggered.gun=true;sound.play("gun");}
+ if(e.key==="homes"&&!fxTriggered.blast){fxTriggered.blast=true;window.MANIPUR_CINEMATIC_SFX?.burst("blast");}
+ if(e.key==="gunfire"&&!fxTriggered.extraGun){fxTriggered.extraGun=true;window.MANIPUR_CINEMATIC_SFX?.burst("gunfire");}
  // No infant-crying SFX. The historical shelter footage and source remain unchanged.
  if(e.key==="dossier")sound.stop();
 }
