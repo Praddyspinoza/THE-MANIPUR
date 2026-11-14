@@ -20,7 +20,7 @@
    if(!top||document.getElementById("manipur-theme-switch"))return;
    const control=document.createElement("div");
    control.id="manipur-theme-switch";control.className="manipur-theme-switch";
-   control.innerHTML='<label for="manipur-theme-choice">THEME</label><select id="manipur-theme-choice" aria-label="Choose terminal colour palette"><option value="obsidian">OBSIDIAN / GOLD</option><option value="ivory">IVORY / WHITE & GOLD</option></select>';
+   control.innerHTML='<label for="manipur-theme-choice">THEME</label><select id="manipur-theme-choice" aria-label="Choose terminal colour palette"><option value="obsidian">OBSIDIAN / GOLD</option><option value="ivory">IVORY / GOLD ON BLACK</option></select>';
    const anchor=document.getElementById("deskToggle");
    top.insertBefore(control,anchor||null);
    const select=control.querySelector("select");
