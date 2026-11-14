@@ -1,0 +1,30 @@
+/* Prologue media + orbital rings for the approved classic Manipur preview.
+   This stylesheet is additive and never changes district/map/NGO/data modules. */
+.ci-gate .ci-orbit-system{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;opacity:.8;perspective:1100px}
+.ci-orbit-system:before{content:"";position:absolute;inset:-10%;background:radial-gradient(ellipse at 50% 50%,#d3cced08,transparent 44%);filter:blur(28px)}
+.ci-gate .ci-orbit{position:absolute;left:50%;top:50%;width:min(78vw,920px);height:min(78vw,920px);border-radius:50%;border:1px solid #adb6c052;box-shadow:inset 0 0 21px #aeb9e714,0 0 24px #ccdbfc08;transform-style:preserve-3d;animation:ci-orbit-ring var(--speed,13s) linear infinite;animation-delay:var(--delay,0s)}
+.ci-orbit:nth-child(2){width:min(62vw,720px);height:min(62vw,720px);border-color:#c4bed86b;--speed:11.4s;animation-direction:reverse}
+.ci-orbit:nth-child(3){width:min(88vw,1100px);height:min(88vw,1100px);border-color:#bbc5de33;--speed:18s;animation-direction:reverse}
+.ci-orbit:nth-child(4){width:min(45vw,560px);height:min(45vw,560px);border-style:dashed;opacity:.5;--speed:16s}
+@keyframes ci-orbit-ring{from{transform:translate(-50%,-50%) rotateX(73deg) rotateY(33deg) rotateZ(0)}to{transform:translate(-50%,-50%) rotateX(73deg) rotateY(33deg) rotateZ(360deg)}}
+.ci-gate #ci-s2>*:not(.ci-orbit-system){position:relative;z-index:2}
+.ci-gate #ci-film.fm-active .ci-film-body,.ci-gate #ci-film.fm-active .ci-film-source{opacity:0!important;visibility:hidden!important}
+.ci-gate .fm-montage{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .18s ease;isolation:isolate}
+.ci-gate #ci-film.fm-active .fm-montage{opacity:1;visibility:visible}
+.fm-montage .fm-cell{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .14s linear;background:radial-gradient(circle at 45% 35%,#283345,#030408 80%);overflow:hidden}
+.fm-montage .fm-cell.active{opacity:1;visibility:visible}
+.fm-montage .fm-cell img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:grayscale(.65) contrast(1.2) brightness(.7);transform:scale(1.06);z-index:1;animation:fm-zoom 2.5s ease-in-out infinite alternate}
+.fm-montage .fm-cell iframe{position:absolute;inset:-14%;width:128%;height:128%;border:0;z-index:2;pointer-events:none;filter:grayscale(.45) contrast(1.1) brightness(.72);opacity:.96}
+.fm-montage .fm-cell:after{content:"";position:absolute;inset:0;z-index:3;background:linear-gradient(180deg,#020307b4,transparent 34%,transparent 63%,#020307de),linear-gradient(90deg,#0203077c,transparent 65%);pointer-events:none}
+.fm-montage .fm-frame{position:absolute;inset:3%;border:1px solid #d1d6df29;z-index:4;pointer-events:none}
+.fm-montage .fm-text{position:absolute;left:clamp(20px,6vw,90px);right:clamp(20px,6vw,100px);bottom:clamp(97px,16vh,150px);z-index:6;color:#f4f0f5;text-shadow:0 2px 28px #010205}
+.fm-montage .fm-over{font:10px ui-monospace,Consolas,monospace;letter-spacing:.16em;color:#ded4e6;text-transform:uppercase}
+.fm-montage .fm-headline{font:400 clamp(30px,5.4vw,74px)/1.09 Georgia,serif;letter-spacing:-.045em;margin:14px 0;max-width:870px}
+.fm-montage .fm-description{font:11px ui-monospace,monospace;letter-spacing:.09em;color:#e6dfe8;line-height:1.5}
+.fm-montage .fm-credit{position:absolute;z-index:7;left:clamp(20px,6vw,90px);bottom:34px;right:clamp(20px,6vw,90px);font:10px ui-monospace,monospace;color:#ece3f2}
+.fm-montage .fm-credit a{pointer-events:auto;color:#fff!important;text-decoration:underline!important;text-underline-offset:4px}
+.fm-montage .fm-credit a:focus-visible{outline:2px solid #e0cde6;outline-offset:3px}
+.fm-montage .fm-archive-stamp{position:absolute;top:24%;right:9%;z-index:6;font:10px ui-monospace,monospace;letter-spacing:.18em;padding:12px 18px;transform:rotate(-8deg);border:2px double #d0d1df97;color:#e7e7efb8;opacity:.85}
+@keyframes fm-zoom{to{transform:scale(1.17)}}
+@media(max-width:720px){.fm-montage .fm-cell iframe{inset:-16% -70%;width:240%;height:132%}.fm-montage .fm-text{bottom:105px}.fm-montage .fm-headline{font-size:36px}.fm-montage .fm-credit{font-size:8.5px;bottom:20px}.ci-orbit{opacity:.5}}
+@media(prefers-reduced-motion:reduce){.ci-gate .ci-orbit,.fm-montage .fm-cell img{animation:none!important}}
