@@ -109,3 +109,9 @@
 .hr-story a{font-size:10px;color:#78588c}
 @media(max-width:1000px){.hr-cards{grid-template-columns:1fr}.hr-toolbar select{min-width:135px}}
 @media(max-width:670px){.hr-hero{padding:23px 20px}.hr-toolbar input,.hr-toolbar select,.hr-toolbar button{width:100%;flex:auto}.hr-figures{gap:6px}.hr-page{margin-top:5px}.hr-district{padding:10px}.hr-action{padding:14px}}
+
+
+/* Scroll the longer intelligence research navigation without clipping links on iPad. */
+.rail{overflow-y:auto;overscroll-behavior:contain;scrollbar-color:#9785a6 #251d31;scrollbar-width:thin}
+.rail nav{flex:0 0 auto}
+.rail .rail-bottom{margin-top:20px;flex:0 0 auto}
