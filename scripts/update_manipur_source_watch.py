@@ -48,7 +48,7 @@ ok = 0
 
 def clean(v):
     s = html.unescape(str(v or ""))
-    s = re.sub(r"\\s+", " ", s)
+    s = re.sub(r"\s+", " ", s)
     return s.strip()[:550]
 
 
@@ -90,7 +90,7 @@ for q in QUERIES:
         published = parsed_time(entry.findtext("pubDate"))
         if not title or len(title) < 12 or not link.startswith("https://"):
             continue
-        if not re.search(r"\\bmanipur\\b|\\bukhrul\\b|\\bkangpokpi\\b|\\bimphal\\b|\\bsenapati\\b|\\bchurachandpur\\b|\\bjiribam\\b", title, re.I):
+        if not re.search(r"\bmanipur\b|\bukhrul\b|\bkangpokpi\b|\bimphal\b|\bsenapati\b|\bchurachandpur\b|\bjiribam\b", title, re.I):
             continue
         if published:
             try:
@@ -134,7 +134,7 @@ else:
         "errors": errors[:8],
     }
 OUT.parent.mkdir(parents=True, exist_ok=True)
-OUT.write_text(json.dumps(output, indent=2, ensure_ascii=False) + "\\n", encoding="utf-8")
+OUT.write_text(json.dumps(output, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 print("Manipur RSS discovery:", {"successful_queries": ok, "items": len(output.get("items", [])), "status": output.get("status"), "errors": len(errors)})
 if not ok:
     sys.exit(1)
