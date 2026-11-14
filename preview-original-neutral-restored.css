@@ -1,0 +1,229 @@
+/* MANIPUR / CLASSIC NEUTRAL RESTORE — no content or animation changes.
+   PROLOGUE is untouched. NEON EMERALD remains ONLY in geographic
+   district map + SVG heat overlay (.mv-mapstage).
+   Replaces green global/ purple panel overrides with original terminal's
+   pale canvas, charcoal navigation, silver/graphite details and gold hero.
+*/
+:root{
+ --paper:#f5f6f6!important;
+ --card:#fff!important;
+ --ink:#292d32!important;
+ --muted:#707781!important;
+ --faint:#9ea4aa!important;
+ --rule:#e1e4e6!important;
+ --plum:#52606b!important;
+ --deep:#1b2229!important;
+ --lav:#eff1f2!important;
+ --rose:#b38563!important;
+ --mint:#75858b!important;
+ --shadow:0 8px 32px #22262a0c!important;
+}
+html,body{background:#f5f6f6!important;color:#292d32!important}
+body{accent-color:#5b6770!important}
+body .app,body main,body #workspace{background:transparent!important;color:#292d32!important}
+body a{color:#485964}
+body a:hover{color:#202c34}
+body button:focus-visible,body a:focus-visible,body input:focus-visible,body select:focus-visible{outline-color:#8797a2!important}
+body .rail{
+ color:#e0e5e9!important;background:#1b2229!important;
+ border-right:1px solid #3b4248!important;
+ box-shadow:5px 0 22px #0b101421!important
+}
+body .rail .brand{color:#fbfcfd!important}
+body .rail .brand small,body .rail .rail-bottom,
+body .rail .rail-bottom p,body .rail .rail-section{color:#aab2b9!important}
+body .rail .brand-mark span,body .rail .snapshot-dot{background:#bec6cc!important;box-shadow:none!important}
+body .rail .nav-item{color:#c4cbd1!important}
+body .rail .nav-item .nav-icon,body .rail .nav-item .num{color:#9ba7af!important}
+body .rail .nav-item:hover{background:#333d45!important;color:#fff!important}
+body .rail .nav-item.active,body .rail .nav-item[aria-current="page"]{
+ background:#39444c!important;color:#f5f8fa!important;
+ border-color:#58626b!important;box-shadow:none!important
+}
+body .rail .nav-item.active .nav-icon{color:#e0e6eb!important}
+body .rail .nav-item.active:before{background:#c2ccd4!important;box-shadow:none!important}
+body .topbar{
+ background:#fcfcfce8!important;color:#4f585f!important;
+ border-bottom:1px solid #e0e3e5!important;box-shadow:none!important
+}
+body .breadcrumbs,body .breadcrumbs span,body .snapshot-label,body .snapshot-label span{color:#828b94!important}
+body .breadcrumbs strong{color:#414b55!important}
+body .command,body kbd{background:#fff!important;color:#657079!important;border-color:#dfe3e6!important}
+body .command span{color:#687780!important}
+body .eyebrow,body .source-id,body .publisher,body .result-count,body .latest-date,body .mini-link{color:#6a7480!important}
+body .page-intro h1,body .page-intro h2,body .page-intro h3,body .section-title h2,
+body .section-title h3,body main h1,body main h2,body main h3,body main h4{color:#2c343a!important}
+body .page-intro p,body .section-title p,body .panel p,body .metric p,
+body .source-card p,body .record-card p{color:#727b84!important}
+body .panel,body .metric,body .card,body .record-card,body .source-card,
+body .video-card,body .record-grid>* ,body .data-card,body .table-card,
+body .flow-card,body .grid .card,body .record-item,body .evidence-location,
+body .evidence-card,body .ledger-item,body .status-card,body .overview-card,body .stat-card{
+ background:#fff!important;color:#2a3036!important;
+ border-color:#e1e5e8!important;box-shadow:0 5px 22px #252a300d!important
+}
+body .metric-value,body .metric-label,body .metric-top,body .metric-sub{color:#303840!important;text-shadow:none!important}
+body .metric-top,body .panel-foot,body .card-bottom,body .source-top{border-color:#e0e4e8!important}
+body .metric-value{color:#303b43!important}
+body .metric-summary{background:#202830!important;border-color:#202830!important}
+body .metric-summary .metric-value,body .metric-summary .metric-label{color:#f5f5f3!important}
+body .metric-summary .metric-top,body .metric-summary .metric-sub{color:#b5bdc3!important}
+body .panel-head h2,body .panel h2,body .panel h3{color:#2b333b!important}
+body .panel-foot,body .card-bottom,body .source-top,body .panel-head p{color:#7a8289!important}
+body .btn,body .action-button,body .toolbar button,body .toolbar input,body .toolbar select,
+body input,body select,body textarea,body .field{
+ background:#fff!important;border-color:#d9dfe3!important;color:#39444c!important;box-shadow:none!important
+}
+body .btn:hover,body .toolbar button:hover,body .action-button:hover{background:#edf0f2!important}
+body .btn.primary,body .btn.soft,body .rail-action,body .hero-actions button{
+ background:#37434c!important;color:#f9f9f7!important;border-color:#59636b!important
+}
+body .icon-btn,body .mini-link,body .source-title,body .source-ref,body .quote-speaker{color:#526473!important}
+body .source-ref,body .tag,body .note,body .note.warning,body .note.slim,
+body .status-pill,body .chip,body .badge:not(.new-badge){
+ background:#f0f2f3!important;border:1px solid #d8dfe3!important;color:#52606c!important
+}
+body .tag.primary,body .tag.warn,body .tag.dark{background:#e5e9ec!important;color:#475561!important;border-color:#c9d1d7!important}
+body .note,body .note strong{color:#46535c!important}
+body .quotation-band,body .quote-window,body .quote-item,body .quote-access,
+body .quote-access-list{background:#f5f6f7!important;border-color:#e0e4e7!important;color:#3f474e!important}
+body .quote-role,body .quote-context,body .ribbon-label,body .quote-speaker span{color:#6e7882!important}
+body .quote-speaker{background:#eef1f3!important;border-color:#cdd5dc!important}
+body .edition-strip,body .research-task,body .reading-tools,body .task-card{
+ background:#e8ebed!important;border-color:#d4dade!important;color:#4e5860!important
+}
+body .toolbar,body .filters,body .search-panel,body .provenance-grid,
+body .url-display,body .modal-body,body .modal-header,body .drawer-top,
+body .drawer-filters,body .drawer-counts,body #drawer,body #sourceDialog,body #searchDialog{
+ background:#f7f8f8!important;color:#333d44!important;border-color:#dbe0e3!important
+}
+body #drawer .drawer-top h2,body #sourceDialog h2,body #sourceDialog h3{color:#30383f!important}
+body #drawer .drawer-top p,body .modal-body p{color:#77818a!important}
+body .event-card,body .source-card,body .latest-item,.civil-card,body .court-card{border-color:#d9dfe2!important}
+body .event-card h3,body .source-card h3,body .latest-item h3{color:#303940!important}
+body .event-top,body .source-date,body .source-top{color:#7d868f!important}
+body .bar-track,body .rank-bar,body .stacked-bar{background:#dbe1e5!important}
+body .bar-fill{background:#7c8a95!important;box-shadow:none!important}
+body .bar-label,body .bar-count,body .donut-label{color:#63717c!important}
+body .donut-value{fill:#3b454c!important}
+body .map-frame:not(.mv-map){background:#f6f7f8!important;color:#66727c!important}
+body .map-note{background:#f2f4f5!important;color:#5a6872!important}
+body .map-district:hover,body .map-district.selected{stroke:#b1b9be!important;filter:drop-shadow(0 0 5px #666b7122)!important}
+body .map-label{fill:#303b42!important;stroke:#fff!important}
+body .map-count,body .map-guide{fill:#77818a!important}
+/* True geographic viewport — the ONLY heat/neon exception. */
+body .mv-map .mv-mapstage{
+ background:radial-gradient(ellipse at 51% 46%,#0c5535,#031e19 66%,#010a0a)!important;
+ box-shadow:inset 0 0 60px #000c,inset 0 0 75px #0aff7030!important
+}
+body .mv-map .mv-mapstage .mv-svg{filter:saturate(1.15) drop-shadow(0 0 8px #18e77b17)!important}
+body .mv-map .mv-head,body .mv-map .mv-controls,body .mv-map .mv-bottom{
+ background:#222a2d!important;color:#f0f1f0!important;border-color:#4e5b61!important
+}
+body .mv-map .mv-head strong{color:#f3f5f4!important}
+body .mv-map .mv-head small,body .mv-map .mv-kicker,
+body .mv-map .mv-time-output,body .mv-map .mv-disclosure,body .mv-map .mv-head-marker{color:#c4ccd0!important}
+body .mv-map .mv-controls button,body .mv-map .mv-bottom button,body .mv-map .mv-head button{background:#364047!important;color:#eaedee!important;border-color:#6d777c!important}
+body .mv-map .mv-playbutton{background:#48565e!important;color:#fff!important}
+body .mv-map .mv-head-marker i{background:#d1d5d8!important;box-shadow:none!important}
+/* The analytics shell returns to black/graphite/silver, leaving map glow isolated. */
+body .mvi-workbench{
+ --mvi-bg:#12181c!important;--mvi-pane:#222b2e!important;--mvi-line:#506067!important;
+ --mvi-teal:#bfcbd2!important;--mvi-lime:#d6dce0!important;--mvi-note:#acb6bf!important;
+ background:#171c20!important;color:#e4e9ec!important;border-color:#49545b!important;
+ box-shadow:0 10px 30px #0d11142b!important
+}
+body .mvi-workbench .mvi-banner{background:linear-gradient(115deg,#2b3338,#1b2227)!important;border-color:#515a63!important}
+body .mvi-workbench .mvi-banner h2,body .mvi-workbench .mvi-banner h2 i{color:#f1f4f5!important}
+body .mvi-workbench .mvi-banner-tag{color:#e8edef!important;background:#343b41!important;border-color:#68727a!important}
+body .mvi-workbench .mvi-banner-tag span{background:#d6dde2!important;box-shadow:none!important}
+body .mvi-workbench .mvi-kpis>div,body .mvi-workbench .mvi-card,body .mvi-workbench .mvi-dossier,
+body .mvi-workbench .mvi-insight,body .mvi-workbench .mvi-risk,body .mvi-workbench .mvi-drawer-mini,
+body .mvi-workbench .mvi-pie-hero,body .mvi-workbench .mvi-railcard,body .mvi-workbench .mvi-gauge{
+ background:linear-gradient(160deg,#2b3338,#1a2227)!important;border-color:#485861!important;
+ box-shadow:0 2px 13px #0004!important;color:#e5eaed!important
+}
+body .mvi-workbench .mvi-card-title,body .mvi-workbench .mvi-kpis strong,
+body .mvi-workbench .mvi-card h3,body .mvi-workbench .mvi-selected-count,
+body .mvi-workbench .mvi-dossier h3{color:#edf0f3!important;text-shadow:none!important;border-color:#4d5a63!important}
+body .mvi-workbench .mvi-card-title small,body .mvi-workbench .mvi-eyebrow,
+body .mvi-workbench .mvi-kpis small,body .mvi-workbench .mvi-footnote,
+body .mvi-workbench .mvi-insight small,body .mvi-workbench .mvi-selected-count span{color:#b4c0c7!important}
+body .mvi-workbench .mvi-left :is(p,small,span,em,strong,label,a,button),
+body .mvi-workbench .mvi-right :is(p,small,span,em,strong,label,a,button){color:#d1d8dd!important;text-shadow:none!important}
+body .mvi-workbench .mvi-left button,body .mvi-workbench .mvi-right button,
+body .mvi-workbench .mvi-tabstrip button,body .mvi-workbench .mvi-open-full,
+body .mvi-workbench .mvi-source-link,body .mvi-workbench .mvi-local-event{
+ background:#333d45!important;border-color:#6c757b!important;color:#ecf1f3!important;box-shadow:none!important
+}
+body .mvi-workbench .mvi-tabstrip{background:#1b2228!important;border-color:#535e66!important}
+body .mvi-workbench .mvi-tabstrip button.active{background:#596671!important;border-color:#7f919b!important;color:#fff!important}
+body .mvi-workbench .mvi-rank-track,body .mvi-workbench .mvi-mix-track{background:#3e4b54!important}
+body .mvi-workbench .mvi-rank-track>i,body .mvi-workbench .mvi-mix-track>i{background:#a9bac6!important;box-shadow:none!important}
+body .mvi-workbench :is(.mvi-left,.mvi-right) svg:not(.mv-svg):not(.map-svg),
+body .mvi-workbench .mvi-donut,body .mvi-workbench .mvi-trend-bars,
+body .mvi-workbench .mvi-ranked,body .mvi-workbench .mvi-mix-track,
+body .mvi-workbench .mvi-gauge-ring,body .mvi-workbench .mvi-pie-hero{
+ filter:grayscale(1) contrast(1.08)!important
+}
+body .mvi-workbench .mvi-dossier .mvi-detail-svg{filter:grayscale(1) contrast(1.05)!important}
+body .mvi-workbench .mvi-mini-haze,body .mvi-workbench .mvi-pulse{filter:grayscale(1)!important}
+/* Source watch, chronology and human-story pages resume their original light dossier surface. */
+body .mi-view{color:#353f47!important}
+body .mi-view .mi-hero,body .mi-view .mi-card,body .mi-view .mi-record,body .mi-view .mi-live-card,
+body .mi-view .mi-note,body .mi-view .mi-empty,body .mi-view .mi-source-status,
+body .mi-view .mi-quick-lead,body .mi-view .mi-leads{
+ background:#fff!important;border-color:#dbe1e5!important;color:#36424a!important;box-shadow:0 3px 14px #1b26300c!important
+}
+body .mi-view .mi-hero h1,body .mi-view .mi-card h3,body .mi-view .mi-record h3{color:#323c44!important}
+body .mi-view .mi-hero p,body .mi-view .mi-card p,body .mi-view .mi-record p,
+body .mi-view .mi-note,body .mi-view .mi-footer,body .mi-view .mi-eyebrow,
+body .mi-view .mi-meta,body .mi-view .mi-quick-caption{color:#727e87!important}
+body .mi-view .mi-chip,body .mi-view .mi-summary span{background:#edf0f2!important;border-color:#d6dee3!important;color:#596874!important}
+body .mi-view .mi-controls input,body .mi-view .mi-controls select,body .mi-view .mi-controls button,
+body .mi-view .mi-actions a,body .mi-view .mi-actions button,body .mi-view .mi-action,
+body .mi-view .mi-map-shortcuts button{background:#f6f7f7!important;border-color:#ccd4d9!important;color:#45545f!important}
+body .mi-view .mi-timeline:before{background:linear-gradient(#9da8b0,#697681,#c9d0d5)!important}
+body .mi-view .mi-time:before,body .mi-view .mi-time.response:before{background:#8a9aa6!important;border-color:#6e7e87!important;box-shadow:none!important}
+body .mi-view .mi-source-status .dot{background:#a1abb2!important;box-shadow:none!important}
+/* Expanded NGO information stays identical in content, neutral in appearance. */
+body .hr-page{color:#323a42!important}
+body .hr-hero{background:linear-gradient(125deg,#232a30,#343d45 66%,#1a242b)!important;border:1px solid #606d76!important;box-shadow:0 12px 35px #161d2240!important}
+body .hr-hero h1,body .hr-hero p,body .hr-hero>span,body .hr-figures b{color:#f0f3f4!important}
+body .hr-figures b{background:#3f4850!important;border-color:#75818b!important}
+body .hr-toolbar,body .hr-action,body .hr-story,body .hr-district{
+ background:#fff!important;border-color:#dde3e6!important;color:#2d3740!important;box-shadow:0 4px 16px #1c262e0c!important
+}
+body .hr-toolbar input,body .hr-toolbar select,body .hr-toolbar button,
+body .hr-go,body .hr-links a,body .hr-links button,body .hr-links span{background:#eef1f2!important;border-color:#cdd6db!important;color:#4c5a64!important}
+body .hr-action h3,body .hr-head h3,body .hr-story strong{color:#303a43!important}
+body .hr-action p,body .hr-story p,body .hr-sub,body .hr-method,body .hr-caveat,
+body .hr-story small,body .hr-kicker{color:#707e87!important}
+body .hr-method,body .hr-scale,body .hr-caveat,body .hr-empty,body .hr-status,
+body .hr-tag{background:#f0f2f3!important;border-color:#d2dade!important;color:#57646e!important}
+body .hr-scale b,body .hr-caveat b,body .hr-kicker{color:#526270!important}
+body .hr-district .hr-action,body .hr-district .hr-story{background:#fff!important;border-color:#d8e0e3!important}
+body .hr-links,body .hr-district .hr-head,body #hr-district-attachments{border-color:#d8e0e5!important}
+/* The speech source gallery is NOT part of the geographic map. */
+body .mn-voices-overlay{background:#091017ee!important;color:#e6ecef!important}
+body .mn-voices-card{background:linear-gradient(135deg,#202932,#101820)!important;border-color:#62717c!important;box-shadow:0 20px 90px #000c!important}
+body .mn-voices-head h2,body .mn-voices-player h3{color:#edf1f2!important}
+body .mn-voices-head small,body .mn-voices-head p,body .mn-voices-player p{color:#b5c0c6!important}
+body .mn-voices-head button,body .mn-voices-links a,body .mn-voices-links button{
+ background:#3a4750!important;border-color:#798790!important;color:#f3f5f6!important
+}
+body .mn-voices-pick{background:#27343d!important;border-color:#576771!important;color:#dae2e6!important}
+body .mn-voices-pick.selected{background:#46545d!important;border-color:#b2bec7!important;box-shadow:inset 3px 0 #cbd4db!important}
+body .mn-voices-pick:hover{border-color:#a3adb5!important}
+body .mn-voices-pick b,body .mn-voices-pick span,body .mn-voices-pick small{color:#dce2e6!important}
+body .mn-voices-player{background:#151d23!important;border-color:#576872!important}
+body .mn-voices-disclaimer{color:#adb9c2!important;border-color:#4e5c65!important}
+body .mn-voices-open{background:#343e46!important;color:#eef1f3!important;border-color:#76818b!important}
+body .topbar #mn-open-voices{background:#37414a!important;color:#f6f8f9!important;border-color:#7a8791!important}
+/* Player retains the uploaded user's own soundtrack, but no purple or neon UI. */
+body .manipur-music{background:#202931ec!important;border-color:#6e7d87!important;color:#f1f4f5!important;box-shadow:0 5px 28px #0007!important}
+body .manipur-music button,body .manipur-music label{background:#36434c!important;border-color:#80909b!important;color:#eef2f4!important}
+body .manipur-music .music-title,body .manipur-music .music-status{color:#d9e0e4!important}
+body .manipur-music .music-sub{color:#b4bec6!important}
+body .manipur-music input[type=range]{accent-color:#acb6bd!important}
+/* All the actual CIA-style and cinematic prologue content is left untouched. */
