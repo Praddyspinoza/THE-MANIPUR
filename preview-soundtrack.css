@@ -14,3 +14,9 @@
 .manipur-music .music-status a{color:#f0dff8}
 .manipur-music .music-clear{background:transparent;border-color:#665670;color:#d4c3dd}
 @media(max-width:700px){.manipur-music{bottom:8px;right:8px;left:8px;max-width:calc(100vw - 16px);justify-content:center;gap:5px;padding:7px}.manipur-music button,.manipur-music label{font-size:9px;padding:7px}.manipur-music .music-title{max-width:100px}.manipur-music .music-status{font-size:8px;text-align:center}}
+
+/* Obsidian preview selector and soundtrack chrome; inherited variables from theme. */
+.manipur-music{border-color:#665b47!important;background:#111820f0!important;color:#eee9db!important}
+.manipur-music button,.manipur-music label{border-color:#665b47!important;background:#222a31!important;color:#eee9db!important}
+.manipur-music .music-title,.manipur-music .music-status{color:#d7c9a7!important}
+.manipur-music input[type=range]{accent-color:#cfb584!important}
