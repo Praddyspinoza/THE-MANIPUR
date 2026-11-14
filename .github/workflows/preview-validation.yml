@@ -23,6 +23,9 @@ jobs:
           node --check preview-map.js
           node --check preview-intelligence.js
           node --check preview-upgrade.js
+          node --check preview-humanitarian.js
+          node --check preview-cinematic-recut.js
+          node --check preview-response-timeline.js
       - name: Verify preview upgrade assets are linked
         run: |
           test -f preview-upgrade.css
