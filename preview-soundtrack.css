@@ -1,0 +1,16 @@
+/* Optional personal audio player.
+   Uses browser-local, user-selected soundtrack stored in IndexedDB.
+   Copyrighted user music is NOT uploaded to the public GitHub site. */
+.manipur-music{position:fixed;z-index:9950;bottom:17px;right:17px;display:flex;gap:7px;align-items:center;flex-wrap:wrap;max-width:min(90vw,420px);border:1px solid #8a7c97;background:#20192ef0;color:#f3edf6;padding:9px 10px;border-radius:12px;box-shadow:0 10px 34px #1510208a;backdrop-filter:blur(15px)}
+.manipur-music>*{flex-shrink:0}
+.manipur-music[hidden]{display:none!important}
+.manipur-music button,.manipur-music label{border:1px solid #8c789b;border-radius:7px;background:#42314f;color:#f5eef7;font:10px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.06em;line-height:1.3;padding:8px 10px;cursor:pointer}
+.manipur-music button:focus-visible,.manipur-music label:focus-visible{outline:2px solid #c7b3d5;outline-offset:3px}
+.manipur-music .music-title{font:9px ui-monospace,monospace;letter-spacing:.06em;color:#e0d3e5;max-width:145px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.manipur-music .music-sub{font:8px ui-monospace,monospace;color:#bdb0c7}
+.manipur-music input[type=range]{width:60px;accent-color:#b59ac9}
+.manipur-music .music-picker{display:none}
+.manipur-music .music-status{flex:1 1 100%;font:9px ui-monospace,monospace;color:#d1c4d6}
+.manipur-music .music-status a{color:#f0dff8}
+.manipur-music .music-clear{background:transparent;border-color:#665670;color:#d4c3dd}
+@media(max-width:700px){.manipur-music{bottom:8px;right:8px;left:8px;max-width:calc(100vw - 16px);justify-content:center;gap:5px;padding:7px}.manipur-music button,.manipur-music label{font-size:9px;padding:7px}.manipur-music .music-title{max-width:100px}.manipur-music .music-status{font-size:8px;text-align:center}}
