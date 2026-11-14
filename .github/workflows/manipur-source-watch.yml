@@ -1,6 +1,9 @@
 name: Manipur public reporting watch
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/manipur-source-watch.yml"
   schedule:
     - cron: "7,37 * * * *"
 permissions:
