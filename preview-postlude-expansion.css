@@ -1,0 +1,31 @@
+/* Documentary news cut / archival postlude (approved classic version only).
+   Five international sources, sourced conflict footage, then fictive CIA-style 3D typesetting.
+   Explanatory graphics are NOT actual intelligence documents. */
+.mp-coda .mp-coda-shot,.mp-coda .mp-coda-media{background:#030309}
+.mp-coda .mp-coda-shot iframe{z-index:2}
+.mp-coda .mp-coda-shot img{z-index:1}
+.mp-coda .mp-coda-shot:after{z-index:3;position:absolute;inset:0;content:"";background:linear-gradient(90deg,#030206c9,transparent 66%),linear-gradient(0deg,#030207b8,transparent 50%);pointer-events:none}
+.mp-coda .mp-coda-shot[data-kind="international"]:before{position:absolute;z-index:4;left:7%;top:18%;font:10px ui-monospace,monospace;color:#f4f4f5ab;letter-spacing:.23em;content:"INTERNATIONAL COVERAGE / ARCHIVAL"}
+.mp-coda .mp-coda-video-fallback{position:absolute;inset:0;background:radial-gradient(ellipse at center,#332d3d,#08080c 73%);z-index:0}
+.mp-coda .mp-coda-shot img{animation:mp-coda-drift 3.1s ease-in-out infinite alternate}
+.mp-coda .mp-coda-shot iframe{opacity:.85}
+.mp-coda .mp-coda-codeframe{position:absolute;inset:0;z-index:25;display:none;align-items:center;justify-content:center;perspective:1000px;background:radial-gradient(ellipse at 45% 45%,#242333,#030308 68%,#000);overflow:hidden;isolation:isolate}
+.mp-coda.mp-coda-dossier .mp-coda-codeframe{display:flex}
+.mp-coda.mp-coda-dossier .mp-coda-media,.mp-coda.mp-coda-dossier .mp-coda-text,.mp-coda.mp-coda-dossier .mp-coda-credit{opacity:0;visibility:hidden}
+.mp-coda-codeframe:before{content:"";position:absolute;inset:-50%;background:repeating-linear-gradient(90deg,transparent,transparent 40px,#edf1fa0e 41px),repeating-linear-gradient(0deg,transparent,transparent 35px,#edf1fa09 36px);transform:perspective(620px) rotateX(44deg) scale(1.5);animation:mp-grid 16s linear infinite}
+.mp-coda-codeframe .mp-dossier-stack{position:relative;z-index:2;width:min(86vw,880px);text-align:center;transform-style:preserve-3d;color:#ebe9f0}
+.mp-coda-codeframe .mp-code-lead{font:10px ui-monospace,Menlo,monospace;letter-spacing:.27em;color:#c9c4d4;margin-bottom:21px}
+.mp-coda-codeframe .mp-code-title{font:500 clamp(42px,8.8vw,130px)/1 Georgia,serif;letter-spacing:-.072em;color:#f5f2f7;animation:mp-title-flight 1.34s cubic-bezier(.17,.65,.2,1) both}
+.mp-coda-codeframe .mp-code-sub{font:11px/1.75 ui-monospace,Menlo,monospace;letter-spacing:.16em;color:#d4cbdc;margin-top:18px}
+.mp-coda-codeframe .mp-code-line{font:10px ui-monospace,Menlo,monospace;letter-spacing:.13em;color:#d2ccd9;line-height:1.8;white-space:normal;animation:mp-code-fly 1.23s cubic-bezier(.16,.7,.2,1) both;animation-delay:var(--delay)}
+.mp-coda-codeframe .mp-code-motif{display:grid;gap:8px;margin-top:27px}
+.mp-coda-codeframe .mp-code-auth{font:9px ui-monospace,Menlo,monospace;letter-spacing:.1em;color:#9f94a7;margin-top:28px}
+@keyframes mp-title-flight{0%{opacity:0;transform:translateZ(-700px) scale(.2);filter:blur(12px)}55%{opacity:1;transform:translateZ(130px) scale(1.15);filter:blur(0)}100%{opacity:1;transform:translateZ(0) scale(1);filter:blur(0)}}
+@keyframes mp-code-fly{0%{opacity:0;transform:translateZ(-500px) rotateX(-36deg) scale(.7);filter:blur(8px)}60%{opacity:1;transform:translateZ(170px) rotateX(4deg) scale(1.08);filter:blur(0)}100%{opacity:1;transform:translateZ(0);filter:blur(0)}}
+@keyframes mp-grid{to{transform:perspective(620px) rotateX(44deg) scale(1.55) translateY(30px)}}
+.mp-coda .mp-coda-archive-note{display:block;font:9px ui-monospace,monospace;letter-spacing:.12em;color:#c5bdd0;margin-top:7px}
+.mp-coda .mp-coda-audio-control{font:9px ui-monospace,monospace;letter-spacing:.08em}
+.mp-coda .mp-coda-archive-link{font-weight:600}
+.mp-coda .mp-coda-top{z-index:45}.mp-coda .mp-coda-filmgrain{z-index:37}.mp-coda .mp-coda-text{z-index:38}.mp-coda .mp-coda-credit{z-index:40}.mp-coda .mp-coda-bottom{z-index:51}
+@media(max-width:700px){.mp-coda-codeframe .mp-code-title{font-size:52px}.mp-coda-codeframe .mp-code-line{font-size:8px}.mp-coda-codeframe .mp-code-sub{font-size:9px}.mp-coda .mp-coda-top{gap:5px;flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){.mp-coda-codeframe *{animation:none!important}}
