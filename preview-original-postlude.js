@@ -84,7 +84,7 @@ function show(index){
   $("mp-coda-title").textContent=e.title;$("mp-coda-sub").textContent=e.text;
   $("mp-coda-credit").innerHTML='SOURCE: '+raw(e.publisher)+' · <a class="mp-coda-archive-link" href="'+e.url+'" target="_blank" rel="noopener noreferrer">VIEW ORIGINAL REPORT ↗</a>'+
   '<small class="mp-coda-archive-note">Archived publisher footage. Embedded streams are muted and may be blocked by the provider.</small>'+
-  (e.kind==="conflict"?'<small class="mp-coda-archive-note">Gunfire and child-crying sound effects are non-conflict field recordings from public-domain libraries.</small>':'');
+  (e.kind==="conflict"?'<small class="mp-coda-archive-note">Illustrative public-domain sound effects, not original Manipur incident audio.</small>':'');
  }
  if(e.key==="gunfire"&&!fxTriggered.gun){fxTriggered.gun=true;sound.play("gun");}
  if(e.key==="shelter"&&!fxTriggered.child){fxTriggered.child=true;sound.play("child");}
