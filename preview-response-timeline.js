@@ -113,7 +113,7 @@ renderDistrict=function(){
 };
 const tabs=[["timeline","Violence timeline","20","◷"],["stories","Human stories","21","♡"],["watch","Source watch","22","◉"]];
 tabs.forEach(t=>{if(!NAV.some(x=>x[0]===t[0]))NAV.push(t);});
-const view={timeline:{year:"",district:"",kind:"all"},stories:{q:"",topic:"",medium:"",place:"",publisher:"",origin:""},watch:{q:""}};
+const view={timeline:{year:"",district:"",kind:"all"},stories:{q:"",topic:"",medium:"",place:"",publisher:"",origin:""},watch:{q:"",district:"",type:"",response:""}};
 const unique=arr=>[...new Set(arr.filter(Boolean))].sort();
 const sourceOrigin=p=>["BBC News India","BBC News","Associated Press","Al Jazeera","Al Jazeera English","Deutsche Welle","The New Humanitarian","Reuters","The Guardian"].includes(p)?"International":["The Sangai Express","India Today NE"].includes(p)?"Regional":"Indian";
 const selectOpts=(arr,value,all)=>`<option value="">${htmlSafe(all)}</option>`+arr.map(v=>`<option value="${htmlSafe(v)}" ${v===value?"selected":""}>${htmlSafe(v)}</option>`).join("");
@@ -134,8 +134,16 @@ function storyPage(){
  const cards=s.map(x=>`<article class="mi-card"><div class="mi-meta">${fmt(x.date)} <span class="mi-chip">${htmlSafe(x.medium)}</span></div><div class="mi-eyebrow">${htmlSafe(x.p)} · ${htmlSafe(x.place)}</div><h3>${htmlSafe(x.title)}</h3><p>${htmlSafe(x.text)}</p><span class="mi-chip">${htmlSafe(x.topic)}</span><span class="mi-chip">${htmlSafe(sourceOrigin(x.p))} publisher</span><div class="mi-actions"><a href="${htmlSafe(x.url)}" rel="noopener noreferrer" target="_blank">Open publisher article / video ↗</a></div></article>`).join("");
  return `<div class="mi-view">${hero("HUMAN IMPACT / EDITORIAL ACCOUNTS","Human stories — source archive","First-person accounts, eyewitness reporting, interviews, investigative features and broadcaster videos are grouped by lived experience, geography and medium.",[stories.length+" sourced features",unique(stories.map(x=>x.p)).length+" publishers","Indian, regional & international","Direct links only"])}${controls}<div class="mi-note">Some source material includes graphic accounts of violence or sexual assault. No testimony is invented or reproduced without attribution. These selected stories are not a representative sample; editorial opinions are labelled.</div><div class="mi-cards">${cards||'<div class="mi-empty">No matching stories. Clear the search or select another category.</div>'}</div><div class="mi-footer">This archive preserves publisher links, not copies of copyrighted articles or video; coverage is expanding and is not exhaustive.</div></div>`;
 }
+function watchClassified(x){
+ const title=String(x.title||"").toLowerCase();
+ const hits=DISTRICTS.map(d=>d.name).filter(d=>title.includes(d.toLowerCase()));
+ const district=hits.length===1?hits[0]:hits.length>1?"Multiple districts named":"Not established";
+ const type=/shoot|firing|gunfire|ambush/.test(title)?"Shooting / firing":/arson|torched|burnt/.test(title)?"Arson":/explos|blast|bomb|ied/.test(title)?"Explosion / IED":/clash|mob|riot|attack|violence|killed|murder/.test(title)?"Violence / clash":/displac|relief camp|rehabilitat/.test(title)?"Displacement / relief":/arrest|police|security|nia|court|investigat|review|curfew/.test(title)?"Security / institutional report":"Not classified";
+ const response=/arrest|apprehend/.test(title)?"Arrest mentioned":/search operation|security operation|cordon|raid/.test(title)?"Operation mentioned":/curfew|prohibitory/.test(title)?"Restriction mentioned":/review meet|security review/.test(title)?"Review mentioned":/investigat|probe|sit formed/.test(title)?"Investigation mentioned":"Not established";
+ return {...x,watchDistrict:district,watchType:type,watchResponse:response};
+}
 function watchPage(){
- return `<div class="mi-view">${hero("PERIODIC PUBLIC RSS DISCOVERY / UNVERIFIED LEADS","Manipur — source watch","An automated research feed checks news-search RSS when GitHub Actions executes. Headline discoveries are separated from verified incidents, may include duplicates and are never mapped as actual attacks without review.",["Planned workflow: every 30 minutes","Browser refresh: every 2 minutes","Curated map is separate","No invented real-time casualty counter"])}<div class="mi-controls"><input type="search" data-mi-watch-query value="${htmlSafe(view.watch.q)}" placeholder="Search reported headlines and publishers"><button data-mi-watch-refresh>Fetch newest published feed</button></div><div id="mi-watch-status" class="mi-note">Checking publication status...</div><div id="mi-watch-list" class="mi-leads"></div><div class="mi-footer">Research watch, not an emergency warning system. GitHub schedule delays and RSS provider outages can interrupt updates; staleness is explicitly reported. All leads require article-level verification.</div></div>`;
+ return `<div class="mi-view">${hero("PERIODIC PUBLIC RSS DISCOVERY / UNVERIFIED LEADS","Manipur — live reporting tracker","An automated research feed checks news-search RSS when GitHub Actions executes. Headline discoveries are separated from verified incidents, may include duplicates and are never mapped as actual attacks without review.",["Source scans approximately every 30 minutes","Browser refresh every 2 minutes","District, type and response filters","Curated incident timeline separate"])}<div class="mi-controls"><input type="search" data-mi-watch-query value="${htmlSafe(view.watch.q)}" placeholder="Search reported headlines and publishers"><select data-mi-watch-filter="district" aria-label="District mentioned"><option value="">All districts</option></select><select data-mi-watch-filter="type" aria-label="Report type"><option value="">All types</option></select><select data-mi-watch-filter="response" aria-label="Response mentioned"><option value="">All responses</option></select><button data-mi-watch-refresh>Fetch newest published feed</button></div><div id="mi-watch-status" class="mi-note">Checking publication status...</div><div id="mi-watch-list" class="mi-leads"></div><div class="mi-footer">Research watch, not an emergency warning system. GitHub schedule delays and RSS provider outages can interrupt updates; staleness is explicitly reported. All leads require article-level verification.</div></div>`;
 }
 const oldRoute=route;let feedData=null;let mapFeedPending=false;
 function quickLeadHTML(items){
@@ -182,7 +190,7 @@ route=function(){
  state.tab=id;
  const nav=document.getElementById("mainNav");if(nav)nav.innerHTML=NAV.map(([n,label,num,ic])=>`<button class="nav-item ${n===id?"active":""}" data-nav="${htmlSafe(n)}" ${n===id?'aria-current="page"':""}><span class="nav-icon" aria-hidden="true">${htmlSafe(ic)}</span><span>${htmlSafe(label)}</span><span class="num">${num}</span></button>`).join("");
  const label=NAV.find(x=>x[0]===id)[1];document.getElementById("crumb").textContent=label.toUpperCase();document.getElementById("workspace").innerHTML=id==="timeline"?timeline():id==="stories"?storyPage():watchPage();
- document.title=label+" | Manipur Obsidian";document.querySelector(".rail")?.classList.remove("open");if(id==="watch")checkFeed();window.scrollTo(0,0);
+ document.title=label+" | Manipur Obsidian";document.querySelector(".rail")?.classList.remove("open");if(id==="watch"){if(feedData)renderFeed();else checkFeed();}window.scrollTo(0,0);
 };
 document.addEventListener("click",e=>{
  const reset=e.target.closest("[data-mi-reset]");if(reset){const key=reset.dataset.miReset;view[key]=key==="timeline"?{year:"",district:"",kind:"all"}:{q:"",topic:"",medium:"",place:"",publisher:"",origin:""};route();}
@@ -191,7 +199,7 @@ document.addEventListener("click",e=>{
 });
 document.addEventListener("change",e=>{
  const name=e.target.dataset.miFilter;if(name){view.timeline[name]=e.target.value;route();}
- const story=e.target.dataset.miStory;if(story){view.stories[story]=e.target.value;route();}
+ const story=e.target.dataset.miStory;if(story){view.stories[story]=e.target.value;route();} const wf=e.target.dataset.miWatchFilter;if(wf){view.watch[wf]=e.target.value;renderFeed();}
 });
 document.addEventListener("input",e=>{
  if(e.target.hasAttribute("data-mi-story-query")){view.stories.q=e.target.value;const pos=e.target.selectionStart;route();const x=document.querySelector("[data-mi-story-query]");x?.focus();try{x?.setSelectionRange(pos,pos);}catch{}}
@@ -206,10 +214,21 @@ async function checkFeed(){
 function renderFeed(){
  const status=document.getElementById("mi-watch-status"),list=document.getElementById("mi-watch-list");if(!feedData||!status||!list)return;
  const d=feedData,at=d.last_checked_utc?new Date(d.last_checked_utc):null,valid=at&&Number.isFinite(at.getTime()),age=valid?(Date.now()-at.getTime())/60000:Infinity;
- const current=d.status==="ok"&&valid&&age<=100;
+ const current=d.status==="ok"&&valid&&age>=0&&age<=100;
  status.innerHTML=`<div class="mi-source-status"><span class="dot ${current?"":"stale"}"></span><strong>${current?"RSS ingestion recently completed":"STALE / NOT AUTOMATICALLY VERIFIED"}</strong><span>Last successful RSS fetch: ${valid?htmlSafe(at.toLocaleString("en-IN",{timeZone:"Asia/Kolkata",dateStyle:"medium",timeStyle:"short"})+" IST"):"No successful fetch recorded"}</span><span>Publisher leads: ${(d.items||[]).length}</span></div><p>${htmlSafe(d.note||"Each headline is an unverified research lead. Source timestamp is not evidence of when violence occurred.")}</p>`;
- const filtered=(d.items||[]).filter(x=>!view.watch.q||[x.title,x.source,x.category].join(" ").toLowerCase().includes(view.watch.q.toLowerCase())).slice(0,120);
- list.innerHTML=filtered.map(x=>`<article class="mi-record"><div class="mi-meta">${htmlSafe(x.source||"Publisher unspecified")} · ${fmt(x.published_at||"")} <span class="mi-chip unverified">UNVERIFIED HEADLINE</span></div><h3>${htmlSafe(x.title)}</h3><p>${htmlSafe(x.category||"News search lead")}</p><div class="mi-actions">${safeUrl(x.url)?`<a target="_blank" rel="noopener noreferrer" href="${htmlSafe(x.url)}">Inspect publisher / RSS listing ↗</a>`:""}</div></article>`).join("")||'<div class="mi-empty">No headlines match or no feed is available. This does not establish that no new incidents occurred.</div>';
+ const classified=(d.items||[]).map(watchClassified);
+ for(const [key,prop] of [["district","watchDistrict"],["type","watchType"],["response","watchResponse"]]){
+  const sel=document.querySelector('[data-mi-watch-filter="'+key+'"]');if(!sel)continue;
+  const labels=[...new Set(classified.map(x=>x[prop]))].sort();
+  sel.innerHTML='<option value="">All '+key+' mentions</option>'+labels.map(v=>'<option value="'+htmlSafe(v)+'">'+htmlSafe(v)+'</option>').join('');
+  sel.value=view.watch[key];
+ }
+ const filtered=classified.filter(x=>
+ (!view.watch.q||[x.title,x.source,x.category,x.watchDistrict,x.watchType,x.watchResponse].join(" ").toLowerCase().includes(view.watch.q.toLowerCase()))&&
+ (!view.watch.district||x.watchDistrict===view.watch.district)&&
+ (!view.watch.type||x.watchType===view.watch.type)&&
+ (!view.watch.response||x.watchResponse===view.watch.response)).slice(0,150);
+ list.innerHTML=filtered.map(x=>`<article class="mi-record"><div class="mi-meta">${htmlSafe(x.source||"Publisher unspecified")} · ${fmt(x.published_at||"")} <span class="mi-chip unverified">UNVERIFIED HEADLINE</span></div><h3>${htmlSafe(x.title)}</h3><p>${htmlSafe(x.category||"News search lead")}</p><div class="mi-watch-facets"><span><b>DISTRICT NAMED</b> ${htmlSafe(x.watchDistrict)}</span><span><b>REPORT TYPE</b> ${htmlSafe(x.watchType)}</span><span><b>RESPONSE MENTIONED</b> ${htmlSafe(x.watchResponse)}</span></div><p class="mi-watch-caution">Headline-only classification; not a verified incident or completed police response. Inspect the linked report.</p><div class="mi-actions">${safeUrl(x.url)?`<a target="_blank" rel="noopener noreferrer" href="${htmlSafe(x.url)}">Inspect publisher / RSS listing ↗</a>`:""}</div></article>`).join("")||'<div class="mi-empty">No headlines match or no feed is available. This does not establish that no new incidents occurred.</div>';
 }
 const baseMapAnalyticsRefresh=window.MANIPUR_ANALYTICS_REFRESH;
 if(typeof baseMapAnalyticsRefresh==='function')window.MANIPUR_ANALYTICS_REFRESH=function(){baseMapAnalyticsRefresh();updateMapQuick();};
