@@ -31,7 +31,7 @@ function applyUI(){
  play.setAttribute("aria-label",audio.paused?"Play soundtrack":"Pause soundtrack");
 }
 function terminalShown(){return !document.getElementById("ci-gate")&&!document.getElementById("mp-coda");}
-function maybeShow(){const visible=terminalShown();music.hidden=!visible;if(visible&&wanted&&chosen&&audio.paused)tryPlay();}
+function maybeShow(){const visible=terminalShown();music.hidden=!visible;if(visible&&chosen&&audio.paused){wanted=true;tryPlay();}}
 function tryPlay(){
  if(!terminalShown()||!chosen)return;
  const result=audio.play();if(result&&typeof result.then==="function"){result.then(()=>{wanted=true;applyUI();showState("Playing local soundtrack · loop enabled · no server upload")})
@@ -57,7 +57,7 @@ function openDatabase(){
  request.onsuccess=()=>{
  db=request.result;
  const tx=db.transaction("files","readonly"),r=tx.objectStore("files").get("personal-audio");
- r.onsuccess=()=>{const val=r.result;if(val&&val.file&&!chosen){choose(val.file);wanted=false;showState("Saved personal soundtrack available · tap ▶ to play.");}};
+ r.onsuccess=()=>{const val=r.result;if(val&&val.file&&!chosen){choose(val.file);wanted=true;showState("Saved soundtrack ready · it will start after entering the terminal when playback is permitted.");}};
  };
  }catch(e){/* private browsing may disable storage */ }
 }
@@ -81,7 +81,7 @@ music.querySelector('label[for="ms-file"]').addEventListener("keydown",e=>{
  if(e.key==="Enter"||e.key===" "){e.preventDefault();el("ms-file").click();}
 });
 audio.addEventListener("play",applyUI);audio.addEventListener("pause",applyUI);
-document.addEventListener("click",()=>{if(terminalShown()&&wanted&&chosen&&audio.paused)tryPlay();},true);
+document.addEventListener("click",()=>{if(chosen&&audio.paused){wanted=true;if(terminalShown())tryPlay();}},true);
 const monitor=new MutationObserver(maybeShow);
 monitor.observe(document.body,{childList:true,subtree:false});
 window.addEventListener("pageshow",maybeShow);
