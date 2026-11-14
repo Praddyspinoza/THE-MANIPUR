@@ -118,6 +118,19 @@ function start(){
  startAt=performance.now();show(0);raf=requestAnimationFrame(step);
  window.MANIPUR_POSTLUDE={finished:false,played:true,sourceCount:shots.length,internationalHouses:5,durationSeconds:filmDuration};
 }
+/* Prepare CC0 sound cues under the existing Explore-button gesture.
+   Keep them muted and paused until the final archival scenes. */
+document.getElementById("ci-explore")?.addEventListener("click",function(){
+ sound.init();
+ [sound.gun,sound.child].forEach(x=>{
+  if(!x)return;
+  x.muted=true;
+  try{const p=x.play();
+   if(p&&typeof p.then==="function")p.then(()=>{x.pause();x.currentTime=0;x.muted=false;}).catch(()=>{x.muted=false;});
+   else{x.pause();x.currentTime=0;x.muted=false;}
+  }catch(e){x.muted=false;}
+ });
+});
 const monitor=new MutationObserver(function(mutations){
  for(const m of mutations){
   for(const n of m.removedNodes){
