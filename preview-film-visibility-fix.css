@@ -1,0 +1,24 @@
+/* Mobile-safe archive presentation. The 0.6-0.9s montage shots are shorter
+   than a YouTube iframe startup; do not let an empty iframe paint over a
+   loaded still. The original footage source links and scene timings remain.
+   The viewer may open the full video from the existing publisher link. */
+.fm-montage .fm-cell iframe,
+.mp-coda .mp-coda-shot iframe{
+ opacity:0!important;visibility:hidden!important;
+}
+.fm-montage .fm-cell img,
+.mp-coda .mp-coda-shot img{
+ opacity:1!important;visibility:visible!important;
+ filter:grayscale(.2) contrast(1.1) brightness(.78)!important;
+}
+.fm-montage .fm-cell,
+.mp-coda .mp-coda-shot{
+ background:radial-gradient(ellipse at 44% 42%,#243343,#070d14 73%,#020407 100%)!important;
+}
+.fm-montage .fm-cell:before,
+.mp-coda .mp-coda-shot .mp-coda-video-fallback{
+ background:radial-gradient(ellipse at 43% 39%,#314457,#07111d 69%,#030408 100%)!important;
+}
+/* Keep media source captions legible and film transitions visible. */
+.fm-montage .fm-cell:after{background:linear-gradient(180deg,#02030783,transparent 35%,transparent 66%,#020307d9)!important}
+.mp-coda .mp-coda-shot:after{background:linear-gradient(180deg,#02030777,transparent 38%,transparent 66%,#020307d9)!important}
