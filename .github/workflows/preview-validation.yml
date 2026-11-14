@@ -25,6 +25,10 @@ jobs:
           node --check preview-upgrade.js
           node --check preview-humanitarian.js
           node --check preview-cinematic-recut.js
+          node --check preview-cinematic.js
+          node --check preview-media-enhancements.js
+          node --check preview-original-postlude.js
+          node --check preview-soundtrack.js
           node --check preview-response-timeline.js
       - name: Verify preview upgrade assets are linked
         run: |
