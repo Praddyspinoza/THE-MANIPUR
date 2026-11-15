@@ -89,7 +89,9 @@ function update(){
  if(!film.isConnected){cancelAnimationFrame(request);return;}
  const p=parseFloat(document.getElementById("ci-progress")?.style.width)||0;
  const sec=15*p/100;
- const idx=segments.findIndex(s=>sec>=s.from&&sec<s.to);
+ /* The opening cultural film stays intact. National-media and leader clips now
+    play in the dedicated archival coda where the video can actually buffer. */
+ const idx=segments.findIndex(s=>s.from<8&&sec>=s.from&&sec<s.to);
  show(idx);
  request=requestAnimationFrame(update);
 }
