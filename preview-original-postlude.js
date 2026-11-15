@@ -59,18 +59,24 @@ const $=id=>document.getElementById(id);
 const frames=()=>Array.from(stage.querySelectorAll(".mp-coda-shot iframe"));
 let started=false,done=false,idx=-1,startedAt=0,playingAt=0,raf=0,sfx=true,keywords=true,origAudio=false;
 let priorOverflow="",loaded=new Set(),ready=new Set(),fired=new Set(),speechTimer=0,wordNumber=0,gun=null;
-const words=["Manipur","burning","violence","conflict","riots"];
+const wordsEnglish=["Manipur","violence","riots"];
+const wordsHindi=["मणिपुर","हिंसा","दंगे"];
+let displayed=-1;
 function haltSpeech(){clearTimeout(speechTimer);speechTimer=0;try{speechSynthesis.cancel()}catch(e){}}
 function speak(){
  if(done||!started)return;
  const item=sequence[idx],group=item?.group;
- if(keywords&&["international","leaders","indian"].includes(group)&&!(origAudio&&item.originalSound)){
-  try{if(typeof SpeechSynthesisUtterance!=="undefined"&&!speechSynthesis.speaking&&!speechSynthesis.pending){
-   const word=new SpeechSynthesisUtterance(words[wordNumber++%words.length]);
-   word.lang="en-IN";word.rate=.8;word.pitch=.76;word.volume=.48;speechSynthesis.speak(word);
-  }}catch(e){}
+ if(keywords&&["international","indian"].includes(group)&&displayed===idx){
+  try{
+   if(typeof SpeechSynthesisUtterance!=="undefined"&&!speechSynthesis.speaking&&!speechSynthesis.pending){
+    const hindi=group==="indian",lex=hindi?wordsHindi:wordsEnglish;
+    const word=new SpeechSynthesisUtterance(lex[wordNumber++%lex.length]);
+    word.lang=hindi?"hi-IN":"en-IN";word.rate=1.1;word.pitch=.76;word.volume=.64;
+    speechSynthesis.speak(word);
+   }
+  }catch(e){}
  }
- speechTimer=setTimeout(speak,1550);
+ speechTimer=setTimeout(speak,850);
 }
 function speakBegin(){haltSpeech();if(keywords)speak();}
 function command(frame,func,args){
@@ -82,7 +88,7 @@ function load(n){
  const entry=media[n],f=frames()[n];if(!f)return;
  loaded.add(n);
  f.src=entry.provider==="youtube"?
- "https://www.youtube-nocookie.com/embed/"+entry.id+"?enablejsapi=1&autoplay="+(n===idx?1:0)+"&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&origin="+encodeURIComponent(location.origin)+"&start="+entry.start:
+ "https://www.youtube-nocookie.com/embed/"+entry.id+"?enablejsapi=1&autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&origin="+encodeURIComponent(location.origin)+"&start="+entry.start:
  "https://www.dailymotion.com/embed/video/"+entry.id+"?autoplay=1&mute=1&controls=0";
  if(entry.provider==="youtube"){
   // The YouTube player will not reliably send state events until the parent
@@ -91,7 +97,7 @@ function load(n){
    if(!loaded.has(n))return;
    try{f.contentWindow?.postMessage(JSON.stringify({event:"listening",id:"mp-"+n,channel:"widget"}),"https://www.youtube-nocookie.com")}catch(e){}
    command(f,"addEventListener",["onStateChange"]);
-   if(n===idx){command(f,"playVideo",[]);setAudio();}
+   if(n===idx||n===idx+1){command(f,"playVideo",[]);if(n===idx)setAudio();}
   },{once:true});
  }else{
   // Dailymotion is itself the real publisher player, not a thumbnail;
@@ -105,15 +111,18 @@ function load(n){
  }
 }
 function prefetch(n){
- // Keep only the visible player and the very next one: low-memory on iPad.
+ // One visible player plus the next player for seamless crossfade on iPad.
  for(let p=n;p<=Math.min(n+1,media.length-1);p++)load(p);
- for(const p of Array.from(loaded))if(p<n||p>n+1){
-  frames()[p]?.removeAttribute("src");frames()[p]?.closest(".mp-coda-shot")?.classList.remove("video-ready");loaded.delete(p);ready.delete(p);
+ stage.querySelectorAll(".mp-coda-shot").forEach((el,i)=>el.classList.toggle("mp-buffering",i===n+1));
+ for(const p of Array.from(loaded))if(p<n-1||p>n+1){
+  frames()[p]?.removeAttribute("src");
+  frames()[p]?.closest(".mp-coda-shot")?.classList.remove("video-ready","mp-buffering");
+  loaded.delete(p);ready.delete(p);
  }
 }
 function setAudio(){
  const item=media[idx];if(!item||item.provider!=="youtube")return;
- const frame=frames()[idx],play=origAudio&&item.originalSound;
+ const frame=frames()[idx],play=!!(item.group==="leaders"||item.group==="rights"||(origAudio&&item.originalSound));
  command(frame,play?"unMute":"mute",[]);if(play)command(frame,"setVolume",[60]);
 }
 function sfxCue(key){
@@ -121,13 +130,19 @@ function sfxCue(key){
  window.MANIPUR_CINEMATIC_SFX?.burst(key==="homes"?"blast":"gunfire");
  if(key==="gunfire"&&gun)try{gun.currentTime=0;gun.play().catch(()=>{})}catch(e){}
 }
+function reveal(n){
+  if(n<0||n>=media.length)return;
+  stage.querySelectorAll(".mp-coda-shot").forEach((e,k)=>e.classList.toggle("active",k===n));
+  displayed=n;
+  if(n===idx&&["international","indian"].includes(sequence[n].group)&&keywords&&!speechTimer)speakBegin();
+}
 function enter(n){
  idx=n;startedAt=performance.now();playingAt=0;
  const item=sequence[n];if(!item){finish();return;}
  stage.classList.toggle("mp-coda-dossier",item.group==="dossier");
  stage.classList.toggle("mp-coda-bridge",item.group==="parallax");
  stage.classList.toggle("mp-coda-news",!["dossier","parallax"].includes(item.group));
- stage.querySelectorAll(".mp-coda-shot").forEach((e,k)=>e.classList.toggle("active",k===n));
+ if(ready.has(n))reveal(n);
  if(item.group==="dossier"||item.group==="parallax"){
   haltSpeech();if(gun)gun.pause();
   $("mp-coda-credit").textContent="";
@@ -140,7 +155,7 @@ function enter(n){
  '</span> <a href="'+esc(item.url)+'" target="_blank" rel="noopener noreferrer">WATCH ORIGINAL REPORT ↗</a>'+
  '<small class="mp-coda-archive-note">Embedded original publisher video · no screenshots · playback subject to publisher restrictions</small>';
  if(["homes","gunfire"].includes(item.key))sfxCue(item.key);
- if(item.group==="manipur")haltSpeech();else if(!speechTimer)speakBegin();
+ if(["international","indian"].includes(item.group)&&ready.has(n))speakBegin();else haltSpeech();
  // A hidden preload is paused. Send a fresh play command on scene activation.
  if(loaded.has(n)&&item.provider==="youtube"){
   command(frames()[n],"seekTo",[item.start||0,true]);
@@ -159,7 +174,10 @@ window.addEventListener("message",event=>{
  const fs=frames(),n=fs.findIndex(f=>f.contentWindow===event.source);
  if(n<0||n>=media.length)return;
  ready.add(n);fs[n].closest(".mp-coda-shot")?.classList.add("video-ready");
- if(n===idx){playingAt=playingAt||performance.now();setAudio();}
+ if(n===idx){
+  reveal(n);playingAt=playingAt||performance.now();setAudio();
+  if(["international","indian"].includes(media[n].group)&&keywords&&!speechTimer)speakBegin();
+ }
 });
 function finish(){
  if(done)return;done=true;cancelAnimationFrame(raf);haltSpeech();
@@ -178,12 +196,11 @@ function tick(now){
  if(item.duration){
   progress=Math.min(1,seconds/item.duration);
   if(seconds>=item.duration){enter(idx+1);raf=requestAnimationFrame(tick);return;}
- }else if(ready.has(idx)){
-  playingAt=playingAt||now;progress=Math.min(1,(now-playingAt)/4500);
-  if(now-playingAt>=4500){enter(idx+1);raf=requestAnimationFrame(tick);return;}
  }else{
-  progress=Math.min(1,seconds/4.7);
-  if(seconds>=4.7){enter(idx+1);raf=requestAnimationFrame(tick);return;}
+  // Cap every report to a fast cinematic cut; playback never pauses the timeline.
+  const duration=item.group==="leaders"?2.55:item.group==="rights"?2.5:2.2;
+  progress=Math.min(1,seconds/duration);
+  if(seconds>=duration){enter(idx+1);raf=requestAnimationFrame(tick);return;}
  }
  $("mp-coda-progress").style.width=(100*(idx+progress)/sequence.length).toFixed(2)+"%";
  raf=requestAnimationFrame(tick);
@@ -193,7 +210,7 @@ function start(){
  started=true;stage.hidden=false;priorOverflow=document.body.style.overflow;document.body.style.overflow="hidden";
  gun=new Audio("https://commons.wikimedia.org/wiki/Special:FilePath/Gunshots_8.ogg");gun.preload="auto";gun.volume=.14;
  enter(0);raf=requestAnimationFrame(tick);
- window.MANIPUR_POSTLUDE={finished:false,played:true,edition:"source-video-recut",sourcesCount:media.length,
+ window.MANIPUR_POSTLUDE={finished:false,played:true,edition:"fast-broadcast-sequence",sourcesCount:media.length,
   order:["International reporting","Rahul / Modi / Shah / Biren","Human Rights organizations","Indian reporting (Hindi / English / Manipuri)","Dossier","Parallax"]};
 }
 $("mp-coda-skip").addEventListener("click",finish);
@@ -202,7 +219,7 @@ $("mp-coda-keywords").addEventListener("click",function(){keywords=!keywords;thi
 $("mp-coda-voices").addEventListener("click",function(){
  origAudio=!origAudio;this.textContent="BBC / IMPACT AUDIO: "+(origAudio?"ON":"OFF");
  this.setAttribute("aria-pressed",String(origAudio));setAudio();
- if(origAudio&&media[idx]?.originalSound)haltSpeech();else if(keywords)speakBegin();
+ if(origAudio&&media[idx]?.originalSound)haltSpeech();else if(keywords&&["international","indian"].includes(media[idx]?.group))speakBegin();
 });
 stage.addEventListener("pointermove",e=>{
  if(!stage.classList.contains("mp-coda-bridge"))return;
