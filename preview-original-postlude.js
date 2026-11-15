@@ -198,6 +198,14 @@ coda.addEventListener("pointermove",event=>{
  const w=(name,f)=>coda.style.setProperty("--mp-"+name+"-y",(y*f).toFixed(1)+"px");
  [["back",-16],["mid",30],["front",55],["copy",-26]].forEach(([name,f])=>{v(name,f);w(name,f)});
 },{passive:true});
+/* The original sound-consent screen owns the final entrance action.
+   Reveal the existing terminal only when that screen is dismissed. */
+document.addEventListener("manipur-terminal-entered",()=>{
+ if(!document.body.classList.contains("mp-terminal-ready"))return;
+ document.body.classList.remove("mp-terminal-ready");
+ document.body.classList.add("mp-terminal-revealing");
+ setTimeout(()=>document.body.classList.remove("mp-terminal-revealing"),1800);
+});
 const monitor=new MutationObserver(function(mutations){
  for(const m of mutations){
   for(const n of m.removedNodes){
