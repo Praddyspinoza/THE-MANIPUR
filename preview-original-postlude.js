@@ -1,186 +1,216 @@
-/* MANIPUR CLASSIC PREVIEW — attribution-first archival world-news coda.
-   Trigger ONLY when the original 15-second cultural prologue finishes normally.
-   BBC, DW, Reuters, Al Jazeera, FRANCE 24 + NDTV and BBC conflict coverage.
-   Follows with 3D evidence dossier. Nothing in this file modifies the dashboard.
-   All publishers are embedded via public players; images are fallbacks for blocked embeds.
-   Sound effects are openly licensed and explicitly illustrative; not footage audio.
-*/
+/* Manipur film recut — actual source video, never thumbnail or screenshot stills.
+   The original 15-second Manipur prologue and the whole research terminal are unchanged.
+   Broadcast order: Manipur -> international -> four political figures -> Indian media.
+   Video embeds can be restricted by their owners. All source links remain clickable. */
 (function(){
 "use strict";
-if(new URLSearchParams(location.search).get("intro")==="0")return;
-if(document.getElementById("mp-coda"))return;
-const entries=[
-{from:0,to:.87,key:"bbc",kind:"international",provider:"youtube",video:"E51qy8BIOMU",publisher:"BBC News India",date:"25 JUL 2023",title:"The lives interrupted by conflict.",text:"BBC interviews people affected by the violence and displacement.",url:"https://www.youtube.com/watch?v=E51qy8BIOMU"},
-{from:.87,to:1.74,key:"dw",kind:"international",provider:"youtube",video:"cWF66nO3jGk",publisher:"DW News",date:"10 AUG 2023",title:"Thousands forced from their homes.",text:"DW documents the violence, destroyed homes and relief-camp displacement.",url:"https://www.youtube.com/watch?v=uVHRj3whZsA"},
-{from:1.74,to:2.61,key:"reuters",kind:"international",provider:"youtube",video:"HU795NkpZeg",publisher:"Reuters",date:"9 AUG 2023",title:"Survivors speak about gender-based violence.",text:"Reuters documents reports of sexual violence and the Supreme Court investigation oversight.",url:"https://www.youtube.com/watch?v=NUvF4oRkJWE"},
-{from:2.61,to:3.48,key:"aljazeera",kind:"international",provider:"youtube",video:"TsnvxDn4DtU",publisher:"Al Jazeera English",date:"15 JUN 2023",title:"What has driven the ethnic violence?",text:"Al Jazeera Inside Story examines displacement, conflict and questions about mediation.",url:"https://www.youtube.com/watch?v=B0kENhQibbw"},
-{from:3.48,to:4.36,key:"france24",kind:"international",provider:"dailymotion",video:"x9n1kre",publisher:"FRANCE 24 English",date:"2025",title:"An ignored conflict. A divided state.",text:"FRANCE 24 examines reconciliation and displaced lives.",url:"https://www.dailymotion.com/video/x9n1kre"},
-{from:4.36,to:5.24,key:"homes",kind:"conflict",provider:"youtube",video:"ge9ReWg_Poc",publisher:"NDTV",date:"15 JUN 2023",title:"Homes set on fire.",text:"Published coverage of house fires and protests in Imphal.",url:"https://www.youtube.com/watch?v=ge9ReWg_Poc"},
-{from:5.24,to:6.12,key:"gunfire",kind:"conflict",provider:"youtube",video:"6XwwSFCOgLk",publisher:"NDTV",date:"26 JUL 2023",title:"Gunfire, fear and displacement.",text:"A published nighttime ground report from the conflict zone.",url:"https://www.youtube.com/watch?v=6XwwSFCOgLk"},
-{from:6.12,to:7.10,key:"shelter",kind:"conflict",provider:"youtube",video:"deHnJ5DoOMw",publisher:"BBC News India",date:"23 MAY 2026",title:"Families in temporary shelter.",text:"BBC reporting on displaced civilians; audio effects are illustrative.",url:"https://www.youtube.com/watch?v=deHnJ5DoOMw"},
-{from:7.10,to:10.40,key:"dossier",kind:"code"}
-];
-/* Only reveal a remote video once the YouTube player confirms PLAYING.
-   An iframe load event alone is not sufficient; it often means a blank shell. */
-window.addEventListener("message",event=>{
- if(event.origin!=="https://www.youtube-nocookie.com"&&event.origin!=="https://www.youtube.com")return;
- let data=event.data;
- try{if(typeof data==="string")data=JSON.parse(data);}catch(e){return;}
- if(!data||data.event!=="onStateChange"||Number(data.info)!==1)return;
- const frames=document.querySelectorAll("#mp-coda .mp-coda-shot iframe");
- frames.forEach(frame=>{
-  if(frame.contentWindow!==event.source)return;
-  const cell=frame.closest(".mp-coda-shot");
-  if(cell?.classList.contains("active"))cell.classList.add("video-ready");
- });
-});
-const filmDuration=10.40;
-const raw=x=>String(x==null?"":x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const shots=entries.filter(e=>e.kind!=="code");
-const coda=document.createElement("section");coda.id="mp-coda";coda.className="mp-coda";coda.hidden=true;
-coda.setAttribute("role","region");coda.setAttribute("aria-label","International news and Manipur aftermath: attributed archive montage");
-const srcFor=e=>e.provider==="dailymotion"?"https://www.dailymotion.com/thumbnail/video/"+e.video:"https://i.ytimg.com/vi/"+e.video+"/hqdefault.jpg";
-coda.innerHTML='<div class="mp-coda-media">'+shots.map((e,i)=>'<div class="mp-coda-shot" data-kind="'+e.kind+'" data-mp-index="'+i+'">'+
- '<div class="mp-coda-video-fallback"></div><img alt="" loading="eager" referrerpolicy="no-referrer" src="'+srcFor(e)+'">'+
- '<iframe title="'+raw(e.publisher)+' archival Manipur news footage" loading="eager" tabindex="-1" aria-hidden="true" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture"></iframe>'+
+if(new URLSearchParams(location.search).get("intro")==="0"||document.getElementById("mp-coda"))return;
+const media=[
+["homes","manipur","youtube","ge9ReWg_Poc","NDTV","15 Jun 2023",0,"Homes on fire / conflict coverage"],
+["gunfire","manipur","youtube","6XwwSFCOgLk","NDTV","26 Jul 2023",0,"Conflict-zone field report"],
+["shelter","manipur","youtube","deHnJ5DoOMw","BBC News India","23 May 2026",0,"Displacement / temporary shelter"],
+["bbc","international","youtube","E51qy8BIOMU","BBC News India","25 Jul 2023",0,"International report on Manipur"],
+["dw","international","youtube","uVHRj3whZsA","DW News","2023 archive",0,"Manipur conflict report"],
+["reuters","international","youtube","NUvF4oRkJWE","Reuters","2023 archive",0,"Reuters report on Manipur"],
+["aljazeera","international","youtube","B0kENhQibbw","Al Jazeera English","2023 archive",0,"Manipur conflict / Inside Story"],
+["france24","international","dailymotion","x9n1kre","FRANCE 24 English","2025 archive",0,"Report on a divided state"],
+["modi","leaders","youtube","dlCQ4YtUvwo","Narendra Modi / Official","10 Aug 2023",5520,"Prime Minister / Lok Sabha"],
+["biren","leaders","youtube","jQlW3qS21kI","The Indian Express / ANI","1 Jul 2023",0,"N. Biren Singh / then-Chief Minister"],
+["rahul","leaders","youtube","QKBNuJNvuCI","Sansad TV","9 Aug 2023",1200,"Rahul Gandhi / Lok Sabha"],
+["shah","leaders","youtube","6DnRaWikqlU","Sansad TV","9 Aug 2023",4440,"Amit Shah / Lok Sabha"],
+["hindi","indian","youtube","B9_Bo8SIwr4","Aaj Tak · Hindi","24 Jul 2023",0,"Original Hindi ground report"],
+["english","indian","youtube","1-l2SwrzQiA","India Today · English","31 May 2023",0,"English field report from Churachandpur"],
+["manipuri","indian","youtube","t0x15LhCBLQ","Impact TV · Manipuri","4 May 2023",0,"4pm Manipuri-language news bulletin"]
+].map(a=>({key:a[0],group:a[1],provider:a[2],id:a[3],publisher:a[4],date:a[5],start:a[6],description:a[7],
+ url:(a[2]==="dailymotion"?"https://www.dailymotion.com/video/":"https://www.youtube.com/watch?v=")+a[3],
+ originalSound:a[0]==="bbc"||a[0]==="manipuri"}));
+const sequence=media.concat([{key:"dossier",group:"dossier",duration:3.7},{key:"parallax",group:"parallax",duration:4.2}]);
+const esc=s=>String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const stage=document.createElement("section");stage.id="mp-coda";stage.className="mp-coda";stage.hidden=true;
+stage.setAttribute("aria-label","Documentary broadcast footage and evidence desk transition");
+stage.innerHTML=
+ '<div class="mp-coda-media">'+media.map((m,i)=>'<div class="mp-coda-shot" data-kind="'+m.group+'" data-mp-index="'+i+'">'+
+ '<div class="mp-source-wait" role="status"><i class="mp-pulse"></i><small>CONNECTING TO ORIGINAL BROADCAST</small>'+
+ '<strong>'+esc(m.publisher)+'</strong><a target="_blank" rel="noopener noreferrer" href="'+esc(m.url)+'">OPEN ORIGINAL VIDEO ↗</a></div>'+
+ '<iframe title="'+esc(m.publisher)+' source footage" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen tabindex="-1" referrerpolicy="strict-origin-when-cross-origin"></iframe>'+
  '</div>').join("")+'</div>'+
  '<div class="mp-coda-filmgrain" aria-hidden="true"></div>'+
- '<header class="mp-coda-top"><span class="mp-coda-label">MANIPUR / DOCUMENTARY RECORD / 2023–2026</span><div><button id="mp-coda-fx" class="mp-coda-audio-control" type="button" aria-pressed="true">SFX: ON</button> <button id="mp-coda-skip" type="button">Enter terminal ↗</button></div></header>'+
- '<div class="mp-coda-text"><small id="mp-coda-over">INTERNATIONAL REPORTING</small><h2 id="mp-coda-title">Five perspectives. One unfinished conflict.</h2><p id="mp-coda-sub">Source-attributed clips; select the original to hear the complete report.</p></div>'+
- '<div class="mp-coda-credit" id="mp-coda-credit"></div>'+
- '<div class="mp-coda-codeframe" id="mp-coda-code" aria-label="Research dossier transition, decorative CIA-style 3D typography">'+
- '<div class="mp-dossier-stack"><div class="mp-code-lead">THE MANIPUR RESEARCH TERMINAL / CASE STUDY 2023–2026</div><div class="mp-code-title">MANIPUR<span style="font-family:Georgia,serif;font-size:.34em;vertical-align:top"> / 16</span></div>'+
+ '<header class="mp-coda-top"><span class="mp-coda-label">MANIPUR / ARCHIVAL REPORTS / ORIGINAL VIDEO</span>'+
+ '<div class="mp-coda-control-bar">'+
+ '<button id="mp-coda-keywords" type="button" aria-pressed="true" title="Synthetic keyword narration, not a recording of news anchors">KEYWORDS: ON</button>'+
+ '<button id="mp-coda-voices" type="button" aria-pressed="false" title="Original broadcast voices, when available, from BBC and Impact TV only">BBC / IMPACT AUDIO: OFF</button>'+
+ '<button id="mp-coda-fx" type="button" aria-pressed="true">SFX: ON</button>'+
+ '<button id="mp-coda-skip" type="button">ENTER TERMINAL ↗</button></div></header>'+
+ '<div class="mp-coda-credit" id="mp-coda-credit" aria-live="polite"></div>'+
+ '<div class="mp-coda-codeframe" id="mp-coda-code" aria-label="Research dossier title sequence"><div class="mp-dossier-stack">'+
+ '<div class="mp-code-lead">THE MANIPUR RESEARCH TERMINAL / CASE STUDY 2023–2026</div>'+
+ '<div class="mp-code-title">MANIPUR<span style="font-family:Georgia,serif;font-size:.34em;vertical-align:top"> / 16</span></div>'+
  '<div class="mp-code-sub">IDENTITY · CONFLICT · COLLECTIVE MEMORY</div><div class="mp-code-motif">'+
  '<div class="mp-code-line" style="--delay:0ms">FILE 001 / DISTRICTS & INCIDENT GEOGRAPHY</div>'+
  '<div class="mp-code-line" style="--delay:120ms">FILE 002 / ADMINISTRATIVE RESPONSE & MEASURES</div>'+
  '<div class="mp-code-line" style="--delay:250ms">FILE 003 / DISPLACEMENT & HUMAN STORIES</div>'+
  '<div class="mp-code-line" style="--delay:360ms">FILE 004 / NGO RELIEF & INDEPENDENT MONITORING</div>'+
  '<div class="mp-code-line" style="--delay:480ms">FILE 005 / SOURCES · DATES · ACCOUNTABILITY</div></div>'+
- '<div class="mp-code-auth">AN INTELLIGENCE-STYLE VISUAL MOTIF · NOT AN ACTUAL CIA DOCUMENT</div></div></div>'+
+ '<div class="mp-code-auth">AN INTELLIGENCE-STYLE VISUAL / NOT A CLASSIFIED RECORD</div></div></div>'+
+ '<section class="mp-parallax" id="mp-parallax" aria-label="Parallax interlude before the terminal">'+
+ '<div class="mp-depth mp-depth-back"></div><div class="mp-depth mp-depth-mid"></div><div class="mp-depth mp-depth-front"></div>'+
+ '<div class="mp-parallax-inner"><small>THE MANIPUR RESEARCH TERMINAL</small>'+
+ '<h2>BEYOND THE<br><em>HEADLINES.</em></h2><p>16 DISTRICTS · SOURCES · HUMAN STORIES</p>'+
+ '<div class="mp-parallax-rule"></div><small>ENTER THE EVIDENCE DESK</small></div></section>'+
  '<div class="mp-coda-bottom" aria-hidden="true"><span id="mp-coda-progress"></span></div>';
-document.body.appendChild(coda);
+document.body.appendChild(stage);
 const $=id=>document.getElementById(id);
-let started=false,done=false,last=-1,raf=0,startAt=0,fxOn=true,fxTriggered={};
-let previousOverflow='';
-let audioReady=false;const sound={
-gun:null,child:null,
-init(){
- if(audioReady)return;audioReady=true;
- this.gun=new Audio("https://commons.wikimedia.org/wiki/Special:FilePath/Gunshots_8.ogg");this.gun.preload="auto";this.gun.volume=.15;
- this.child=null; // infant crying omitted in the restorative preview mix
-},
-play(name){
- if(!fxOn)return;this.init();
- const x=this[name];if(!x)return;
- try{x.currentTime=0;x.play().catch(()=>{});}catch(e){}
-},
-stop(){
- for(const x of [this.gun,this.child])if(x){try{x.pause();x.currentTime=0;}catch(e){}}
-}
-};
-let embedsPrepared=false;
-function loadEmbeds(){
- if(embedsPrepared)return;
- embedsPrepared=true;
- // Do not load eight autoplay players at once. Preserve every original source,
- // title, thumbnail, sequence and duration. Stream only the visible scene.
-}
-let liveEmbed=-1;
-function activateEmbed(index){
- if(index===liveEmbed)return;
- coda.querySelectorAll(".mp-coda-shot").forEach(cell=>cell.classList.remove("video-ready"));
- if(liveEmbed>=0){
-  const previous=coda.querySelectorAll(".mp-coda-shot iframe")[liveEmbed];
-  if(previous)previous.removeAttribute("src");
+const frames=()=>Array.from(stage.querySelectorAll(".mp-coda-shot iframe"));
+let started=false,done=false,idx=-1,startedAt=0,playingAt=0,raf=0,sfx=true,keywords=true,origAudio=false;
+let priorOverflow="",loaded=new Set(),ready=new Set(),fired=new Set(),speechTimer=0,wordNumber=0,gun=null;
+const words=["Manipur","burning","violence","conflict","riots"];
+function haltSpeech(){clearTimeout(speechTimer);speechTimer=0;try{speechSynthesis.cancel()}catch(e){}}
+function speak(){
+ if(done||!started)return;
+ const item=sequence[idx],group=item?.group;
+ if(keywords&&["international","leaders","indian"].includes(group)&&!(origAudio&&item.originalSound)){
+  try{if(typeof SpeechSynthesisUtterance!=="undefined"&&!speechSynthesis.speaking&&!speechSynthesis.pending){
+   const word=new SpeechSynthesisUtterance(words[wordNumber++%words.length]);
+   word.lang="en-IN";word.rate=.8;word.pitch=.76;word.volume=.48;speechSynthesis.speak(word);
+  }}catch(e){}
  }
- liveEmbed=index;
- if(index<0||index>=shots.length)return;
- const frame=coda.querySelectorAll(".mp-coda-shot iframe")[index],e=shots[index];
- if(!frame||!e)return;
- if(e.provider==="youtube")
-  frame.src="https://www.youtube-nocookie.com/embed/"+e.video+"?enablejsapi=1&autoplay=1&mute=1&controls=0&playsinline=1&loop=1&playlist="+e.video+"&rel=0&modestbranding=1";
- else frame.src="https://www.dailymotion.com/embed/video/"+e.video+"?autoplay=1&mute=1&controls=0&queue-enable=false";
+ speechTimer=setTimeout(speak,1550);
 }
-function show(index){
- if(index===last)return;last=index;
- const e=entries[index];if(!e)return;
- const isCode=e.kind==="code";
- coda.classList.toggle("mp-coda-dossier",isCode);
- coda.querySelectorAll(".mp-coda-shot").forEach(n=>n.classList.toggle("active",n.dataset.mpIndex===String(index)));
- activateEmbed(isCode?-1:index);
- if(!isCode){
-  $("mp-coda-over").textContent=(e.kind==="international"?"INTERNATIONAL BROADCASTER":"CONFLICT / HUMAN IMPACT")+" · "+e.publisher+" · "+e.date;
-  $("mp-coda-title").textContent=e.title;$("mp-coda-sub").textContent=e.text;
-  $("mp-coda-credit").innerHTML='SOURCE: '+raw(e.publisher)+' · <a class="mp-coda-archive-link" href="'+e.url+'" target="_blank" rel="noopener noreferrer">VIEW ORIGINAL REPORT ↗</a>'+
-  '<small class="mp-coda-archive-note">Archived publisher footage. Embedded streams are muted and may be blocked by the provider.</small>'+
-  (e.kind==="conflict"?'<small class="mp-coda-archive-note">Illustrative public-domain sound effects, not original Manipur incident audio.</small>':'');
+function speakBegin(){haltSpeech();if(keywords)speak();}
+function command(frame,func,args){
+ if(!frame?.src||!frame.contentWindow||!frame.src.includes("youtube-nocookie.com"))return;
+ try{frame.contentWindow.postMessage(JSON.stringify({event:"command",func,args:args||[]}),"https://www.youtube-nocookie.com")}catch(e){}
+}
+function load(n){
+ if(n<0||n>=media.length||loaded.has(n))return;
+ const entry=media[n],f=frames()[n];if(!f)return;
+ loaded.add(n);
+ f.src=entry.provider==="youtube"?
+ "https://www.youtube-nocookie.com/embed/"+entry.id+"?enablejsapi=1&autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&origin="+encodeURIComponent(location.origin)+"&start="+entry.start:
+ "https://www.dailymotion.com/embed/video/"+entry.id+"?autoplay=1&mute=1&controls=0";
+}
+function prefetch(n){
+ for(let p=n;p<=Math.min(n+2,media.length-1);p++)load(p);
+ for(const p of Array.from(loaded))if(p<n-1||p>n+2){
+  frames()[p]?.removeAttribute("src");frames()[p]?.closest(".mp-coda-shot")?.classList.remove("video-ready");loaded.delete(p);ready.delete(p);
  }
- if(e.key==="gunfire"&&!fxTriggered.gun){fxTriggered.gun=true;sound.play("gun");}
- if(e.key==="homes"&&!fxTriggered.blast){fxTriggered.blast=true;window.MANIPUR_CINEMATIC_SFX?.burst("blast");}
- if(e.key==="gunfire"&&!fxTriggered.extraGun){fxTriggered.extraGun=true;window.MANIPUR_CINEMATIC_SFX?.burst("gunfire");}
- // No infant-crying SFX. The historical shelter footage and source remain unchanged.
- if(e.key==="dossier")sound.stop();
 }
-function exit(){
- if(done)return;done=true;cancelAnimationFrame(raf);sound.stop();document.body.style.overflow=previousOverflow;
- coda.querySelectorAll("iframe").forEach(n=>{try{n.src="about:blank";}catch(e){}});
- coda.remove();window.MANIPUR_POSTLUDE={finished:true,played:started,sources:shots.map(e=>({publisher:e.publisher,date:e.date,url:e.url}))};
+function setAudio(){
+ const item=media[idx];if(!item||item.provider!=="youtube")return;
+ const frame=frames()[idx],play=origAudio&&item.originalSound;
+ command(frame,play?"unMute":"mute",[]);if(play)command(frame,"setVolume",[60]);
 }
-function step(now){
+function sfxCue(key){
+ if(!sfx||fired.has(key))return;fired.add(key);
+ window.MANIPUR_CINEMATIC_SFX?.burst(key==="homes"?"blast":"gunfire");
+ if(key==="gunfire"&&gun)try{gun.currentTime=0;gun.play().catch(()=>{})}catch(e){}
+}
+function enter(n){
+ idx=n;startedAt=performance.now();playingAt=0;
+ const item=sequence[n];if(!item){finish();return;}
+ stage.classList.toggle("mp-coda-dossier",item.group==="dossier");
+ stage.classList.toggle("mp-coda-bridge",item.group==="parallax");
+ stage.classList.toggle("mp-coda-news",!["dossier","parallax"].includes(item.group));
+ stage.querySelectorAll(".mp-coda-shot").forEach((e,k)=>e.classList.toggle("active",k===n));
+ if(item.group==="dossier"||item.group==="parallax"){
+  haltSpeech();if(gun)gun.pause();
+  $("mp-coda-credit").textContent="";
+  if(item.group==="parallax")document.body.classList.add("mp-terminal-ready");
+  return;
+ }
+ prefetch(n);
+ const group=item.group==="manipur"?"MANIPUR FOOTAGE":item.group==="international"?"INTERNATIONAL REPORTING":item.group==="leaders"?"PUBLIC STATEMENT":"INDIAN NEWS";
+ $("mp-coda-credit").innerHTML='<span>'+esc(group)+' · '+esc(item.publisher)+' · '+esc(item.date)+
+ '</span> <a href="'+esc(item.url)+'" target="_blank" rel="noopener noreferrer">WATCH ORIGINAL REPORT ↗</a>'+
+ '<small class="mp-coda-archive-note">Embedded original publisher video · no screenshots · playback subject to publisher restrictions</small>';
+ if(["homes","gunfire"].includes(item.key))sfxCue(item.key);
+ if(item.group==="manipur")haltSpeech();else if(!speechTimer)speakBegin();
+ if(ready.has(n)){command(frames()[n],"seekTo",[item.start||0,true]);command(frames()[n],"playVideo",[]);playingAt=performance.now();}
+ setAudio();
+}
+window.addEventListener("message",event=>{
+ if(!["https://www.youtube-nocookie.com","https://www.youtube.com"].includes(event.origin))return;
+ let data=event.data;try{if(typeof data==="string")data=JSON.parse(data)}catch(e){return}
+ if(!data)return;
+ const playing=(data.event==="onStateChange"&&Number(data.info)===1)||
+  (data.event==="infoDelivery"&&Number(data.info?.playerState)===1);
+ if(!playing)return;
+ const fs=frames(),n=fs.findIndex(f=>f.contentWindow===event.source);
+ if(n<0||n>=media.length)return;
+ ready.add(n);fs[n].closest(".mp-coda-shot")?.classList.add("video-ready");
+ if(n===idx){playingAt=playingAt||performance.now();setAudio();}
+});
+function finish(){
+ if(done)return;done=true;cancelAnimationFrame(raf);haltSpeech();
+ if(gun)try{gun.pause();gun.currentTime=0}catch(e){}
+ document.body.classList.add("mp-terminal-ready");
+ frames().forEach(f=>f.removeAttribute("src"));
+ document.body.style.overflow=priorOverflow;stage.remove();
+ window.MANIPUR_POSTLUDE={finished:true,played:started,edition:"source-video-recut",noScreenshots:true,
+  sources:media.map(x=>({publisher:x.publisher,date:x.date,url:x.url,group:x.group}))};
+}
+function tick(now){
  if(done)return;
- const sec=(now-startAt)/1000;
- let i=entries.findIndex(e=>sec>=e.from&&sec<e.to);
- if(i<0)i=entries.length-1;
- show(i);
- $("mp-coda-progress").style.width=Math.min(100,100*sec/filmDuration).toFixed(2)+"%";
- if(sec>=filmDuration){exit();return;}
- raf=requestAnimationFrame(step);
+ const item=sequence[idx];if(!item){finish();return;}
+ const seconds=(now-startedAt)/1000;
+ let progress=0;
+ if(item.duration){
+  progress=Math.min(1,seconds/item.duration);
+  if(seconds>=item.duration){enter(idx+1);raf=requestAnimationFrame(tick);return;}
+ }else if(ready.has(idx)){
+  playingAt=playingAt||now;progress=Math.min(1,(now-playingAt)/4500);
+  if(now-playingAt>=4500){enter(idx+1);raf=requestAnimationFrame(tick);return;}
+ }else{
+  progress=Math.min(1,seconds/4.7);
+  if(seconds>=4.7){enter(idx+1);raf=requestAnimationFrame(tick);return;}
+ }
+ $("mp-coda-progress").style.width=(100*(idx+progress)/sequence.length).toFixed(2)+"%";
+ raf=requestAnimationFrame(tick);
 }
 function start(){
  if(started||done)return;
- started=true;coda.hidden=false;previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
- loadEmbeds();sound.init();
- $("mp-coda-skip").addEventListener("click",exit,{once:true});
- $("mp-coda-fx").addEventListener("click",()=>{
-  fxOn=!fxOn;$("mp-coda-fx").textContent="SFX: "+(fxOn?"ON":"OFF");
-  $("mp-coda-fx").setAttribute("aria-pressed",String(fxOn));
-  if(!fxOn)sound.stop();
- });
- startAt=performance.now();show(0);raf=requestAnimationFrame(step);
- window.MANIPUR_POSTLUDE={finished:false,played:true,sourceCount:shots.length,internationalHouses:5,durationSeconds:filmDuration};
+ started=true;stage.hidden=false;priorOverflow=document.body.style.overflow;document.body.style.overflow="hidden";
+ gun=new Audio("https://commons.wikimedia.org/wiki/Special:FilePath/Gunshots_8.ogg");gun.preload="auto";gun.volume=.14;
+ enter(0);raf=requestAnimationFrame(tick);
+ window.MANIPUR_POSTLUDE={finished:false,played:true,edition:"source-video-recut",sourcesCount:media.length,
+  order:["Manipur video","International media","Modi / N. Biren Singh / Rahul Gandhi / Amit Shah","Hindi / English / Manipuri news","Dossier","Parallax"]};
 }
-/* Prepare CC0 sound cues under the existing Explore-button gesture.
-   Keep them muted and paused until the final archival scenes. */
-document.getElementById("ci-explore")?.addEventListener("click",function(){
- loadEmbeds();
- sound.init();
- [sound.gun,sound.child].forEach(x=>{
-  if(!x)return;
-  x.muted=true;
-  try{const p=x.play();
-   if(p&&typeof p.then==="function")p.then(()=>{x.pause();x.currentTime=0;x.muted=false;}).catch(()=>{x.muted=false;});
-   else{x.pause();x.currentTime=0;x.muted=false;}
-  }catch(e){x.muted=false;}
- });
+$("mp-coda-skip").addEventListener("click",finish);
+$("mp-coda-fx").addEventListener("click",function(){sfx=!sfx;this.textContent="SFX: "+(sfx?"ON":"OFF");this.setAttribute("aria-pressed",String(sfx));window.MANIPUR_CINEMATIC_SFX?.setEnabled(sfx);if(!sfx&&gun)gun.pause();});
+$("mp-coda-keywords").addEventListener("click",function(){keywords=!keywords;this.textContent="KEYWORDS: "+(keywords?"ON":"OFF");this.setAttribute("aria-pressed",String(keywords));if(keywords)speakBegin();else haltSpeech();});
+$("mp-coda-voices").addEventListener("click",function(){
+ origAudio=!origAudio;this.textContent="BBC / IMPACT AUDIO: "+(origAudio?"ON":"OFF");
+ this.setAttribute("aria-pressed",String(origAudio));setAudio();
+ if(origAudio&&media[idx]?.originalSound)haltSpeech();else if(keywords)speakBegin();
 });
-const monitor=new MutationObserver(function(mutations){
- for(const m of mutations){
-  for(const n of m.removedNodes){
-   if(n.nodeType!==1||n.id!=="ci-gate")continue;
-   monitor.disconnect();
-   const percent=parseFloat(n.querySelector("#ci-progress")?.style.width||"0");
-   if(percent>=99.9)start();else coda.remove();
-   return;
-  }
+stage.addEventListener("pointermove",e=>{
+ if(!stage.classList.contains("mp-coda-bridge"))return;
+ stage.style.setProperty("--px",((e.clientX/innerWidth-.5)*2).toFixed(3));
+ stage.style.setProperty("--py",((e.clientY/innerHeight-.5)*2).toFixed(3));
+},{passive:true});
+document.addEventListener("manipur-terminal-entered",()=>{
+ if(!document.body.classList.contains("mp-terminal-ready"))return;
+ document.body.classList.remove("mp-terminal-ready");document.body.classList.add("mp-terminal-revealing");
+ setTimeout(()=>document.body.classList.remove("mp-terminal-revealing"),1700);
+});
+document.getElementById("ci-explore")?.addEventListener("click",()=>{
+ window.MANIPUR_CINEMATIC_SFX?.arm?.();try{speechSynthesis.resume()}catch(e){}
+});
+const observer=new MutationObserver(records=>{
+ for(const m of records)for(const n of m.removedNodes){
+  if(n.nodeType!==1||n.id!=="ci-gate")continue;
+  observer.disconnect();
+  if(parseFloat(n.querySelector("#ci-progress")?.style.width||"0")>=99.9)start();else stage.remove();
+  return;
  }
 });
-monitor.observe(document.body,{childList:true});
-const card=document.getElementById("ci-credits")?.querySelector(".ci-credits-card");
-if(card){
- const sec=document.createElement("section");
- sec.innerHTML='<h3>Global reporting and final sound effects</h3><p>These are dated, directly linked broadcaster reports, not live pictures from November 2026. Sound effects are illustrative and should not be mistaken for original incident recordings.</p><ol>'+
- shots.map(e=>'<li>'+raw(e.publisher)+' · '+raw(e.date)+' — <a href="'+e.url+'" target="_blank" rel="noopener noreferrer">'+raw(e.title)+'</a></li>').join("")+
- '</ol><p>Openly licensed illustration SFX: <a href="https://commons.wikimedia.org/wiki/File:Gunshots_8.ogg" target="_blank" rel="noopener noreferrer">gunshots (aradlaw, public domain)</a> ; infant crying disabled. Additional simulated percussion comes from the browser audio synthesizer, not from footage audio.</p>';
- card.appendChild(sec);
+observer.observe(document.body,{childList:true});
+const credits=document.getElementById("ci-credits")?.querySelector(".ci-credits-card");
+if(credits){
+ const el=document.createElement("section");
+ el.innerHTML='<h3>Original media montage and voice provenance</h3><p>Original video is embedded from the named publishers; no compressed thumbnails or screenshots are presented. If a source blocks embedding, a neutral slate and a link replace it. Five repeated keywords are browser-generated speech, NOT recorded broadcaster narration. Optional BBC / Impact TV audio comes directly from their own video embeds.</p><ol>'+
+ media.map(x=>'<li>'+esc(x.publisher)+' · '+esc(x.date)+' — <a href="'+esc(x.url)+'" rel="noopener noreferrer" target="_blank">'+esc(x.description)+'</a></li>').join("")+
+ '</ol><p>Violence sound effects are illustrative, not incident audio.</p>';
+ credits.appendChild(el);
 }
 })();
