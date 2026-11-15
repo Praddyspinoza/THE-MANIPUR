@@ -6,25 +6,22 @@
 "use strict";
 if(new URLSearchParams(location.search).get("intro")==="0"||document.getElementById("mp-coda"))return;
 const media=[
-["homes","manipur","youtube","ge9ReWg_Poc","NDTV","15 Jun 2023",0,"Homes on fire / conflict coverage"],
-["gunfire","manipur","youtube","6XwwSFCOgLk","NDTV","26 Jul 2023",0,"Conflict-zone field report"],
-["shelter","manipur","youtube","deHnJ5DoOMw","BBC News India","23 May 2026",0,"Displacement / temporary shelter"],
-["bbc","international","youtube","E51qy8BIOMU","BBC News India","25 Jul 2023",0,"International report on Manipur"],
-["dw","international","youtube","uVHRj3whZsA","DW News","2023 archive",0,"Manipur conflict report"],
-["reuters","international","youtube","xw8DUNG_ung","Reuters","28 Jul 2023",0,"Ethnic violence continues in Manipur"],
-["aljazeera","international","youtube","B0kENhQibbw","Al Jazeera English","31 May 2023",0,"Manipur unrest / shootings and arson"],
-["france24","international","dailymotion","x9n1kre","FRANCE 24 English","2025 archive",0,"Report on a divided state"],
-["modi","leaders","youtube","dlCQ4YtUvwo","Narendra Modi / Official","10 Aug 2023",5520,"Prime Minister / Lok Sabha"],
-["biren","leaders","youtube","jQlW3qS21kI","The Indian Express / ANI","1 Jul 2023",0,"N. Biren Singh / then-Chief Minister"],
-["rahul","leaders","youtube","QKBNuJNvuCI","Sansad TV","9 Aug 2023",1200,"Rahul Gandhi / Lok Sabha"],
-["shah","leaders","youtube","6DnRaWikqlU","Sansad TV","9 Aug 2023",4440,"Amit Shah / Lok Sabha"],
-["hindi","indian","youtube","B9_Bo8SIwr4","Aaj Tak · Hindi","24 Jul 2023",0,"Original Hindi ground report"],
-["english","indian","youtube","1-l2SwrzQiA","India Today · English","31 May 2023",0,"English field report from Churachandpur"],
-["manipuri","indian","youtube","t0x15LhCBLQ","Impact TV · Manipuri","4 May 2023",0,"4pm Manipuri-language news bulletin"]
+["bbc","international","youtube","E51qy8BIOMU","BBC News India","25 Jul 2023",0,"Lives interrupted by violence in Manipur"],
+["dw","international","youtube","08AnQDLKjm0","DW News","8 Aug 2023",0,"Manipur violence report / displacement"],
+["aljazeera","international","youtube","wea8vcgX8aM","Al Jazeera English","20 Jul 2023",0,"Modi responds as ethnic violence continues"],
+["rahul","leaders","youtube","Kd17ygQpvFk","Hindustan Times / Rahul Gandhi","9 Aug 2023",0,"Rahul Gandhi on Manipur in Parliament"],
+["modi","leaders","youtube","BhF9o4sDZ6k","India Today / Narendra Modi","20 Jul 2023",0,"Modi's first remarks on Manipur"],
+["shah","leaders","youtube","qfrsWuWT5BA","The Indian Express / Amit Shah","24 Jul 2023",0,"Shah speaks in Parliament about Manipur"],
+["biren","leaders","youtube","jQlW3qS21kI","The Indian Express / N. Biren Singh","1 Jul 2023",0,"Then-CM Biren Singh discusses the violence"],
+["wea","rights","youtube","O5aF0k22HN0","World Evangelical Alliance · UNHRC side event","19 Sep 2023",0,"NGO-organized Geneva human rights discussion, not official UN footage"],
+["hrw","rights","youtube","1r2cqdIaGdE","Voice of America · Human Rights Watch","25 Jul 2023",0,"VOA interview with HRW's Meenakshi Ganguly"],
+["hindi","indian","youtube","56yp1SyHcoA","Aaj Tak · Hindi","5 May 2023",0,"Hindi coverage: Manipur ethnic violence"],
+["english","indian","youtube","y_FFzTNGuQI","NDTV · English","1 Jul 2023",0,"NDTV reporting from violence-hit Manipur"],
+["manipuri","indian","youtube","t0x15LhCBLQ","Impact TV Manipur · Meiteilon","4 May 2023",0,"Original Manipuri-language bulletin"]
 ].map(a=>({key:a[0],group:a[1],provider:a[2],id:a[3],publisher:a[4],date:a[5],start:a[6],description:a[7],
  url:(a[2]==="dailymotion"?"https://www.dailymotion.com/video/":"https://www.youtube.com/watch?v=")+a[3],
  originalSound:a[0]==="bbc"||a[0]==="manipuri"}));
-const sequence=media.concat([{key:"dossier",group:"dossier",duration:3.7},{key:"parallax",group:"parallax",duration:4.2}]);
+const sequence=media.concat([{key:"dossier",group:"dossier",duration:2.2},{key:"parallax",group:"parallax",duration:2.7}]);
 const esc=s=>String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const stage=document.createElement("section");stage.id="mp-coda";stage.className="mp-coda";stage.hidden=true;
 stage.setAttribute("aria-label","Documentary broadcast footage and evidence desk transition");
@@ -198,7 +195,7 @@ function start(){
  gun=new Audio("https://commons.wikimedia.org/wiki/Special:FilePath/Gunshots_8.ogg");gun.preload="auto";gun.volume=.14;
  enter(0);raf=requestAnimationFrame(tick);
  window.MANIPUR_POSTLUDE={finished:false,played:true,edition:"source-video-recut",sourcesCount:media.length,
-  order:["Manipur video","International media","Modi / N. Biren Singh / Rahul Gandhi / Amit Shah","Hindi / English / Manipuri news","Dossier","Parallax"]};
+  order:["International reporting","Rahul / Modi / Shah / Biren","Human Rights organizations","Indian reporting (Hindi / English / Manipuri)","Dossier","Parallax"]};
 }
 $("mp-coda-skip").addEventListener("click",finish);
 $("mp-coda-fx").addEventListener("click",function(){sfx=!sfx;this.textContent="SFX: "+(sfx?"ON":"OFF");this.setAttribute("aria-pressed",String(sfx));window.MANIPUR_CINEMATIC_SFX?.setEnabled(sfx);if(!sfx&&gun)gun.pause();});
