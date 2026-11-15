@@ -88,6 +88,26 @@ function load(n){
  f.src=entry.provider==="youtube"?
  "https://www.youtube-nocookie.com/embed/"+entry.id+"?enablejsapi=1&autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&origin="+encodeURIComponent(location.origin)+"&start="+entry.start:
  "https://www.dailymotion.com/embed/video/"+entry.id+"?autoplay=1&mute=1&controls=0";
+ if(entry.provider==="youtube"){
+  // The YouTube player will not reliably send state events until the parent
+  // registers as a listener. Load != playback: show real frames only on PLAYING.
+  f.addEventListener("load",()=>{
+   if(!loaded.has(n))return;
+   try{f.contentWindow?.postMessage(JSON.stringify({event:"listening",id:"mp-"+n,channel:"widget"}),"https://www.youtube-nocookie.com")}catch(e){}
+   command(f,"addEventListener",["onStateChange"]);
+   command(f,"playVideo",[]);
+   if(n===idx)setAudio();
+  },{once:true});
+ }else{
+  // Dailymotion is itself the real publisher player, not a thumbnail;
+  // leave its own controls available if autoplay is restricted.
+  f.style.pointerEvents="auto";
+  f.addEventListener("load",()=>setTimeout(()=>{
+   if(!loaded.has(n)||done)return;
+   ready.add(n);f.closest(".mp-coda-shot")?.classList.add("video-ready");
+   if(n===idx)playingAt=playingAt||performance.now();
+  },950),{once:true});
+ }
 }
 function prefetch(n){
  for(let p=n;p<=Math.min(n+2,media.length-1);p++)load(p);
