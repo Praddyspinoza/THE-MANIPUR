@@ -262,7 +262,7 @@ observer.observe(document.body,{childList:true});
 const credits=document.getElementById("ci-credits")?.querySelector(".ci-credits-card");
 if(credits){
  const el=document.createElement("section");
- el.innerHTML='<h3>Original media montage and voice provenance</h3><p>Original video is embedded from the named publishers; no compressed thumbnails or screenshots are presented. If a source blocks embedding, a neutral slate and a link replace it. Five repeated keywords are browser-generated speech, NOT recorded broadcaster narration. Optional BBC / Impact TV audio comes directly from their own video embeds.</p><ol>'+
+ el.innerHTML='<h3>Original media montage and voice provenance</h3><p>Original video is embedded from the named publishers; no compressed thumbnails or screenshots are presented. If a source blocks embedding, a neutral slate and a link replace it. Three repeated keywords are browser-generated speech: English (Manipur, violence, riots) during international reporting and Hindi (मणिपुर, हिंसा, दंगे) during Indian reporting. Political-figure and rights-event audio is sourced from the original videos whenever the publisher and browser allow sound; it is not a fabricated quotation. The Geneva video is an NGO-organized UN Human Rights Council side event, not an official OHCHR broadcast. Optional BBC and Impact TV audio comes directly from their publisher embeds.</p><ol>'+
  media.map(x=>'<li>'+esc(x.publisher)+' · '+esc(x.date)+' — <a href="'+esc(x.url)+'" rel="noopener noreferrer" target="_blank">'+esc(x.description)+'</a></li>').join("")+
  '</ol><p>Violence sound effects are illustrative, not incident audio.</p>';
  credits.appendChild(el);
