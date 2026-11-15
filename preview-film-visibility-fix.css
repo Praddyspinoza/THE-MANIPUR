@@ -223,3 +223,16 @@ body.mp-terminal-revealing .app .page-intro{
 .mp-coda.mp-coda-news .mp-source-wait{display:none!important}
 .mp-coda.mp-coda-news .mp-coda-bottom{height:1px!important;opacity:.28}
 @media(hover:none){.mp-coda.mp-coda-news .mp-coda-top{opacity:.3}}
+
+/* Entry visibility failsafe — only after the viewer has chosen sound/silent.
+   The pre-existing film, parallax, and entry animations are unchanged. */
+body.mp-terminal-entered:not(.mp-terminal-revealing) .rail,
+body.mp-terminal-entered:not(.mp-terminal-revealing) .app{
+ opacity:1!important;
+ visibility:visible!important;
+ pointer-events:auto!important;
+}
+body.mp-terminal-entered.mp-terminal-revealing .rail,
+body.mp-terminal-entered.mp-terminal-revealing .app{
+ pointer-events:auto!important;
+}
