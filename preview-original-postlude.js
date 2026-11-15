@@ -16,7 +16,7 @@ const media=[
 ["wea","rights","youtube","O5aF0k22HN0","World Evangelical Alliance · UNHRC side event","19 Sep 2023",0,"NGO-organized Geneva human rights discussion, not official UN footage"],
 ["hindi","indian","youtube","LJ7axf0crfI","Aaj Tak · Hindi","21 Jul 2023",0,"Hindi coverage: Manipur violence and aftermath"],
 ["english","indian","youtube","i-2BZEdYtqU","News9 · English","5 May 2023",0,"English bulletin on Manipur security and violence"],
-["manipuri","indian","youtube","t0x15LhCBLQ","Impact TV Manipur · Meiteilon","4 May 2023",0,"Original Manipuri-language bulletin"]
+["manipuri","indian","youtube","iS2kNb2Npj0","Impact TV Manipur · Meiteilon","4 May 2023",0,"Official Impact TV Manipuri 2 PM bulletin"]
 ].map(a=>({key:a[0],group:a[1],provider:a[2],id:a[3],publisher:a[4],date:a[5],start:a[6],description:a[7],
  url:(a[2]==="dailymotion"?"https://www.dailymotion.com/video/":"https://www.youtube.com/watch?v=")+a[3],
  originalSound:a[0]==="bbc"||a[0]==="manipuri"}));
