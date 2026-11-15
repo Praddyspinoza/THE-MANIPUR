@@ -62,9 +62,17 @@
   overlay.hidden=true;
   document.body.style.overflow=previousOverflow;
   overlay.remove();
-  // Notify the source-video parallax of the existing consent choice so
-  // terminal content is revealed only when the visitor enters.
+  // Guarantee the real research terminal becomes visible after either
+  // consent choice. The original intro is an overlay; its bridge previously
+  // left .rail and .app at opacity:0 if an event arrived out of order.
+  const body=document.body;
+  body.classList.add("mp-terminal-entered");
+  // Preserve the existing reveal event for the approved entrance animation.
   document.dispatchEvent(new Event("manipur-terminal-entered"));
+  // This direct release does not depend on another script's event listener.
+  body.classList.remove("mp-terminal-ready");
+  body.classList.add("mp-terminal-revealing");
+  window.setTimeout(()=>body.classList.remove("mp-terminal-revealing"),1800);
  }
  function enterSilently(){
   try{ambience()?.stop?.();localAudio()?.pause?.();}catch(e){}
