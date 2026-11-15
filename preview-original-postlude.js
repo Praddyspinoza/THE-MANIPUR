@@ -86,7 +86,7 @@ function load(n){
  const entry=media[n],f=frames()[n];if(!f)return;
  loaded.add(n);
  f.src=entry.provider==="youtube"?
- "https://www.youtube-nocookie.com/embed/"+entry.id+"?enablejsapi=1&autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&origin="+encodeURIComponent(location.origin)+"&start="+entry.start:
+ "https://www.youtube-nocookie.com/embed/"+entry.id+"?enablejsapi=1&autoplay="+(n===idx?1:0)+"&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&origin="+encodeURIComponent(location.origin)+"&start="+entry.start:
  "https://www.dailymotion.com/embed/video/"+entry.id+"?autoplay=1&mute=1&controls=0";
  if(entry.provider==="youtube"){
   // The YouTube player will not reliably send state events until the parent
@@ -95,8 +95,7 @@ function load(n){
    if(!loaded.has(n))return;
    try{f.contentWindow?.postMessage(JSON.stringify({event:"listening",id:"mp-"+n,channel:"widget"}),"https://www.youtube-nocookie.com")}catch(e){}
    command(f,"addEventListener",["onStateChange"]);
-   command(f,"playVideo",[]);
-   if(n===idx)setAudio();
+   if(n===idx){command(f,"playVideo",[]);setAudio();}
   },{once:true});
  }else{
   // Dailymotion is itself the real publisher player, not a thumbnail;
@@ -110,8 +109,9 @@ function load(n){
  }
 }
 function prefetch(n){
- for(let p=n;p<=Math.min(n+2,media.length-1);p++)load(p);
- for(const p of Array.from(loaded))if(p<n-1||p>n+2){
+ // Keep only the visible player and the very next one: low-memory on iPad.
+ for(let p=n;p<=Math.min(n+1,media.length-1);p++)load(p);
+ for(const p of Array.from(loaded))if(p<n||p>n+1){
   frames()[p]?.removeAttribute("src");frames()[p]?.closest(".mp-coda-shot")?.classList.remove("video-ready");loaded.delete(p);ready.delete(p);
  }
 }
@@ -145,7 +145,12 @@ function enter(n){
  '<small class="mp-coda-archive-note">Embedded original publisher video · no screenshots · playback subject to publisher restrictions</small>';
  if(["homes","gunfire"].includes(item.key))sfxCue(item.key);
  if(item.group==="manipur")haltSpeech();else if(!speechTimer)speakBegin();
- if(ready.has(n)){command(frames()[n],"seekTo",[item.start||0,true]);command(frames()[n],"playVideo",[]);playingAt=performance.now();}
+ // A hidden preload is paused. Send a fresh play command on scene activation.
+ if(loaded.has(n)&&item.provider==="youtube"){
+  command(frames()[n],"seekTo",[item.start||0,true]);
+  command(frames()[n],"playVideo",[]);
+ }
+ if(ready.has(n))playingAt=performance.now();
  setAudio();
 }
 window.addEventListener("message",event=>{
