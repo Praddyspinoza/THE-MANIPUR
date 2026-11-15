@@ -62,6 +62,9 @@
   overlay.hidden=true;
   document.body.style.overflow=previousOverflow;
   overlay.remove();
+  // Notify the source-video parallax of the existing consent choice so
+  // terminal content is revealed only when the visitor enters.
+  document.dispatchEvent(new Event("manipur-terminal-entered"));
  }
  function enterSilently(){
   try{ambience()?.stop?.();localAudio()?.pause?.();}catch(e){}
