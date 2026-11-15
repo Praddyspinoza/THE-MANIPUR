@@ -114,7 +114,7 @@ function prefetch(n){
  // One visible player plus the next player for seamless crossfade on iPad.
  for(let p=n;p<=Math.min(n+1,media.length-1);p++)load(p);
  stage.querySelectorAll(".mp-coda-shot").forEach((el,i)=>el.classList.toggle("mp-buffering",i===n+1));
- for(const p of Array.from(loaded))if(p<n-1||p>n+1){
+ for(const p of Array.from(loaded))if(p!==n&&p!==n+1&&p!==displayed){
   frames()[p]?.removeAttribute("src");
   frames()[p]?.closest(".mp-coda-shot")?.classList.remove("video-ready","mp-buffering");
   loaded.delete(p);ready.delete(p);
@@ -134,6 +134,15 @@ function reveal(n){
   if(n<0||n>=media.length)return;
   stage.querySelectorAll(".mp-coda-shot").forEach((e,k)=>e.classList.toggle("active",k===n));
   displayed=n;
+  // Keep only the visible and upcoming stream after the overlap crossfade.
+  setTimeout(()=>{
+   for(const old of Array.from(loaded)){
+    if(old===displayed||old===displayed+1)continue;
+    const f=frames()[old];f?.removeAttribute("src");
+    f?.closest(".mp-coda-shot")?.classList.remove("video-ready","mp-buffering");
+    loaded.delete(old);ready.delete(old);
+   }
+  },260);
   if(n===idx&&["international","indian"].includes(sequence[n].group)&&keywords&&!speechTimer)speakBegin();
 }
 function enter(n){
