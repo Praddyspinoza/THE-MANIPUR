@@ -207,7 +207,7 @@ function tick(now){
 }
 function start(){
  if(started||done)return;
- started=true;stage.hidden=false;priorOverflow=document.body.style.overflow;document.body.style.overflow="hidden";
+ started=true;stage.hidden=false;stage.classList.remove("mp-prewarm");priorOverflow=document.body.style.overflow;document.body.style.overflow="hidden";
  gun=new Audio("https://commons.wikimedia.org/wiki/Special:FilePath/Gunshots_8.ogg");gun.preload="auto";gun.volume=.14;
  enter(0);raf=requestAnimationFrame(tick);
  window.MANIPUR_POSTLUDE={finished:false,played:true,edition:"fast-broadcast-sequence",sourcesCount:media.length,
@@ -236,7 +236,19 @@ document.addEventListener("manipur-terminal-entered",()=>{
  setTimeout(()=>document.body.classList.remove("mp-terminal-revealing"),1700);
 });
 document.getElementById("ci-explore")?.addEventListener("click",()=>{
- window.MANIPUR_CINEMATIC_SFX?.arm?.();try{speechSynthesis.resume()}catch(e){}
+ window.MANIPUR_CINEMATIC_SFX?.arm?.();
+ // Browser speech engines need the visitor's original Explore gesture.
+ try{speechSynthesis.resume()}catch(e){}
+ // Pre-connect only the first publisher player near the original film's end.
+ // This preserves every scene, timing, and soundtrack in the 15-second original.
+ setTimeout(()=>{
+  const film=document.getElementById("ci-film"),gate=document.getElementById("ci-gate");
+  if(started||done||!gate?.isConnected||!film?.classList.contains("active"))return;
+  stage.hidden=false;stage.classList.add("mp-prewarm");
+  const first=stage.querySelector(".mp-coda-shot");
+  first?.classList.add("mp-buffering");
+  load(0);
+ },11700);
 });
 const observer=new MutationObserver(records=>{
  for(const m of records)for(const n of m.removedNodes){
