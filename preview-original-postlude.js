@@ -41,6 +41,7 @@ window.addEventListener("message",event=>{
  const i=fs.findIndex(f=>f.contentWindow===event.source);
  if(i<0)return;
  ready.add(i);fs[i]?.closest(".mp-coda-shot")?.classList.add("video-ready");
+ if(i===last&&started)revealActive(i);
 });
 const filmDuration=entries[entries.length-1].to;
 const raw=x=>String(x==null?"":x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -113,7 +114,7 @@ function ensure(i){
  },{once:true});
 }
 function loadEmbeds(){
- if(embedsPrepared)return;embedsPrepared=true;
+ if(embedsPrepared||done||!coda.isConnected)return;embedsPrepared=true;
  coda.hidden=false;coda.classList.add("mp-prewarm");
  // Stagger initial connections over the original film to avoid a single burst.
  shots.forEach((_,i)=>pendingTimers.push(setTimeout(()=>ensure(i),i*820)));
@@ -129,6 +130,12 @@ function activateEmbed(i){
  ensure(i);
  command(frameAt(i),"playVideo");
 }
+function revealActive(index){
+ const code=entries[index]?.kind==="code",bridge=entries[index]?.kind==="parallax";
+ const target=code||bridge?-1:ready.has(index)?index:liveEmbed;
+ coda.querySelectorAll(".mp-coda-shot").forEach((n,i)=>n.classList.toggle("active",i===target));
+ if(target!==liveEmbed)activateEmbed(target);
+}
 function show(index){
  if(index===last)return;last=index;
  const e=entries[index];if(!e)return;
@@ -136,8 +143,7 @@ function show(index){
  coda.classList.toggle("mp-coda-dossier",code);
  coda.classList.toggle("mp-coda-bridge",bridge);
  coda.classList.toggle("mp-coda-news",!code&&!bridge);
- coda.querySelectorAll(".mp-coda-shot").forEach((n,i)=>n.classList.toggle("active",i===index));
- activateEmbed(code||bridge?-1:index);
+ revealActive(index);
  if(index===0&&!fxTriggered.gun){fxTriggered.gun=true;window.MANIPUR_CINEMATIC_SFX?.burst("gunfire");}
  if(e.key==="aajtak"&&!fxTriggered.lastGun){fxTriggered.lastGun=true;window.MANIPUR_CINEMATIC_SFX?.burst("gunfire");}
  if(bridge){sound.stop();document.body.classList.add("mp-terminal-ready");}
@@ -164,9 +170,9 @@ function step(now){
 }
 function start(){
  if(started||done)return;
- started=true;coda.hidden=false;coda.classList.remove("mp-prewarm");
+ started=true;coda.hidden=false;
  previousOverflow=document.body.style.overflow;document.body.style.overflow="hidden";
- loadEmbeds();sound.init();
+ loadEmbeds();coda.classList.remove("mp-prewarm");sound.init();
  $("mp-coda-skip").addEventListener("click",exit,{once:true});
  $("mp-coda-fx").addEventListener("click",()=>{
   fxOn=!fxOn;$("mp-coda-fx").textContent="SFX: "+(fxOn?"ON":"OFF");
@@ -198,7 +204,7 @@ const monitor=new MutationObserver(function(mutations){
    if(n.nodeType!==1||n.id!=="ci-gate")continue;
    monitor.disconnect();
    const percent=parseFloat(n.querySelector("#ci-progress")?.style.width||"0");
-   if(percent>=99.9)start();else coda.remove();
+   if(percent>=99.9)start();else {done=true;pendingTimers.forEach(clearTimeout);coda.remove();}
    return;
   }
  }
