@@ -210,8 +210,12 @@ $("mp-coda-voices").addEventListener("click",function(){
 });
 stage.addEventListener("pointermove",e=>{
  if(!stage.classList.contains("mp-coda-bridge"))return;
- stage.style.setProperty("--px",((e.clientX/innerWidth-.5)*2).toFixed(3));
- stage.style.setProperty("--py",((e.clientY/innerHeight-.5)*2).toFixed(3));
+ const x=(e.clientX/innerWidth-.5)*2,y=(e.clientY/innerHeight-.5)*2;
+ // CSS individual translate composes with the existing 3D entrance animations.
+ for(const [layer,mult] of [["back",-8],["mid",15],["front",30],["copy",-13]]){
+  stage.style.setProperty("--mp-"+layer+"-x",(x*mult).toFixed(1)+"px");
+  stage.style.setProperty("--mp-"+layer+"-y",(y*mult).toFixed(1)+"px");
+ }
 },{passive:true});
 document.addEventListener("manipur-terminal-entered",()=>{
  if(!document.body.classList.contains("mp-terminal-ready"))return;
