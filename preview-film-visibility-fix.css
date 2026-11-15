@@ -189,3 +189,11 @@ body.mp-terminal-revealing .app .page-intro{
  .mp-coda .mp-depth,.mp-coda .mp-parallax-inner,.mp-coda .mp-pulse{animation:none!important;filter:none!important}
  body.mp-terminal-revealing .rail,body.mp-terminal-revealing .app{animation:none!important;opacity:1!important}
 }
+
+/* Pointer-driven parallax on top of, not instead of, the reveal animation.
+   CSS individual translate is deliberately independent of transform keyframes. */
+.mp-coda .mp-depth-back{translate:var(--mp-back-x,0px) var(--mp-back-y,0px);transition:translate .32s ease-out}
+.mp-coda .mp-depth-mid{translate:var(--mp-mid-x,0px) var(--mp-mid-y,0px);transition:translate .32s ease-out}
+.mp-coda .mp-depth-front{translate:var(--mp-front-x,0px) var(--mp-front-y,0px);transition:translate .32s ease-out}
+.mp-coda .mp-parallax-inner{translate:var(--mp-copy-x,0px) var(--mp-copy-y,0px);transition:translate .32s ease-out}
+@media(prefers-reduced-motion:reduce){.mp-coda .mp-depth-back,.mp-coda .mp-depth-mid,.mp-coda .mp-depth-front,.mp-coda .mp-parallax-inner{translate:none;transition:none}}
