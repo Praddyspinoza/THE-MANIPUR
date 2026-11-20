@@ -76,7 +76,35 @@ document.body.appendChild(coda);
 // Earlier 15-second cultural prologue, final editorial dossier, parallax, and terminal are untouched.
 const replacementVideo=document.createElement("video");
 replacementVideo.id="mp-replacement-video";
-replacementVideo.src="https://raw.githubusercontent.com/Praddyspinoza/THE-MANIPUR/trial-72s-20261120/manipur-replacement-72s.mp4";
+// The uploaded 71.9-second original MP4 is stored as 20 intact base64 fragments,
+// because the host connector rejects a single 15 MB binary transfer.
+let trialVideoPromise=null;
+function prepareTrialVideo(){
+ if(trialVideoPromise)return trialVideoPromise;
+ trialVideoPromise=(async()=>{
+  const parts=new Array(20);
+  for(let offset=0;offset<20;offset+=5){
+   await Promise.all(Array.from({length:Math.min(5,20-offset)},async(_,batchIndex)=>{
+    const i=offset+batchIndex;
+    const path="https://raw.githubusercontent.com/Praddyspinoza/THE-MANIPUR/trial-72s-20261120/trial-media/clip_full_"+String(i).padStart(2,"0")+".txt";
+    const response=await fetch(path,{mode:"cors",cache:"force-cache"});
+    if(!response.ok)throw Error("Trial video media fragment "+i+" failed HTTP "+response.status);
+    const base64=(await response.text()).trim();
+    if(base64.length!==(i===19?28252:1048576))throw Error("Trial video fragment size mismatch: "+i);
+    const decoded=atob(base64),bytes=new Uint8Array(decoded.length);
+    for(let j=0;j<decoded.length;j++)bytes[j]=decoded.charCodeAt(j);
+    parts[i]=bytes;
+   }));
+  }
+  const blob=new Blob(parts,{type:"video/mp4"});
+  if(blob.size!==14963396)throw Error("Complete 72-second media file integrity check failed");
+  replacementVideo.src=URL.createObjectURL(blob);
+  replacementVideo.load();
+  return blob.size;
+ })();
+ return trialVideoPromise;
+}
+void prepareTrialVideo().catch(e=>console.error("Trial media preload",e));
 replacementVideo.preload="auto";
 replacementVideo.playsInline=true;
 replacementVideo.setAttribute("playsinline","");
@@ -94,13 +122,18 @@ function showTrialPlayButton(label){
  btn.addEventListener("click",()=>{replacementVideo.muted=false;replacementVideo.volume=1;replacementVideo.play()?.catch(()=>{});btn.remove();});
 }
 function startReplacementVideo(){
- replacementVideo.currentTime=0;
- replacementVideo.muted=false;
- let playing=replacementVideo.play();
- if(playing&&typeof playing.catch==="function")playing.catch(()=>{
-   replacementVideo.muted=true;
-   replacementVideo.play().then(()=>showTrialPlayButton("ENABLE VIDEO AUDIO"))
+ prepareTrialVideo().then(()=>{
+  replacementVideo.currentTime=0;
+  replacementVideo.muted=false;
+  const playing=replacementVideo.play();
+  if(playing&&typeof playing.catch==="function")playing.catch(()=>{
+    replacementVideo.muted=true;
+    replacementVideo.play().then(()=>showTrialPlayButton("ENABLE VIDEO AUDIO"))
       .catch(()=>showTrialPlayButton("PLAY VIDEO WITH SOUND"));
+  });
+ }).catch(e=>{
+   console.error("The 72-second trial footage failed to load",e);
+   showTrialPlayButton("RELOAD 72-SECOND TRIAL FILM");
  });
 }
 replacementVideo.addEventListener("error",()=>{
