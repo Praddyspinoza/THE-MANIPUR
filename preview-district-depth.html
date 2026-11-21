@@ -24,6 +24,8 @@ iframe{width:100%;height:100%;height:100dvh;border:0;display:block;background:#0
   try{d=f.contentDocument;if(!d||!d.documentElement||!d.getElementById("drawer"))throw Error("Terminal not ready");}
   catch(e){document.getElementById("failure").style.display="block";return;}
   ready=true;
+  /* The production terminal already loads these exact enhancement assets. */
+  if(d.querySelector('script[src*="preview-district-depth.js"]'))return;
   var css=d.createElement("link");css.rel="stylesheet";css.href="./preview-district-depth.css?v=20261121-a";
   css.onerror=function(){document.getElementById("failure").style.display="block";};
   d.head.appendChild(css);
