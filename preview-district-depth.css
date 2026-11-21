@@ -1,0 +1,86 @@
+/* District dossier palette consistency, scope intentionally limited to #drawer.
+   The geography/heat canvas is NOT recoloured. */
+html[data-manipur-theme="obsidian"] body #drawer,
+html:not([data-manipur-theme="ivory"]) body #drawer {
+ --mdr-bg:#090d12;--mdr-surface:#121820;--mdr-alt:#1a222a;--mdr-ink:#eee9e0;
+ --mdr-muted:#b5b3ad;--mdr-line:#394047;--mdr-accent:#d2ba8d;--mdr-control:#1b232b;--mdr-gold:#d2ba8d;
+ background:var(--mdr-bg)!important;color:var(--mdr-ink)!important;
+ color-scheme:dark;
+}
+html[data-manipur-theme="ivory"] body #drawer{
+ --mdr-bg:#fffdfa;--mdr-surface:#fffdf8;--mdr-alt:#f4eadb;--mdr-ink:#392e22;
+ --mdr-muted:#766757;--mdr-line:#dfd2be;--mdr-accent:#815e32;--mdr-control:#f9f1e6;--mdr-gold:#815e32;
+ background:var(--mdr-bg)!important;color:var(--mdr-ink)!important;
+ color-scheme:light;
+}
+html body #drawer :is(.drawer-top,.drawer-counts,.drawer-filters,.filter-chips,.actions) {
+ color:var(--mdr-ink)!important;border-color:var(--mdr-line)!important;
+}
+html body #drawer :is(.drawer-top,.drawer-counts,.filter-chips,.drawer-filters,.actions) :is(p,small,span,label) {color:var(--mdr-muted)!important}
+html body #drawer :is(.drawer-top h2,.drawer-top h3,.section-title h2,.section-title h3,.mdr-depth h3,.mdr-depth h4){
+ color:var(--mdr-ink)!important;text-shadow:none!important;
+}
+html body #drawer :is(.eyebrow,.mdr-kicker,.mi-eyebrow,.hr-kicker,.new-official-header .eyebrow,.mvi-eyebrow) {
+ color:var(--mdr-accent)!important;text-shadow:none!important;
+}
+html body #drawer :is(.new-official-panel,.new-official,.new-mla-accordion,.new-mla-entry,.mv-person-evidence,.mv-statement-item,.mv-no-statement,.mi-district-actions,.mi-event-response,.hr-action,.hr-story,.hr-scale,.hr-caveat,.hr-empty,.hr-tag,.hr-method,.mvi-drawer-mini,.mvi-division,.mvi-division-list,.event-card,.source-card,.provenance-grid>div,.qualification,.note,.note-box,.mdr-depth){
+ background:var(--mdr-surface)!important;
+ color:var(--mdr-ink)!important;
+ border-color:var(--mdr-line)!important;
+ box-shadow:none!important;text-shadow:none!important;
+}
+html body #drawer :is(.new-official-panel,.new-official,.new-mla-accordion,.new-mla-entry,.mv-person-evidence,.mv-statement-item,.mv-no-statement,.mi-district-actions,.mi-event-response,.hr-action,.hr-story,.hr-scale,.hr-caveat,.hr-empty,.mvi-drawer-mini,.mvi-division,.event-card,.source-card,.mdr-depth) :is(h2,h3,h4,b,strong,summary) {
+ color:var(--mdr-ink)!important;text-shadow:none!important;
+}
+html body #drawer :is(.new-official-panel,.new-official,.new-mla-accordion,.new-mla-entry,.mv-person-evidence,.mv-statement-item,.mv-no-statement,.mi-district-actions,.mi-event-response,.hr-action,.hr-story,.hr-scale,.hr-caveat,.hr-empty,.mvi-drawer-mini,.mvi-division,.event-card,.source-card,.mdr-depth) :is(p,small,em,span,label,time,.fine,.muted) {
+ color:var(--mdr-muted)!important;text-shadow:none!important;
+}
+html body #drawer :is(a,.mini-link,.source-ref,.mv-statement-source,.new-official-panel button,.new-official-panel a,.mvi-drawer-mini a,.hr-action a,.hr-story a,.mi-actions a) {
+ color:var(--mdr-accent)!important;
+}
+html body #drawer :is(button,select,input,textarea,.btn,.tag,.chip,.hr-go,.mi-chip,.mdr-tabs button){
+ background:var(--mdr-control)!important;
+ color:var(--mdr-ink)!important;
+ border-color:var(--mdr-line)!important;
+ text-shadow:none!important;
+}
+html body #drawer :is(.btn.primary,.mdr-tabs button[aria-selected="true"]) {
+ background:var(--mdr-accent)!important;
+ color:var(--mdr-bg)!important;
+ border-color:var(--mdr-accent)!important;
+}
+html body #drawer :is(.drawer-top,.drawer-filters,.drawer-counts,.section-title,.mi-event-response) {border-bottom-color:var(--mdr-line)!important}
+html body #drawer .mdr-depth{
+ margin:22px 0 24px;padding:20px;border:1px solid var(--mdr-line)!important;border-radius:13px;
+ font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+html body #drawer .mdr-head{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:flex-start;padding:0 0 18px;border-bottom:1px solid var(--mdr-line)}
+html body #drawer .mdr-kicker{font:700 9px ui-monospace,Menlo,monospace;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:8px}
+html body #drawer .mdr-head h3{font-size:21px!important;line-height:1.28;margin:0 0 8px}
+html body #drawer .mdr-head p{font-size:11px;line-height:1.65;color:var(--mdr-muted)!important;max-width:470px}
+html body #drawer .mdr-kpis{display:grid;grid-template-columns:repeat(3,minmax(76px,1fr));gap:8px;flex:1;max-width:325px}
+html body #drawer .mdr-kpis>div{padding:10px 9px;border:1px solid var(--mdr-line);background:var(--mdr-alt)!important;border-radius:8px;min-width:0}
+html body #drawer .mdr-kpis b{display:block;font-size:22px;line-height:1.25;color:var(--mdr-accent)!important;font-variant-numeric:tabular-nums}
+html body #drawer .mdr-kpis small{display:block;font-size:9px;line-height:1.4;color:var(--mdr-muted)!important}
+html body #drawer .mdr-tabs{display:flex;flex-wrap:wrap;gap:7px;margin:17px 0 12px}
+html body #drawer .mdr-tabs button{font-size:11px;font-weight:650;border:1px solid var(--mdr-line)!important;border-radius:7px;padding:9px 11px;line-height:1.35;white-space:normal}
+html body #drawer .mdr-filters{display:grid;grid-template-columns:minmax(160px,2fr) minmax(120px,1fr);gap:10px;margin:0 0 12px}
+html body #drawer .mdr-filters label{font-size:9px;font-weight:700;letter-spacing:.08em;color:var(--mdr-muted)!important}
+html body #drawer .mdr-filters :is(input,select){width:100%;min-width:0;display:block;margin-top:5px;border:1px solid var(--mdr-line)!important;border-radius:7px;padding:10px;color:var(--mdr-ink)!important;background:var(--mdr-control)!important;font-size:11px;letter-spacing:normal}
+html body #drawer .mdr-count{font-size:10px;color:var(--mdr-muted)!important;padding:5px 0 10px;line-height:1.5}
+html body #drawer .mdr-cards{display:grid;gap:10px}
+html body #drawer .mdr-card{background:var(--mdr-alt)!important;border:1px solid var(--mdr-line)!important;border-radius:9px;padding:14px!important;color:var(--mdr-ink)!important;box-shadow:none!important}
+html body #drawer .mdr-card-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}
+html body #drawer .mdr-card-top time{font:600 10px ui-monospace,Menlo,monospace;color:var(--mdr-accent)!important}
+html body #drawer .mdr-status{padding:3px 7px;border:1px solid var(--mdr-line)!important;border-radius:20px;font:600 9px ui-monospace,Menlo,monospace;color:var(--mdr-muted)!important;max-width:55%;text-align:right}
+html body #drawer .mdr-card h4{font-size:14px!important;line-height:1.42;font-weight:660!important;margin:0 0 7px;color:var(--mdr-ink)!important}
+html body #drawer .mdr-card p{font-size:11px!important;line-height:1.75;color:var(--mdr-muted)!important;margin-bottom:9px}
+html body #drawer .mdr-card-bottom{padding-top:9px;border-top:1px solid var(--mdr-line)!important;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:10px}
+html body #drawer .mdr-card-bottom>span{color:var(--mdr-muted)!important;font-size:9px;overflow-wrap:anywhere}
+html body #drawer .mdr-card-bottom>a{color:var(--mdr-accent)!important;text-decoration:underline!important;text-underline-offset:3px}
+html body #drawer .mdr-more{font-size:11px;font-weight:700;padding:10px 15px;margin-top:12px;border:1px solid var(--mdr-line)!important;border-radius:8px}
+html body #drawer .mdr-method{margin:17px 0 0;font-size:10px!important;line-height:1.7;color:var(--mdr-muted)!important;border-top:1px solid var(--mdr-line);padding-top:13px}
+html body #drawer .mdr-empty{padding:22px;font-size:12px;color:var(--mdr-muted)!important}
+html body #drawer .mvi-drawer-mini .mvi-detail-svg{background:transparent!important}
+html body #drawer .mvi-drawer-mini .mv-map,html body #drawer .mvi-drawer-mini svg{background:transparent!important}
+@media(max-width:700px){html body #drawer .mdr-depth{padding:13px;margin:15px 0}html body #drawer .mdr-head{display:block}html body #drawer .mdr-kpis{margin-top:14px;max-width:none}html body #drawer .mdr-filters{grid-template-columns:1fr}html body #drawer .mdr-tabs button{flex:1}html body #drawer .mdr-card-bottom{display:block}html body #drawer .mdr-card-bottom>a{display:block;margin-top:6px}}
