@@ -14,7 +14,9 @@ function classifySource(s){
 }
 function mapMeasure(m){
  const origin=(m.sources||[])[0]||{};
- return {district:m.d,kind:"decision",date:m.date||"",title:m.title||"",body:m.details||"",url:origin.url||"",publisher:origin.name||origin.publisher||m.agency||"Attributed operational record",status:m.status||"reported",origin:"Existing official-response ledger"};
+ const url=Array.isArray(origin)?origin[1]:origin.url||"";
+ const publisher=Array.isArray(origin)?origin[0]:(origin.name||origin.publisher||m.agency);
+ return {district:m.d,kind:"decision",date:m.date||"",title:m.title||"",body:m.details||"",url,publisher:publisher||"Attributed operational record",status:m.status||"reported",origin:"Existing official-response ledger"};
 }
 function localEntries(district){
  const curated=RECORDS.filter(r=>r.district===district);
@@ -33,9 +35,10 @@ function allSourceRows(name){
    publisher:r.publisher,category:r.kind==="decision"?"Administration / response":"Reported incident",
    url:r.url
  }));
- const additional=(window.MANIPUR_RESEARCH_MEASURES||[]).filter(m=>m.d===name).flatMap(m=>(m.sources||[]).filter(v=>v&&v.url).map((v,i)=>({
+ const additional=(window.MANIPUR_RESEARCH_MEASURES||[]).filter(m=>m.d===name).flatMap(m=>(m.sources||[]).filter(v=>Array.isArray(v)?!!v[1]:!!(v&&v.url)).map((v,i)=>({
    id:"M-"+i,date:m.date,title:m.title,summary:m.details,
-   publisher:v.name||v.publisher||m.agency||"Research measure",category:"Official response ledger",url:v.url
+   publisher:Array.isArray(v)?v[0]:(v.name||v.publisher||m.agency||"Research measure"),
+   category:"Official response ledger",url:Array.isArray(v)?v[1]:v.url
  })));
  const unique=new Map();
  for(const r of [...baseline,...curated,...additional]){
