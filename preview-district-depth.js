@@ -27,7 +27,22 @@ function localEntries(district){
  return [...unique.values()].sort((a,b)=>String(b.date).localeCompare(String(a.date))||a.title.localeCompare(b.title));
 }
 function allSourceRows(name){
- return SOURCES.filter(s=>(s.districts||[]).includes(name)&&s.url).sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")));
+ const baseline=SOURCES.filter(s=>(s.districts||[]).includes(name)&&s.url);
+ const curated=RECORDS.filter(r=>r.district===name&&r.url).map((r,i)=>({
+   id:"D-"+String(i+1).padStart(3,"0"),date:r.date,title:r.title,summary:r.body,
+   publisher:r.publisher,category:r.kind==="decision"?"Administration / response":"Reported incident",
+   url:r.url
+ }));
+ const additional=(window.MANIPUR_RESEARCH_MEASURES||[]).filter(m=>m.d===name).flatMap(m=>(m.sources||[]).filter(v=>v&&v.url).map((v,i)=>({
+   id:"M-"+i,date:m.date,title:m.title,summary:m.details,
+   publisher:v.name||v.publisher||m.agency||"Research measure",category:"Official response ledger",url:v.url
+ })));
+ const unique=new Map();
+ for(const r of [...baseline,...curated,...additional]){
+   const key=String(r.url||"").replace(/\/$/,"");
+   if(key&&!unique.has(key))unique.set(key,r);
+ }
+ return [...unique.values()].sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")));
 }
 function card(r){
  let href=/^https:\/\/[^ <>"']+$/.test(r.url||"")?r.url:"";
