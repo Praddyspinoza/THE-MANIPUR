@@ -21,36 +21,21 @@ const reports=[
 {key:"news9",kind:"indian",provider:"youtube",video:"i-2BZEdYtqU",publisher:"News9",date:"5 MAY 2023",title:"News9 on security and violence",url:"https://www.youtube.com/watch?v=i-2BZEdYtqU"},
 {key:"impact",kind:"indian",provider:"youtube",video:"iS2kNb2Npj0",publisher:"Impact TV Manipur",date:"4 MAY 2023",title:"Manipuri language news bulletin",url:"https://www.youtube.com/watch?v=iS2kNb2Npj0"}
 ];
-const cutSeconds=.96;
-const clips=reports.map((e,i)=>({...e,from:i*cutSeconds,to:(i+1)*cutSeconds,text:""}));
+const VIDEO_SECONDS=71.9; // exact duration of user-supplied clip
+const replacementUrl=new URL("manipur-news-replacement-72s.mp4",document.currentScript?.src || location.href).href;
+const clips=[{key:"replacement72",kind:"replacement",from:0,to:VIDEO_SECONDS,text:""}];
 const entries=clips.concat([
-{from:clips.length*cutSeconds,to:clips.length*cutSeconds+2,key:"dossier",kind:"code"},
-{from:clips.length*cutSeconds+2,to:clips.length*cutSeconds+4.6,key:"parallax",kind:"parallax"}
+{from:VIDEO_SECONDS,to:VIDEO_SECONDS+2,key:"dossier",kind:"code"},
+{from:VIDEO_SECONDS+2,to:VIDEO_SECONDS+4.6,key:"parallax",kind:"parallax"}
 ]);
-/* A video is shown only after the original publisher reports actual playback.
-   Never substitute a thumbnail, screenshot, poster frame, or white headline. */
-const ready=new Set();
-window.addEventListener("message",event=>{
- if(!["https://www.youtube-nocookie.com","https://www.youtube.com"].includes(event.origin))return;
- let d=event.data;try{if(typeof d==="string")d=JSON.parse(d)}catch(e){return}
- if(!d)return;
- const playing=d.event==="onStateChange"&&Number(d.info)===1
-   ||d.event==="infoDelivery"&&Number(d.info?.playerState)===1;
- if(!playing)return;
- const fs=Array.from(document.querySelectorAll("#mp-coda .mp-coda-shot iframe"));
- const i=fs.findIndex(f=>f.contentWindow===event.source);
- if(i<0)return;
- ready.add(i);fs[i]?.closest(".mp-coda-shot")?.classList.add("video-ready");
- if(i===last&&started)revealActive(i);
-});
 const filmDuration=entries[entries.length-1].to;
 const raw=x=>String(x==null?"":x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const shots=reports;
+const shots=[{key:"replacement72",kind:"replacement",publisher:"User-provided video montage",date:"",url:replacementUrl}];
 const coda=document.createElement("section");coda.id="mp-coda";coda.className="mp-coda";coda.hidden=true;
-coda.setAttribute("role","region");coda.setAttribute("aria-label","International news and Manipur aftermath: attributed archive montage");
-coda.innerHTML='<div class="mp-coda-media">'+shots.map((e,i)=>'<div class="mp-coda-shot" data-kind="'+e.kind+'" data-mp-index="'+i+'">'+
- '<iframe title="'+raw(e.publisher)+' original Manipur reporting footage" loading="eager" tabindex="-1" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>'+
- '</div>').join("")+'</div>'+
+coda.setAttribute("role","region");coda.setAttribute("aria-label","Manipur news compilation followed by the original editorial dossier");
+coda.innerHTML='<div class="mp-coda-media"><div class="mp-coda-shot" data-kind="replacement" data-mp-index="0">'+
+ '<video id="mp-coda-user-video" playsinline webkit-playsinline preload="auto" aria-label="Manipur 72-second news montage" style="position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;background:#000"></video>'+
+ '</div></div>'+
  '<div class="mp-coda-filmgrain" aria-hidden="true"></div>'+
  '<header class="mp-coda-top"><span class="mp-coda-label">MANIPUR / ARCHIVE FOOTAGE</span><div><button id="mp-coda-fx" class="mp-coda-audio-control" type="button" aria-pressed="true">SFX: ON</button> <button id="mp-coda-skip" type="button">ENTER TERMINAL ↗</button></div></header>'+
  '<div class="mp-coda-text" aria-hidden="true"></div><div class="mp-coda-credit" aria-hidden="true"></div>'+
@@ -94,47 +79,18 @@ stop(){
 /* The cultural prologue is never altered. Warm archive streams while it runs,
    then cut them at the approved rapid, fixed cadence without waiting for
    network callbacks. Off-screen player states may be blocked on some browsers. */
-let embedsPrepared=false,liveEmbed=-1;const pendingTimers=[],loaded=new Set();
-function frameAt(i){return coda.querySelectorAll(".mp-coda-shot iframe")[i]}
-function command(f,func,args=[]){
- if(!f?.contentWindow||!f.src)return;
- try{f.contentWindow.postMessage(JSON.stringify({event:"command",func,args}),"https://www.youtube-nocookie.com")}catch(e){}
-}
-function ensure(i){
- if(i<0||i>=shots.length||loaded.has(i)||done)return;
- const f=frameAt(i),shot=shots[i];if(!f)return;
- loaded.add(i);
- f.src="https://www.youtube-nocookie.com/embed/"+shot.video+
-  "?enablejsapi=1&autoplay=1&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&origin="+encodeURIComponent(location.origin);
- f.addEventListener("load",()=>{
-  if(done||!loaded.has(i))return;
-  try{f.contentWindow?.postMessage(JSON.stringify({event:"listening",id:"manipur-"+i,channel:"widget"}),"https://www.youtube-nocookie.com")}catch(e){}
-  command(f,"addEventListener",["onStateChange"]);
-  if(i===liveEmbed)command(f,"playVideo");
- },{once:true});
-}
+let embedsPrepared=false;const pendingTimers=[];
+const video=coda.querySelector("#mp-coda-user-video");
+let videoDone=false,postVideoAt=0;
 function loadEmbeds(){
- if(embedsPrepared||done||!coda.isConnected)return;embedsPrepared=true;
- coda.hidden=false;coda.classList.add("mp-prewarm");
- // Stagger initial connections over the original film to avoid a single burst.
- shots.forEach((_,i)=>pendingTimers.push(setTimeout(()=>ensure(i),i*820)));
-}
-function activateEmbed(i){
- if(i===liveEmbed)return;
- if(liveEmbed>=0){
-  const prev=frameAt(liveEmbed);
-  command(prev,"pauseVideo");
- }
- liveEmbed=i;
- if(i<0)return;
- ensure(i);
- command(frameAt(i),"playVideo");
+ if(embedsPrepared||done||!coda.isConnected)return;
+ embedsPrepared=true;coda.hidden=false;coda.classList.add("mp-prewarm");
+ video.src=replacementUrl;video.preload="auto";video.load();
+ video.addEventListener("error",()=>{video.controls=true;console.error("The replacement video could not load:",replacementUrl);},{once:true});
 }
 function revealActive(index){
- const code=entries[index]?.kind==="code",bridge=entries[index]?.kind==="parallax";
- const target=code||bridge?-1:ready.has(index)?index:liveEmbed;
- coda.querySelectorAll(".mp-coda-shot").forEach((n,i)=>n.classList.toggle("active",i===target));
- if(target!==liveEmbed)activateEmbed(target);
+ const e=entries[index];
+ coda.querySelector(".mp-coda-shot")?.classList.toggle("active",!!e&&e.kind!=="code"&&e.kind!=="parallax");
 }
 function show(index){
  if(index===last)return;last=index;
@@ -153,17 +109,25 @@ function exit(){
  pendingTimers.forEach(clearTimeout);
  document.body.classList.add("mp-terminal-ready");
  document.body.style.overflow=previousOverflow;
- coda.querySelectorAll("iframe").forEach(n=>n.removeAttribute("src"));
+ try{video.pause();video.removeAttribute("src");video.load();}catch(e){}
  coda.remove();
  window.MANIPUR_POSTLUDE={finished:true,played:started,edition:"approved-evening-fast-cuts",
-  sourceCount:shots.length,sources:shots.map(e=>({publisher:e.publisher,date:e.date,url:e.url}))};
+  sourceCount:reports.length,sources:reports.map(e=>({publisher:e.publisher,date:e.date,url:e.url}))};
 }
 function step(now){
  if(done)return;
- const sec=(now-startAt)/1000;
+ let sec;
+ if(videoDone)sec=VIDEO_SECONDS+(now-postVideoAt)/1000;
+ else{
+  sec=Math.max(0,Math.min(VIDEO_SECONDS,video.currentTime||0));
+  if(video.ended||video.currentTime>=VIDEO_SECONDS-.045){
+   videoDone=true;postVideoAt=now;sec=VIDEO_SECONDS;video.pause();
+  }
+ }
  let i=entries.findIndex(e=>sec>=e.from&&sec<e.to);
  if(i<0)i=entries.length-1;
  show(i);
+ if(sec>=7*.96&&!fxTriggered.lastGun){fxTriggered.lastGun=true;window.MANIPUR_CINEMATIC_SFX?.burst("gunfire");}
  $("mp-coda-progress").style.width=Math.min(100,100*sec/filmDuration).toFixed(2)+"%";
  if(sec>=filmDuration){exit();return;}
  raf=requestAnimationFrame(step);
@@ -180,9 +144,12 @@ function start(){
   window.MANIPUR_CINEMATIC_SFX?.setEnabled(fxOn);
   if(!fxOn)sound.stop();
  });
- startAt=performance.now();show(0);raf=requestAnimationFrame(step);
+ startAt=performance.now();show(0);
+ video.muted=false;video.currentTime=0;
+ video.play().catch(()=>{video.controls=true;video.style.pointerEvents="auto";});
+ raf=requestAnimationFrame(step);
  window.MANIPUR_POSTLUDE={finished:false,played:true,edition:"approved-evening-fast-cuts",
-  sourceCount:shots.length,durationSeconds:filmDuration};
+  sourceCount:reports.length,durationSeconds:filmDuration};
 }
 /* Start source-player warmup only after the visitor chooses Explore.
    The original 15-second Manipur film remains byte-for-byte unchanged. */
@@ -222,7 +189,7 @@ const card=document.getElementById("ci-credits")?.querySelector(".ci-credits-car
 if(card){
  const sec=document.createElement("section");
  sec.innerHTML='<h3>Archive footage in the rapid news montage</h3>'+
- '<p>Ten brief original publisher video embeds follow the unchanged Manipur film. These links are the complete reports; extracts are archived, not live. The video runs at a fixed cut rate regardless of network delays. If a publisher prevents embedding or autoplay, no fabricated screenshot replaces it. Synthetic gunshot effects are illustrative, not original incident sound.</p>'+
+ '<p>The user-supplied 71.9-second compilation replaces the earlier 10-player news montage. This archived source list remains available for research and is not a frame-by-frame credit list for the supplied compilation. The original cultural prologue, editorial dossier and terminal remain unchanged. Synthetic gunshot effects are illustrative, not original incident sound.</p>'+
  '<ol>'+reports.map(e=>'<li>'+raw(e.publisher)+' · '+raw(e.date)+' — <a target="_blank" rel="noopener noreferrer" href="'+e.url+'">'+raw(e.title)+'</a></li>').join("")+'</ol>';
  card.appendChild(sec);
 }
